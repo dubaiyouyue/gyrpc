@@ -1,0 +1,109 @@
+<style>
+.datu{display:none;}
+</style>
+<!----------------------------------------container2 开始 ---------------------------------------->
+<div class="container2 clearfix">
+     <div class="content1">
+        <div class="ddbt">订单详情</div>
+        <div class="ddxinxi">
+           <span class="bh">订单编号: <span class="order_num" style="color:#666;">{$list.onum}</span></span>
+           <span class="ztai" style="margin-left:35px;">当前状态：<?php
+						//dump($list);exit;
+						$ddxxzz=explode(',',$list['dz']);
+						//dump($ddxxzz);exit;
+						$xxmm=explode(' ',$ddxxzz['2']);
+						$yybb=explode(' ',$ddxxzz['1']);
+						$tteell=explode(' ',$ddxxzz['3']);
+						$info=explode(' ',$list['info']);
+						
+						//dump($info);//exit;
+						//$info_num=explode()
+						$tstatus=$list['tstatus'];
+						if($tstatus==0 || !$tstatus){
+							echo $tstatus='未交易';
+						}else if($tstatus==1){
+							echo $tstatus='交易完成';
+						}else{
+							echo $tstatus='交易取消';
+						}
+			   ?></span>
+        </div>
+        
+        <div class="xxxinxi">
+           <div class="xxxxbt">详细信息</div>
+           <p class="hui">收&nbsp;&nbsp;货&nbsp;&nbsp;人：<span class="xingming" style="color:#000;">{$xxmm.1}</span></p>
+           <P class="hui">收货地址：<span class="dizhi" style="color:#000;">{$ddxxzz.0}</span></P>
+           <P class="hui">邮政编码：<span class="youbian" style="color:#000;">{$yybb.1}</span></P>
+           <P class="hui">联系电话：<span class="tel" style="color:#000;">{$tteell.1}</span></P>
+        </div>
+        
+        <div class="spxinxi">
+           <div class="spxxbt">商品信息</div>
+           <div class="cpbox">
+              <div class="huibox">
+                 <ul class="huibox-title">
+                   <li class="goods">商品</li>
+                   <li class="price">单价(元)</li>
+                   <li class="quantity">数量</li>
+                   <!-- <li class="status">交易状态</li>
+                   <li class="pointsdeduction">积分抵扣</li>
+                   <li class="total">实付金额(元)</li> -->
+                 </ul>
+              </div>
+              <div class="cpliebiao clearfix"><foreach name="allnewlistnew" item="r" key="k" >
+                 <ul class="cpliebiao-nr clearfix" style="margin-bottom: 12px;">
+                   <li class="goods">
+                      <div class="cptp"><a href="{$r.url}"><img src="{$r.thumb}" width="210" height="280"></a></div><div class="cphz"><div class="cpbt"><a href="{$r.url}">{$r.title}</a></div><div class="cpys" style="margin-top:10px;">{$info.1}</div></div>
+                   </li>
+                   <li class="price">
+                     <div class="yuanjia">{$r.cprice}</div>
+                     <div class="youhuijia">{$r.price}</div>
+                   </li>
+                   <li class="quantity"><?php
+						//$kkk++;
+					//if(!($kkk%3)) echo $info[($kkk*3)];
+						$tqjz=array_search($r['title'],$info);
+						echo str_ireplace('数量','',$info[($tqjz+3)]);
+					
+				   ?></li>
+                   <li class="status" style="display:none;"><?php
+						$tstatus=$list['tstatus'];
+						if($tstatus==0 || !$tstatus){
+							echo $tstatus='未交易';
+						}else if($tstatus==1){
+							echo $tstatus='交易完成';
+						}else{
+							echo $tstatus='交易取消';
+						}
+			   ?></li>
+                   <li class="pointsdeduction" style="display:none;">-¥<?php
+					if($list['jifen']){
+						echo number_format($jifenduihuan/$jifen, 2);
+					}else echo '0.00';
+				   ?></li>
+                   <li class="total" style="display:none;">¥<?php
+						//$kkk++;
+					//if(!($kkk%3)) echo $info[($kkk*3)];
+						$tqjz=array_search($r['title'],$info);
+						echo str_ireplace('单价','',$info[($tqjz+2)]);
+					
+				   ?></li>
+                 </ul></foreach>
+              </div>
+          </div>
+           <div class="mjly" style="color:#666; font-size:15px;">买家备注：<span class="beizhu" style="color:#000;"><?php
+			if($list['beizhu']) echo $list['beizhu'];
+			else echo '暂无备注';
+		   ?></span></div>
+		   
+		   <p style="color:#DCA768;font-weight:bold;line-height: 25px;">积分抵扣：-¥<?php
+					if($list['jifen']){
+						echo number_format($jifenduihuan/$jifen, 2);
+					}else echo '0.00';
+				   ?></p>
+				   <p style="font-size:16px;font-weight:bold; line-height25px;">实付金额：{$list.zje} <p style="font-size: 12px;color: #999;">(邮费:{$list.youfei}元)</p></p>
+		   
+        </div>
+     </div>
+</div>
+<!----------------------------------------container2 结束 ---------------------------------------->

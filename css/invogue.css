@@ -1,0 +1,235 @@
+.fl{
+	float: left;
+}
+.fr{
+	float: right;
+}
+
+
+/*module-hd start*/
+.module-hd{
+	position: relative;
+}
+.module-hd .line{
+	position: absolute;
+	left: 0;
+	height: 45px;
+	width: 100%;
+	border-bottom: 1px solid #d8d8d8;
+}
+.module-hd .module-title{
+	margin: 0 auto;
+	position: relative;
+}
+.module-hd h2 a{
+	display: block;
+	text-indent: -9999px;
+}
+.module-hd .sub-links{
+	position: absolute;
+	height: 20px;
+	font-size: 16px;
+	color: #555;
+}
+.module-hd .left-top,
+.module-hd .left-bottom{
+	left: 0;
+	text-align: right;
+}
+.module-hd .right-top,
+.module-hd .right-bottom{
+	right: 0;
+	text-align: left;
+}
+.module-hd .left-top,
+.module-hd .right-top{
+	top: 17px;
+}
+.module-hd .left-bottom,
+.module-hd .right-bottom{
+	top: 50px;
+}
+.module-hd .left-top a{
+	margin-right: 15px;
+}
+.module-hd .right-top a{
+	margin-left: 15px;
+}
+.module-hd a{
+	font-size: 16px;
+	color: #555;
+}
+.module-hd .sub-links a:hover{
+	color: #e00024;
+}
+.module-hd .sub-links em{
+	padding: 5px;
+	color: #8a8a8a;
+}
+.module-hd .sub-links a.close{
+	margin: 0;
+}
+.module-extend .img-cards{
+	margin-top:45px;
+	padding-bottom:45px;
+}
+
+/*module-hd end*/
+
+/*module-bd start*/
+.module-bd{
+	position: relative;
+	width: 1000px;
+	margin: 0 auto;
+}
+/*module-bd end*/
+
+
+
+
+/*module start*/
+.module{
+	min-width: 1000px;
+}
+/*module end*/
+
+
+
+/* module-five start */
+.module-five{
+	min-width: 1000px;
+}
+.module-five .module-bd{
+	position: relative;
+}
+.module-five .left-mode{
+	height: 481px;
+}
+.module-five .center-mode{
+	height: 561px;
+}
+.module-five .left-mode .bg{
+	position: relative;
+	width:895px;
+	height:355px;
+	background:#332C2A;
+	padding:35px 0 0 15px;
+}
+.module-five .left-mode .txtpanels{
+	position: absolute;
+	top: 35px;
+	left: 15px;
+}
+.module-five .left-mode .txtpanels h3{
+	width: 200px;
+}
+.module-five .center-mode .bg{
+	position: relative;
+	width:1000px;
+	height:410px;
+	background:#000;
+	padding:30px 0 0;
+}
+.module-five .center-mode .txtpanels{
+	position: absolute;
+	width: 100%;
+	top: 30px;
+	left: 0;
+}
+.module-five .left-mode a,.module-five .center-mode a{
+	color: #fff;
+}
+.module-five .left-mode a:hover,.module-five .center-mode a:hover{
+	color: #f40;
+}
+.module-five .left-mode h3 a,.module-five .center-mode h3 a{
+	font-size:24px;
+	line-height: 30px;
+	font-weight: normal;
+}
+.module-five .left-mode .des{
+	color: #fff;
+	font-size: 14px;
+	line-height: 18px;
+	width: 190px;
+	margin-top:20px;
+}
+.module-five .center-mode h3{
+	text-align: center;
+}
+.module-five .center-mode .des{
+	text-align:center;
+	color: #fff;
+	font-size: 14px;
+	line-height: 18px;
+	margin-top:10px;
+}
+.module-five .left-mode .controls{
+	position: absolute;
+	bottom: 20px;
+	left: 32px;
+}
+.module-five .center-mode .controls{
+	position: absolute;
+	bottom: 30px;
+	right: 36px;
+}
+.module-five .btn-prev,.module-five .btn-next{
+	display: block;
+	float: left;
+	width: 22px;
+	height: 40px;
+	margin-right:23px;
+	margin-top: 4px;
+	background: url(../images/element.png) no-repeat -71px -203px;
+}
+.module-five .cur-num{
+	color: #999;
+	font-size: 48px;
+	height: 48px;
+	line-height:48px;
+	float: left;
+}
+.module-five .center-mode .cur-num{
+	float: none;
+}
+.module-five .cur-num span{
+	color: #fff;
+}
+.module-five .btn-next{
+	background-position:  -71px -256px;
+}
+.module-five .btn-prev:hover{
+	background-position:  -100px -203px;
+}
+.module-five .btn-next:hover{
+	background-position:  -100px -256px;
+}
+.module-five .left-mode .img-panels{
+	position: absolute;
+	bottom:0;
+	right:0;
+}
+.module-five .center-mode .img-panels{
+	position: absolute;
+	bottom: 0;
+	left: 37px;
+}
+.module-five .img-panels a{
+	float: left;
+	margin-left:10px;
+}
+.module-five .img-panels img{
+	display: block;
+}
+.module-five .img-panels a:hover,.module-five .img-panels a.cur{
+	border:5px solid #fff;
+	overflow: hidden;
+	width:240px;
+	height:440px;
+
+	box-shadow:#666 0 3px 10px;
+}
+.module-five .img-panels a:hover img,.module-five .img-panels a.cur img{
+	margin:-5px;
+}

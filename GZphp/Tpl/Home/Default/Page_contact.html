@@ -1,0 +1,83 @@
+<script src="http://api.map.baidu.com/api?v=1.3" type="text/javascript"></script>
+
+<!---------------------------------------- 栏目 start ---------------------------------------->
+<div class="lanmu">
+   <ul class="xuanxiang xuanxiangnew-lij clearfix">
+      <include file="A:l"/>
+   </ul>
+</div>
+<!---------------------------------------- 栏目 end ---------------------------------------->
+
+
+
+<!---------------------------------------- 联系方式内容 start ---------------------------------------->
+<div class="lxfsbox">
+   <div class="lxfszstu"><img src="/images/lxfszstu.jpg" width="1200" height="100"></div>
+   <P>{$lxfswz}</p>
+   <p class="jiacu">{$site_email}</p>
+   <p class="jiacu">{$hotline}</p>
+   <div class="huixuxian" style="width:400px; border-bottom:1px dashed #ccc; margin:29px auto 29px auto;"></div>
+   <p>{$lxfswzt}</p>
+   <p class="jiacu">{$address}</p>
+   <div class="ditu" id="map" style="width:900px; height:396px; border:1px solid #ccc; margin:15px auto 0 auto;"></div>
+</div>
+<!---------------------------------------- 联系方式内容 end ---------------------------------------->
+
+
+<script type="text/javascript">
+    //创建和初始化地图函数：
+    function initMap(){
+        createMap();//创建地图
+        setMapEvent();//设置地图事件
+        addMapControl();//向地图添加控件
+        addMapOverlay();//向地图添加覆盖物
+    }
+    function createMap(){
+        map = new BMap.Map("map");
+        map.centerAndZoom(new BMap.Point(<?php echo $longitude;?>,<?php echo $latitude;?>),19);
+    }
+    function setMapEvent(){
+        map.enableScrollWheelZoom();
+        map.enableKeyboard();
+        map.enableDragging();
+        map.enableDoubleClickZoom()
+    }
+    function addClickHandler(target,window){
+        target.addEventListener("click",function(){
+            target.openInfoWindow(window);
+        });
+    }
+    function addMapOverlay(){
+        var markers = [
+            {content:"<?php echo $address;?>",title:"<?php echo $company;?>",imageOffset: {width:-46,height:-21 },position:{lat:<?php echo $latitude;?>,lng:<?php echo $longitude;?>}}
+        ];
+        for(var index = 0; index < markers.length; index++ ){
+            var point = new BMap.Point(markers[index].position.lng,markers[index].position.lat);
+            var marker = new BMap.Marker(point,{icon:new BMap.Icon("http://api.map.baidu.com/lbsapi/createmap/images/icon.png",new BMap.Size(20,25),{
+                imageOffset: new BMap.Size(markers[index].imageOffset.width,markers[index].imageOffset.height)
+            })});
+            var label = new BMap.Label(markers[index].title,{offset: new BMap.Size(25,5)});
+            var opts = {
+                width: 200,
+                title: markers[index].title,
+                enableMessage: false
+            };
+            var infoWindow = new BMap.InfoWindow(markers[index].content,opts);
+            marker.setLabel(label);
+            addClickHandler(marker,infoWindow);
+            map.addOverlay(marker);
+        };
+    }
+    //向地图添加控件
+    function addMapControl(){
+        var scaleControl = new BMap.ScaleControl({anchor:BMAP_ANCHOR_BOTTOM_LEFT});
+        scaleControl.setUnit(BMAP_UNIT_IMPERIAL);
+        map.addControl(scaleControl);
+        var navControl = new BMap.NavigationControl({anchor:BMAP_ANCHOR_TOP_LEFT,type:BMAP_NAVIGATION_CONTROL_LARGE});
+        map.addControl(navControl);
+        var overviewControl = new BMap.OverviewMapControl({anchor:BMAP_ANCHOR_BOTTOM_RIGHT,isOpen:false});
+        map.addControl(overviewControl);
+    }
+    var map;
+    initMap();
+</script>

@@ -1,0 +1,30 @@
+<?php
+//dump($Categorys);
+$inaboutid=$Categorys['142']['arrchildid'];//dump($inaboutid);
+$inaboutid=str_ireplace('142,','',$inaboutid);
+$about_arr_n=count(explode(',',$inaboutid));
+$sqlabout='select * from gz_page where id in('.$inaboutid.')';
+?>
+
+<style>
+.connttimgmax img{max-width:100%;}
+</style>
+<GZ:list sql="$sqlabout" key='iabout'>
+
+
+
+<!---------------------------------------- 公司简介 start ---------------------------------------->
+<div class="gsjjbox">
+  <div class="gsjjbt btbj"><?php echo $Categorys[$r['id']]['catname'];?></div>
+  <div class="jjywbt"><?php echo $Categorys[$r['id']]['keywords'];?></div>
+  <div class="zsb" style="margin-bottom:25px;"><img src="/images/zsb.jpg" width="1200" height="9"></div>
+  <div class="connttimgmax">{$r.content}</div>
+   <?php
+	if($iabout<$about_arr_n)
+	echo '<div class="zisexuxian"></div>';
+   ?>
+</div>
+<!---------------------------------------- 公司简介 end ---------------------------------------->
+
+</GZ:list>
+

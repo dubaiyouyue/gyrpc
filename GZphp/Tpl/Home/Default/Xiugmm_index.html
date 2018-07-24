@@ -1,0 +1,100 @@
+ {__NOLAYOUT__}<div style="margin-left:15px;margin-right:15px;margin-top:35px;"><div class="title1">修改密码</div>
+        <div class="formbox clearfix">
+          <form action="" method="POST">
+              <div class="nickname-quyu" style="margin-bottom:20px;">
+                <span class="biaoti"><font color="red">*</font>原密码：</span>
+                <span class="kuang"><input type="password" name="pass" id="pass" class="textbox_txt" value=""></span>
+              </div>
+			  
+			  <div class="nickname-quyu" style="margin-bottom:20px;">
+                <span class="biaoti"><font color="red">*</font>新密码：</span>
+                <span class="kuang"><input type="password" name="newpass" id="newpass" class="textbox_txt" value=""></span>
+              </div>
+			  
+			  <div class="nickname-quyu" style="margin-bottom:20px;">
+                <span class="biaoti"><font color="red">*</font>确认密码：</span>
+                <span class="kuang"><input type="password" name="newpass2" id="newpass2" class="textbox_txt" value=""></span>
+              </div>
+              
+              
+              
+              <div class="savebtn"><a onclick="checkedformnewpass();" id="cxhqdxyzmcxhqdxyzmnewpass" style="display: block;cursor: pointer;">修 改</a></div>
+              
+          </form>
+        </div></div>
+<script>
+document.getElementById('pass').focus();
+function checkedformnewpass(){
+	var pass=$('#pass').val();
+	var newpass=$('#newpass').val();
+	var newpass2=$('#newpass2').val();
+	if(!pass || (pass.length<6)){
+		/*document.getElementById('pass').focus();
+		tishi('','请填写密码');*/
+		tishicengjsqiuonclick('请填写6位以上旧密码','pass');
+		return false;
+	}
+	if(!newpass || (newpass.length<6)){
+		/*document.getElementById('pass').focus();
+		tishi('','请填写密码');*/
+		tishicengjsqiuonclick('请填写6位以上新密码','newpass');
+		return false;
+	}
+	if(!newpass2 || (newpass2.length<6)){
+		/*document.getElementById('pass').focus();
+		tishi('','请填写密码');*/
+		tishicengjsqiuonclick('请填写6位以上确认新密码','newpass2');
+		return false;
+	}
+	if(newpass!=newpass2){
+		/*document.getElementById('pass2').focus();
+		tishi('','两次密码填写不一致');*/
+		tishicengjsqiuonclick('两次新密码填写不一致','newpass2');
+		return false;
+	}
+	document.getElementById("cxhqdxyzmcxhqdxyzmnewpass").onclick = function(){};
+	$('#cxhqdxyzmcxhqdxyzmnewpass').html('正在修改...');
+	//修改新密码
+	$.ajax( {
+		url: '/index.php?g=Home&m=Xiugmm&mm=sjdxyzm&pass='+pass+'&newpass='+newpass, //这里是静态页的地址
+		type: "GET", //静态页用get方法，否则服务器会抛出405错误
+		//dataType: "json",
+		//cache: false,
+		//async: false,
+		beforeSend: function(){
+		 // Handle the beforeSend event
+		},
+		success: function(data){
+			if(data=='e1'){
+				tishicengjsqiuonclick('旧密码填写错误','pass');
+				dxaaaa();
+				return false;
+			}
+			if(data=='lok'){
+				//tishicengjsqiuonclick('新密码修改成功！','pass');
+				//ssyyrightt('/index.php/Home/Xiugmm/');
+				$('body').tishicengjsqiu({
+					textwz:  '新密码修改成功！<br />请重新登录！即将跳转....', //提示层文字 支持html
+					tishicbj: '#ff662d', //提示层背景 #ddd
+					colors: '#fff', //文字颜色
+					iddtt:5, //自动关闭时间秒
+					url:'/index.php/Home/PersonalProfile/',
+					admmint:'flipInX', //显示动画
+					//动画属性说明
+					admmout:'zoomOut' //隐藏动画
+				});
+				//dxaaaa();
+				return true;
+			}
+			//er=data;
+			//$('#sjsxzzzzright').html(data);
+			//var result = $(data).find("另一个html页面的指定的一部分").html();
+		}
+	});
+	
+}
+function dxaaaa(){
+	$('#cxhqdxyzmcxhqdxyzmnewpass').attr("onclick","checkedformnewpass();");
+	$('#cxhqdxyzmcxhqdxyzmnewpass').html('修 改');
+}
+</script>

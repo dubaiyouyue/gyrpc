@@ -1,0 +1,61 @@
+{__NOLAYOUT__}
+
+<!----------------------------------------container2 开始 ---------------------------------------->
+<div class="container2 clearfix">
+     <div class="content1">
+        <div class="cgtj">成功提交订单，请尽快付款！</div>
+        <P class="tishi">请于<span class="daojishi">00</span>时<span class="daojishi" id="qxminnn">0</span>分<span class="daojishi" id="qxminnnss">0</span>秒以内，在新开的页面完成支付，超时订单将被取消。</P>
+        <div class="shouhuoxinxi">
+           <p>收货信息：{$ddadingddddlist.dz}</p>
+		   <p style="
+    margin-top: 20px;
+">商品信息：{$ddadingddddlist.info}</p>
+        </div>
+
+
+
+        <!--支付方式start-->       
+        <div class="zhifubox">
+           <P class="zffswz" style="margin-top:20px; margin-bottom:25px;">支付方式：<?php
+			$qfkfs=$_GET['qfkfs'];
+			if($qfkfs==2) echo '微信支付';
+			else if($qfkfs==3) echo '余额支付';
+			else if($qfkfs==1) echo '支付宝支付';
+		   ?></P>
+           <P class="zffswz" style="margin-top:20px; margin-bottom:25px;">赠送积分：{$ddadingddddlist.sjifen}</p>
+		   <P class="zffswz" style="margin-top:20px; margin-bottom:25px;">抵扣使用积分：{$ddadingddddlist.jifen}</p>
+        <!--支付方式end-->       
+         
+         <div class="yingfu">应付金额：<span class="total" style="font-size:18px; color:#f40; font-weight:bold;">¥{$zje}</span></div>
+        </div>
+        <div class="ljfukuan" id="tijiaoanniutj"><a onclick="fdasfdastj();" href="javascript:;">立即付款</a></div>
+     </div>
+</div>
+<!----------------------------------------container2 结束 ---------------------------------------->
+
+<script>
+function fdasfdastj(){
+	$('#tijiaoanniutj').html('正在提交..');
+	var url="/index.php/Home/SubmitOrderok/index/dizhi/<?php echo $_GET['dizhi'];?>/carid/<?php echo $_GET['gmid'];?>/jifen/<?php echo $_GET['jifen'];?>/fkfs/<?php echo $_GET['qfkfs'];?>.html?beizhu=<?php echo $_GET['beizhu'];?>";
+	location.href = url;
+}
+
+function GetRTime(){
+    var EndTime= new Date('<?php echo date('Y/m/d H:i:s',($ddadingddddlist['createtime']+1800));?>');
+    var NowTime = new Date();
+    var t =EndTime.getTime() - NowTime.getTime();
+    var d=0;
+    var h=0;
+    var m=0;
+    var s=0;
+    if(t>=0){
+      d=Math.floor(t/1000/60/60/24);
+      h=Math.floor(t/1000/60/60%24);
+      m=Math.floor(t/1000/60%60);
+      s=Math.floor(t/1000%60);
+    }
+    document.getElementById("qxminnn").innerHTML = m;
+    document.getElementById("qxminnnss").innerHTML = s;
+  }
+  setInterval(GetRTime,1);
+</script> 

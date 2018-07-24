@@ -1,0 +1,61 @@
+<style>
+.datu{display:none;}
+</style>
+<!----------------------------------------container2 开始 ---------------------------------------->
+<div class="container2 clearfix">
+     <div class="content1">
+        <div class="ddbt">订单详情</div>
+        <div class="ddxinxi">
+           <span class="bh">订单编号: <span class="order_num" style="color:#666;">{$list.onum}</span></span>
+           <span class="ztai" style="margin-left:35px;">当前状态：<?php
+						$tstatus=$list['tstatus'];
+						if($tstatus==0 || !$tstatus){
+							echo $tstatus='未交易';
+						}else if($tstatus==1){
+							echo $tstatus='交易完成';
+						}else{
+							echo $tstatus='交易取消';
+						}
+			   ?></span>
+        </div>
+        
+        <div class="xxxinxi">
+           <div class="xxxxbt">详细信息</div>
+           <p class="hui">{$list.info}</P>
+        </div>
+        
+        <div class="spxinxi" style="padding-left: 28px;">
+           
+           <div class="mjly" style="color:#666; font-size:15px;">买家备注：<span class="beizhu" style="color:#000;">{$list.beizhu}</span></div>
+        </div>
+		
+				<div style="padding-left: 28px;padding-top: 18px;">
+				<?php
+					if(!$list['fk'] && !$list['tstatus']) echo '<a style="
+    background: red;
+    padding: 6px 12px;
+    color: #fff;
+    border-radius: 3px;
+" href="/index.php/Home/SubmitOrder/index/gmid/'.$list['scartid'].'.html">去付款</a>';
+					else if($list['fk']) echo '已付款';
+					else echo '未付款';
+				 ?>
+				</div>
+				<div style="padding-left: 28px;padding-top: 18px;">	
+				<?php
+						if(!$list['sh'] && $list['fk'] && $list['tstatus']==1 && ($list['tuihuo']==0 || !$list['tuihuo'])){
+							echo '等待收货 ';
+						}else if($list['tuihuo']==1 && $list['fk']){
+							echo '退换退款审核中 ';
+						}else if($list['tuihuo']==2 && $list['fk']){
+							echo '退换退款完成 ';
+						}else if($list['tuihuo']==3 && $list['fk']){
+							echo '退换退款被拒绝 (被拒原因：'.$list['jujuetuihuo'].') ';
+						}
+					
+				 ?>
+				 </div>
+     </div>
+</div>
+<!----------------------------------------container2 结束 ---------------------------------------->
+

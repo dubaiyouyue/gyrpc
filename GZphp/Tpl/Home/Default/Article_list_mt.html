@@ -1,0 +1,41 @@
+
+<!---------------------------------------- 栏目 start ---------------------------------------->
+<div class="lanmu">
+   <ul class="xuanxiang xuanxiangnew-lij clearfix">
+      <include file="A:l"/>
+   </ul>
+</div>
+<!---------------------------------------- 栏目 end ---------------------------------------->
+
+
+
+<!---------------------------------------- 媒体报道内容 start ---------------------------------------->
+<!--第1组-->
+<div class="mtbdnrbox"><volist name="list" id="r" empty="$em" key="k">
+   <div class="<?php 
+   if(($k%2)) echo 'meitilist1';
+   else echo 'meitilist2';
+   ?>"  <?php if($k>2) echo 'style="margin-top:35px;"';?>>
+     <div class="mtimg"><a href="{$r.url}"><img src="{$r.thumb}" width="278" height="185"></a></div>
+     <div class="mtdl">
+        <div class="meitibt"><a href="{$r.url}">{$r.title}</a></div>
+        <div class="mtsj">{$r.createtime|toDate=###,'Y-m-d'}</div>
+        <P class="mtnrwz"><a href="{$r.url}">{$r.description}</a></P>
+        <div class="mtnrxq"><a href="{$r.url}">READ MORE</a></div>
+     </div>
+   </div>
+
+   </volist> <div class="clearfix"></div>
+</div>
+
+
+
+
+<div class="clearfix"></div>
+     <!--翻页start-->
+		
+            <div class="yema cb" style="margin-top:35px;">
+               {$pages}
+            </div>
+             <!--翻页end-->
+<!---------------------------------------- 媒体报道内容 end ---------------------------------------->

@@ -1,0 +1,309 @@
+{__NOLAYOUT__}
+<include file="Home:headeruser"/>
+<!--提示层代码开始-->
+  <script src="/js/layer/layer.js"></script>
+<!----------------------------------------container2 开始 ---------------------------------------->
+<div class="container2 clearfix">
+     <div class="gwcbtbox clearfix">
+        <ul>
+          <li><div class="hei1"><a>全部商品<span class="shuliang1" id="shuliang1id">(0)</span></a></div></li>
+          
+        </ul>
+     </div>
+     <div class="content2">
+          <div class="gwbgk">
+             <ul class="gwbgk-title">
+			 <li class="goods" style="
+    width: 69px;
+">选择</li>
+               <li class="goods" style="
+    width: 328px;
+">商品信息</li>
+               <li class="price" style="
+    text-align: right;
+">单价(元)</li>
+               <li class="quantity" style="
+    text-align: right;width: 134px;
+">数量</li>
+               <li class="subtotal" style="
+    text-align: right;
+">金额(元)</li>
+               <li class="other" style="
+    width: 215px;
+">操作</li>
+            </ul>
+          </div>
+          
+		  <style>
+.text_boxidss{background: url(data:image/gif;base64,R0lGODlhCgAKAJEDAMzMzP9mZv8AAP///yH/C05FVFNDQVBFMi4wAwEAAAAh+QQFAAADACwAAAAACgAKAAACF5wncgaAGgJzJ647cWua4sOBFEd62VEAACH5BAUAAAMALAEAAAAIAAMAAAIKnBM2IoMDAFMQFAAh+QQFAAADACwAAAAABgAGAAACDJwHMBGofKIRItJYAAAh+QQFAAADACwAAAEAAwAIAAACChxgOBPBvpYQYxYAIfkEBQAAAwAsAAAEAAYABgAAAgoEhmPJHOGgEGwWACH5BAUAAAMALAEABwAIAAMAAAIKBIYjYhOhRHqpAAAh+QQFAAADACwEAAQABgAGAAACDJwncqi7EQYAA0p6CgAh+QQJAAADACwHAAEAAwAIAAACCpRmoxoxvQAYchQAOw==);
+    background-repeat: no-repeat;
+    background-position: center;color:#fff!important;}
+	.delqr{border: 1px solid #ccc;
+    padding: 3px 5px;
+    background: #eee;
+    color: red;cursor: pointer;
+    margin-right: 6px;}.delqx{border: 1px solid #ccc;
+    padding: 3px 5px;
+    background: #eee;
+    color: green;cursor: pointer;
+    margin-right: 6px;}.shanchuan{display:none;}.shanchuwz{cursor: pointer;}
+		  </style>
+		  
+		  
+		  
+		  <foreach name="scartlist" item="r" >
+   
+
+          <div class="gwnrbgk clearfix dell{$r.id}">
+            <ul>
+				<li style="
+    height: 95px;
+    line-height: 95px;
+">
+					<input type="checkbox" name="nowidgwc" nid="{$r.id}" style="visibility: visible;">
+				</li>
+               <li class="goods">
+                  <!-- <div class="fxlf"><section><div class="checkboxFive2"><input type="checkbox2" value="1" id="checkboxFiveInput2" name="" /><label for="checkboxFiveInput"></label></div></section></div> -->
+                  <div class="fxrg"><div class="cptp"><a href="{$r.url}"><img src="{$r.thumb}" width="210" height="280"></a></div><div class="cphz"><div class="cpbt"><a href="{$r.url}">{$r.title}</a></div><div class="cpys" style="margin-top:10px;">颜色：{$r.yanse}</div><div class="cpcm" style="margin-top:5px;">尺码：{$r.chicun}</div></div></div>
+                  
+               </li>
+               
+               <li class="price">
+                 <div class="yuanjia">{$r.cprice}</div>
+                 <div class="youhuijia">{$r.price}</div>
+               </li>
+               
+               <li class="quantity" scid="{$r.id}">
+                  <input class="min minid" name="" type="button" value="-" /> 
+                  <input class="text_box text_boxid" price="{$r.price}" name="" type="text" readonly="readonly" value="{$r.num}" /> 
+                  <input class="add addid" name="" type="button" value="+" /> 
+               </li>
+               <li class="subtotal" style="
+    width: 159px;
+">{$r['price']*$r['num']}</li>
+               <li class="other"><span class="shanchuan"><span class="delqr" qid="{$r.id}">确认</span> <span class="delqx">取消</span></span><a class="shanchuwz">删除</a></li>
+             </ul>
+          </div>
+          </foreach>
+		  
+		  
+
+
+
+<script>
+$(function(){
+	var scartlistscartlist='{$scartlist.0.id}';
+	if(!scartlistscartlist){
+		layer.confirm('购物车空空的，去填满它吧', {
+			title:'提示',
+		  btn: ['好的'] //按钮
+		}, function(){
+		  location.href = '/index.php/store/';
+		});
+	}
+});
+
+
+
+//删除
+$(".shanchuwz").click(function(){
+	$(this).hide();
+	$(this).prev('.shanchuan').show();
+});
+//取消删除
+$(".delqx").click(function(){
+	$(this).parent().hide();
+	$(this).parent().next().show();
+});
+//确认删除
+$(".delqr").click(function(){
+	$(this).unbind();
+	$(this).parent().html('<img src="data:image/gif;base64,R0lGODlhCgAKAJEDAMzMzP9mZv8AAP///yH/C05FVFNDQVBFMi4wAwEAAAAh+QQFAAADACwAAAAACgAKAAACF5wncgaAGgJzJ647cWua4sOBFEd62VEAACH5BAUAAAMALAEAAAAIAAMAAAIKnBM2IoMDAFMQFAAh+QQFAAADACwAAAAABgAGAAACDJwHMBGofKIRItJYAAAh+QQFAAADACwAAAEAAwAIAAACChxgOBPBvpYQYxYAIfkEBQAAAwAsAAAEAAYABgAAAgoEhmPJHOGgEGwWACH5BAUAAAMALAEABwAIAAMAAAIKBIYjYhOhRHqpAAAh+QQFAAADACwEAAQABgAGAAACDJwncqi7EQYAA0p6CgAh+QQJAAADACwHAAEAAwAIAAACCpRmoxoxvQAYchQAOw==" />');
+	var qid=$(this).attr('qid');
+	$.ajax( {
+		url: '/index.php?g=Home&m=ShoppingCart&a=ups&scid='+qid+'&sm=del', //这里是静态页的地址
+		type: "GET", //静态页用get方法，否则服务器会抛出405错误
+		success: function(data){
+			if(data=='ok'){
+				$('.dell'+qid).remove();
+				alljine();
+				allnum();
+			}
+		}
+	});
+});
+
+//减少
+$(".minid").click(function(){
+	var vn=$(this).next('.text_boxid');
+	var num=parseInt(vn.val());
+	if(num<2) return false;
+	num=num-1;
+	//vn.val(num);
+	var scid=$(this).parent().attr('scid');
+	vn.addClass('text_boxidss');
+	upsun(scid,'min');
+});
+//增加
+$(".addid").click(function(){
+	var vn=$(this).prev('.text_boxid');
+	var num=parseInt(vn.val());
+	num=num+1;
+	//vn.val(num);
+	var scid=$(this).parent().attr('scid');
+	vn.addClass('text_boxidss');
+	upsun(scid,'add');
+});
+//更新后台数据
+function upsun(scid,sm){
+	var cl='.text_boxidss';
+	var num=$(cl).val();
+	$.ajax( {
+		url: '/index.php?g=Home&m=ShoppingCart&a=ups&scid='+scid+'&sm='+sm, //这里是静态页的地址
+		type: "GET", //静态页用get方法，否则服务器会抛出405错误
+		success: function(data){
+			var datanum=num;
+			if(data) datanum=data;
+			//alert(datanum);
+			$(cl).val(datanum);
+			//金额
+			//var price=parseInt($(cl).parent().next('.subtotal').text());
+			
+			//console.log(price);
+			
+			var newprice=$(cl).attr('price')*parseInt(datanum);
+			$(cl).parent().next('.subtotal').text(newprice);
+			$(cl).removeClass('text_boxidss');
+			alljine();
+			allnum();
+		}
+	});
+}
+//总金额
+function alljine(){
+	var alljine=0;
+	$(".gwnrbgk .subtotal").each(function(){
+		alljine=alljine+parseFloat($(this).text());
+		//console.log(parseInt($(this).text()));
+	});
+	$('#zjwzid').text(alljine);
+}
+//总数量商品
+function allnum(){
+	var allnums=0;
+	$(".gwnrbgk .text_boxid").each(function(){
+		allnums=allnums+parseInt($(this).val());
+		//console.log(parseInt($(this).text()));
+	});
+	$('#shuliang1id').text(allnums);
+	$('#quantitynum').text(allnums);
+	if(!allnums){
+		layer.confirm('购物车空空的，去填满它吧', {
+			title:'提示',
+		  btn: ['好的'] //按钮
+		}, function(){
+		  location.href = '/index.php/store/';
+		});
+	}
+}
+$(document).ready(function(){
+alljine();
+allnum();
+});
+
+
+
+$(function(){
+    $("#checkall").click(function() {  
+        $("input[name='nowidgwc']").each(function() {  
+            $(this).attr("checked", true);
+			$('#delcheckall').show();
+			$('#checkall').hide();
+        }); 
+    }); 
+    $("#delcheckall").click(function() {
+		location.reload();
+        /*$("input[name='nowidgwc']").each(function() {  
+            $(this).attr("checked", false);
+			$('#checkall').show();
+			$('#delcheckall').hide();
+        }); */
+    });
+}); 
+function jqchk(){ 
+//jquery获取复选框值 
+var chk_value =[];
+var chk_value_id;
+$('input[name="nowidgwc"]:checked').each(function(){ 
+	chk_value.push($(this).val());
+	if(chk_value_id) chk_value_id=chk_value_id+','+$(this).attr('nid');
+	else chk_value_id=$(this).attr('nid');
+}); 
+//alert(chk_value.length==0 ?'你还没有选择任何内容！':chk_value); 
+		if(chk_value.length==0){
+			layer.confirm('你还没有选择任何商品！', {
+				title:'提示',
+			  btn: ['好的'] //按钮
+			});
+		}else{
+			location.href ='/index.php/Home/SubmitOrder/index/gmid/'+chk_value_id+'.html';
+			//alert(chk_value_id);
+			/*layer.confirm('确定要删除所选商品吗？', {
+				title:'提示',
+			  btn: ['确定','取消'] //按钮
+			}, function(){
+			  //location.href = '/index.php/store/';
+				$.ajax( {
+					url: '/index.php?g=Home&m=ShoppingCart&a=ups&scid='+chk_value_id+'&sm=del', //这里是静态页的地址
+					
+					type: "GET", //静态页用get方法，否则服务器会抛出405错误
+					success: function(data){
+						if(data=='ok'){
+							/*$('.dell'+qid).remove();
+							alljine();
+							allnum();*/
+							/*location.reload();
+						}
+					}
+				});
+			  
+			}, function(){
+			  location.reload();
+			});*/
+		}
+} 
+</script>
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+         <div class="qufukuanbox clearfix">
+            <div class="qxsc" style="
+    margin-left: -15px;
+    cursor: pointer;
+">
+
+               <div class="qxscwz" style=" width:460px;float:right;"><span id="checkall" class="quanxuan" style="margin-left:10px; display:inline-block; font-size:15px;">全选</span><span id="delcheckall" class="quanxuan" style="margin-left:10px; display:inline-block; font-size:15px;display:none;">取消全选</span></div>
+            </div>
+            <div class="hjsm">
+               <span class="gywz" style="font-size:15px;">共有<span class="quantity" id="quantitynum" style="color:#f40;">0</span>件商品，</span>
+               <span class="zjwz" style="margin-right:65px; font-size:15px;">总计：<span class="total" style="font-size:20px; color:#f40; font-weight:bold;">¥<span id="zjwzid">0</span></span></span>
+               <span class="tijiaoanniu"><a href="javascript:;" onclick="jqchk();">去付款</a></span>
+            </div>
+         </div>
+     </div>
+</div>
+<!----------------------------------------container2 结束 ---------------------------------------->
+
+
+<include file="Home:footer"/>

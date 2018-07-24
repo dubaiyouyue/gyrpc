@@ -1,0 +1,48 @@
+ {__NOLAYOUT__}
+ 
+  <!-----------------------右边栏目 end----------------------->
+<p style="
+    font-size: 16px;
+    font-weight: bold;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #DFDFDF;
+    padding-left: 14px;
+    margin-top: 20px;
+">商品颜色尺寸最新有库存</p>
+<?php
+	//dump($have_kc_arr);exit;
+	if(empty($have_kc_arr)) echo '<span style="padding: 15px;margin-top: 21px;display: block;color: green;">暂无新到货提醒商品。</span>';
+?>
+
+  <foreach name="have_kc_arr" item="r">
+   <p style="
+    margin: 12px;
+">【{$r.1} {$r.2} | 新库存:{$r.7}】<a href="{$r.4}" style="
+    color: #999;    text-decoration: underline;
+">{$r.3}</a> <span onclick="shanchutixing('{$r.6}');" style="
+    color: green;
+    font-size: 12px;
+    cursor: pointer;
+    margin-left: 12px;
+">删除</span></p>
+</foreach>
+<!--   <p><img src="{$r.thumb}" /></p> -->
+
+<script>
+function shanchutixing(rid){
+	layer.confirm('确定删除到货提醒吗？', {
+	  btn: ['确定','取消'] //按钮
+	}, function(){
+		layer.closeAll(); //疯狂模式，关闭所有层
+			/*$.ajax( {
+					url: '/index.php?g=Home&m=Xdaohuo&a=delll&did='+rid, //这里是静态页的地址
+					type: "GET", //静态页用get方法，否则服务器会抛出405错误
+					success: function(data){
+						
+					}
+			});*/
+			location.href = '/index.php?g=Home&m=Xdaohuo&a=delll&did='+rid;
+		
+	});
+}
+</script>

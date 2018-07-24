@@ -1,0 +1,58 @@
+ {__NOLAYOUT__}
+  <!-----------------------右边栏目 start----------------------->
+  <div class="ybmulu2" style="width: 1046px;">
+     <div class="ybtc1">
+        <div class="title1">我的钱包</div>
+        <div class="tianbox">请填入充值金额：<input name="chongzhije" id="chongzhije" type="text" class="jinetxt">&nbsp;元<span class="jine" style="color:#f40; margin-left:25px; font-size:14px;">当前余额：{$userinfoall.yue}元</span></div>
+        
+         <div class="czzhifubox">
+            <div class="zffs">请选择支付方式：</div>
+            
+        <div class="bzhjbox" >
+			
+			<span><input name="fkfs" type="radio" id="alipayid" value="1" /><label style="cursor: pointer;" for="alipayid">支付宝<img src="/Alipay_48.png" /></label></span>
+			<span style="margin-left: 18px;"><input name="fkfs" type="radio" id="wxspayid" checked value="2" /><label style="cursor: pointer;" for="wxspayid">微信<img src="/Wechat_48.png" /></label></span>
+		   </div>
+            
+            <div class="continuebtn" style="
+    margin-left: 0px;
+    margin-top: 36px;
+"><a href="javascript:;" style="
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+" onclick="nextrag();">继续下一步</a></div>
+         </div>
+        
+     </div>
+  </div>
+  <!-----------------------右边栏目 end----------------------->
+<script>
+function nextrag(){
+	var chongzhije=$('#chongzhije').val();
+	var fkfs=2;
+	fkfs=$("input[name='fkfs']:checked").val();
+	if(isNaN(chongzhije) || !chongzhije){
+		alert('请输入数字充值金额！');
+		return false;
+	}
+	ssyyrightt('/index.php/Home/Chongzhi/index/fkfs/'+fkfs+'/je/'+chongzhije,'');
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

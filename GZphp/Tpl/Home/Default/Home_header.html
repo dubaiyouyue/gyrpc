@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>{$title} {$catname} {$site_name}</title>
+<meta name="keywords" content="{$seo_keywords}">
+<meta name="description" content="{$seo_description}">
+<!--css start-->
+<link rel="stylesheet" href="/css/style.css" />
+<!--css end-->
+</head>
+
+<body>
+<!---------------------------------------- header开始 ---------------------------------------->
+<div class="header">
+  <div class="logo"><a href="/"><img src="/images/logo.jpg" /></a></div>
+  <div class="rgbox">
+    <div class="tophz">
+     <if condition="($userinfoall.id gt 0)">
+<div class="cartbox"><a href="/index.php/Home/ShoppingCart/index.html">{$Categorys.198.catname}</a><span class="yuan" id="yuanyuan">{$uidnum}</span></div>
+      <div class="dz"><a href="/index.php/Home/PersonalProfile/">您好，{$userinfoall.nicheng}</a> | <a href="/index.php/Home/Loginout/" style="color: #bbb;">安全退出</a></div>
+<else />
+
+	
+      <div class="cartbox"><a href="/index.php/Home/ShoppingCart/index.html">{$Categorys.198.catname}</a><span class="yuan">0</span></div>
+      <div class="dz"><a href="{$Categorys.195.url}">{$Categorys.195.catname}</a>|<a href="{$Categorys.193.url}">{$Categorys.193.catname}</a></div>
+	  </if>
+      <div class="kefu"><a href="http://wpa.qq.com/msgrd?v=3&uin={$qq}">客服</a></div>
+    </div>
+    <div class="bottomhz">
+      <div class="nav">
+        <ul>
+          <li {if !$catid}class="navaction-onenav"{/if}><a href="/">首页</a>{if $catid}<span class="hx"></span>{/if}</li>
+          <?php
+            foreach(xlcatid($Categorys) as $k=>$v){
+                $vv=explode(',',$v['arrchildid']);
+                echo '<li ';
+				if(in_array($catid,$vv))  echo ' class="navaction-onenav"';
+				echo '>';
+              
+                echo '<a href="'.$v['url'].'">';
+				echo $v['catname'].'</a>';
+				if(!in_array($catid,$vv))  echo '<span class="hx"></span>';
+				echo '</li>
+				';
+            }
+?>
+        </ul>
+      </div>
+      <div class="search">
+        <p><input type="text" value="" id="ssssou" class="one" placeholder="关键词" /><button class="one1" id="one1"></button></p>
+      </div>
+    </div>
+  </div>
+</div>
+<!----- 导航文字js 开始 ----->
+<script src="/js/jquery.min.js"></script>
+<script>
+//搜索
+$("#one1").click(function(){
+  var skey=$('#ssssou').val();
+  if(!skey || skey=='请输入关键词'){
+	$('#ssssou').val('请输入关键词');
+	$('#ssssou').css({'color':'red','background':'yellow'});
+	var test = setTimeout(function(){
+		//alert($(sthis).attr('name'));
+		$('#ssssou').removeAttr('style');
+		$('#ssssou').val('');
+		$('#ssssou').focus();
+	},1200);
+	return false;
+  }
+	skey=encodeURI(skey); 
+	skey=encodeURI(skey); 
+  var url='/index.php/Home/Sousuo/index/?key='+skey;
+  location.href = url;
+});
+
+$(function(){
+	$('.nav li').hover(function(){
+		$('.hx',this).stop().css('height','2px');
+		$('.hx',this).animate({
+			left:'0',
+			width:'100%',
+			right:'0'
+		},200);
+	},function(){
+		$('.hx',this).stop().animate({
+			left:'50%',
+			width:'0'
+		},200);
+	});
+});
+</script>
+<!----- 导航文字js 结束 ----->
+<!---------------------------------------- header结束 ---------------------------------------->
+
+
+<!---------------------------------------- datu开始 ---------------------------------------->
+<div class="datu" style="overflow: hidden;<?php
+	if($catid==176) echo 'display:none;';
+?>"><div style="width:100%;height:100%;background:url({$Categorys.$catid.image});    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;"><img src="{$Categorys.$catid.image}" style="visibility: hidden;"></div></div>
+
+<!---------------------------------------- datu结束 ---------------------------------------->

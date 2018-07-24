@@ -1,0 +1,55 @@
+<meta name="toTop" content="true">
+<script>
+jQuery(document).ready(function($) {	
+			if($("meta[name=toTop]").attr("content")=="true"){
+				$("<div id='toTop'><img src='/images/1.png'></div>").appendTo('body');
+				$("#toTop").css({
+					width: '50px',
+					height: '50px',
+					bottom:'70px',
+					right:'15px',
+					position:'fixed',
+					cursor:'pointer',
+					zIndex:'999999',
+				});
+				if($(this).scrollTop()==0){
+						$("#toTop").hide();
+					}
+				$(window).scroll(function(event) {
+					/* Act on the event */
+					if($(this).scrollTop()==0){
+						$("#toTop").hide();
+					}
+					if($(this).scrollTop()!=0){
+						$("#toTop").show();
+					}
+				});	
+					$("#toTop").click(function(event) {
+								/* Act on the event */
+								$("html,body").animate({
+									scrollTop:"0px"},
+									666
+									)
+							});
+				}
+		});
+</script>
+<script>
+
+var loadinggifurl='data:image/gif;base64,R0lGODlhEAAQALMPAHp6evf394qKiry8vJOTk83NzYKCgubm5t7e3qysrMXFxe7u7pubm7S0tKOjo////yH/C05FVFNDQVBFMi4wAwEAAAAh+QQJCAAPACwAAAAAEAAQAAAETPDJSau9NRDAgWxDYGmdZADCkQnlU7CCOA3oNgXsQG2FRhUAAoWDIU6MGeSDR0m4ghRa7JjIUXCogqQzpRxYhi2HILsOGuJxGcNuTyIAIfkECQgADwAsAAAAABAAEAAABGLwSXmMmjhLAQjSWDAYQHmAz8GVQPIESxZwggIYS0AIATYAvAdh8OIQJwRAQbJkdjAlUCA6KfU0VEmyGWgWnpNfcEAoAo6SmWtBUtCuk9gjwQKeQAeWYQAHIZICKBoKBncTEQAh+QQJCAAPACwAAAAAEAAQAAAEWvDJORejGCtQsgwDAQAGGWSHMK7jgAWq0CGj0VEDIJxPnvAU0a13eAQKrsnI81gqAZ6AUzIonA7JRwFAyAQSgCQsjCmUAIhjDEhlrQTFV+lMGLApWwUzw1jsIwAh+QQJCAAPACwAAAAAEAAQAAAETvDJSau9L4QaBgEAMWgEQh0CqALCZ0pBKhRSkYLvM7Ab/OGThoE2+QExyAdiuexhVglKwdCgqKKTGGBgBc00Np7VcVsJDpVo5ydyJt/wCAAh+QQJCAAPACwAAAAAEAAQAAAEWvDJSau9OAwCABnBtQhdCQjHlQhFWJBCOKWPLAXk8KQIkCwWBcAgMDw4Q5CkgOwohCVCYTIwdAgPolVhWSQAiN1jcLLVQrQbrBV4EcySA8l0Alo0yA8cw+9TIgAh+QQFCAAPACwAAAAAEAAQAAAEWvDJSau9WA4AyAhWMChPwXHCQRUGYARgKQBCzJxAQgXzIC2KFkc1MREoHMTAhwQ0Y5oBgkMhAAqUw8mgWGho0EcCx5DwaAUQrGXATg6zE7bwCQ2sAGZmz7dEAAA7';
+  $('.classsaloandgif').on("click",function(){
+	$(this).after('<img src="'+loadinggifurl+'" />');
+	$(this).remove();
+  });
+</script>
+
+
+
+<!---------------------------------footer start--------------------------------->
+<div class="clearfix"></div>
+<div class="footer" style="margin-top:40px;">
+   <P>COPYRIGHT © <?php echo date('Y');?>&nbsp;{$company}&nbsp;&nbsp;版权所有&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;备案号：{$beian}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;技术支持：<span class="jszslj"><a href="http://www.resonance.com.cn/" target="_blank">广西共振广告</a></span></P>
+</div>
+<!---------------------------------footer end--------------------------------->
+</body>
+</html>

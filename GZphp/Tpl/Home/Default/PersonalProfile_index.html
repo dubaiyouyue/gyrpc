@@ -1,0 +1,228 @@
+{__NOLAYOUT__}
+<include file="Home:headeruser"/>
+<script src="/layer/layer.js"></script>
+<div class="heixian" style="margin-bottom:25px;"></div>
+
+<style>
+.e1 a,.zhbox2 a,.zaixiancz a,.zhbox3 a{
+    cursor: pointer;
+}#shearphoto_loading {
+    width: 100px;
+    text-align: center;
+    line-height: 130px;
+    color: #999;
+    margin: 0 auto;
+    background: url(/shearphoto_common/images/loading.gif) no-repeat;
+}
+</style>
+
+<!---------------------------------------- container1开始 ---------------------------------------->
+<div class="container1 clearfix">
+  <!-----------------------左边栏目 start----------------------->
+  <div class="zbmulu">
+  
+     <div class="txbox">
+       <div class="txtyk">
+         <div class="txtyk-tuoyuan"></div>
+         <img src="<?php
+			if($userinfoall['tx']) echo '/shearphoto_common/'.$userinfoall['tx'];
+			else echo '/images/notoux.jpg';
+			?>" width="135" height="135">
+       </div>
+       <div class="nicheng">{$userinfoall.nicheng}</div>
+     </div>
+     <div class="hytxxiaxx"></div>
+     
+     <div class="zhbox">
+       <div class="zhszbt">账号设置<span class="xiaofh"></span></div>
+       <ul class="lbwz">
+         <li class="e1"><a id="Grzl" onclick="ssyyrightt('/index.php/Home/Grzl/',this);">个人资料</a></li>
+		 
+         <li class="<?php
+			if($_GET['urls']=='Touxiangs') echo 'd1';
+			else echo 'e1';
+		?>"><a href="/index.php/Home/PersonalProfile/?urls=Touxiangs">修改头像</a></li>
+		 <li class="e1"><a onclick="ssyyrightt('/index.php/Home/Xiugmm/',this);">修改密码</a></li>
+		 <li class="e1"><a id="Dsfdl" onclick="ssyyrightt('/index.php/Home/Dsfdl/',this);">第三方登录</a></li>
+       </ul>
+     </div>
+     <div class="hytxxiaxx"></div>
+     
+     <div class="zhbox">
+       <div class="zhszbt">我的订单<span class="xiaofh"></span></div>
+       <ul class="lbwz">
+		<li class="e1"><a id="Xdaohuo" onclick="ssyyrightt('/index.php/Home/Xdaohuo/',this);">新到货</a></li>
+         <li class="e1"><a id="Allorid" onclick="ssyyrightt('/index.php/Home/Allorid/',this);">全部订单</a></li> 
+         <li class="e1"><a id="Unpaid" onclick="ssyyrightt('/index.php/Home/Unpaid/',this);">待付款<!-- (<span class="sz1">1</span>) --></a></li>
+         <li class="e1"><a id="Daish" onclick="ssyyrightt('/index.php/Home/Daish/',this);">待收货<!-- (<span class="sz2">1</span>) --></a></li>
+         <li class="e1"><a id="Okoid" onclick="ssyyrightt('/index.php/Home/Okoid/',this);">已完结<!-- (<span class="sz3">1</span>) --></a></li>
+		 <li class="e1"><a id="Tuihuo" onclick="ssyyrightt('/index.php/Home/Tuihuo/',this);">退换退款<!-- (<span class="sz3">1</span>) --></a></li>
+         <!-- <li class="e1"><a href="#">退货退款(<span class="sz4">2</span>)</a></li> -->
+       </ul>
+     </div>
+     <div class="hytxxiaxx"></div>
+     
+     <div class="zhbox2">
+       <a onclick="ssyyrightt('/index.php/Home/MyWallet/',this);" id="fqfasdfdsabbqb"><div class="zhszbt2">我的钱包<span class="xiaofh"></span></div></a>
+     </div>
+     <div class="hytxxiaxx"></div>
+     
+     <div class="zhbox2">
+       <a onclick="ssyyrightt('/index.php/Home/MyPoints/',this);"><div class="zhszbt2">我的积分<span class="xiaofh"></span></div></a>
+     </div>
+     <div class="hytxxiaxx"></div>
+     
+     <div class="zhbox2">
+       <a onclick="ssyyrightt('/index.php/Home/Shuodz/',this);"><div class="zhszbt2">地址管理<span class="xiaofh"></span></div></a>
+     </div>
+     <div class="hytxxiaxx"></div>
+     
+     <div class="zhbox3">
+       <a onclick="ssyyrightt('/index.php/Home/Favorites/',this);"><div class="zhszbt3">收藏夹</div></a>
+     </div>
+     <div class="hytxxiaxx"></div>     
+     
+     <div class="zhbox">
+       <div class="zhszbt">购物指南<span class="xiaofh"></span></div>
+       <ul class="lbwz">
+         <li class="e1"><a id="Rhgwpage" onclick="ssyyrightt('/index.php/Home/Rhgwpage/',this);">如何购物</a></li>
+         <li class="e1"><a id="Rhshpage" onclick="ssyyrightt('/index.php/Home/Rhshpage/',this);">如何送货</a></li>
+         <li class="e1"><a id="Rhfkpage" onclick="ssyyrightt('/index.php/Home/Rhfkpage/',this);">如何付款</a></li>
+         <li class="e1"><a id="Rhdypage" onclick="ssyyrightt('/index.php/Home/Rhdypage/',this);">客户答疑</a></li>
+       </ul>
+     </div>
+  </div>
+  <!-----------------------左边栏目 end----------------------->
+<script src="/js/birthday.js" type="text/javascript"></script>
+<script type="text/javascript" src="/js/geo1.js"></script>
+
+  <!-----------------------右边栏目 start----------------------->
+  <div class="ybmulu">
+     <div class="ybtc1 clearUl" id="sjsxzzzzright">
+        
+		
+		
+		<?php
+			if($_GET['urls']=='Touxiangs'){
+		?><div id="tttxxxssssup">
+		<include file="Touxiang:index"/></div>
+		<?php
+		}
+		
+		?>
+		</div>
+		
+		
+		
+     </div>
+  </div>
+  <!-----------------------右边栏目 end----------------------->
+</div>
+<!---------------------------------------- container1结束 ---------------------------------------->
+
+<!--提示层代码开始-->
+<link rel="stylesheet" href="/css/animate.min.css">
+<script type="text/javascript" src="/js/tishicengjsqiu.js"></script>
+<script>
+	function tishicengjsqiuonclick(textwz,nicheng){
+		$('body').tishicengjsqiu({
+			textwz:  textwz, //提示层文字 支持html
+			tishicbj: '#ff662d', //提示层背景 #ddd
+			colors: '#fff', //文字颜色
+			iddtt:3, //自动关闭时间秒
+			admmint:'flipInX', //显示动画
+			//动画属性说明
+			admmout:'zoomOut' //隐藏动画
+		});
+		document.getElementById(nicheng).focus();
+	}
+
+<!--提示层代码结束-->
+<?php
+		if($_GET['url']) echo 'ssyyrightt(\'/index.php/Home/'.$_GET['url'].'/\',\'#'.$_GET['url'].'\');';
+		//else if(!$_GET['urls']) echo 'ssyyrightt(\'/index.php/Home/MyWallet/\',\'#MyWallet\');';
+	?>
+//获取右边内容
+function ssyyrightt(url,sthis){
+<?php
+	//if(!$userinfoall['id']) echo 'location.href = /index/login/;';
+?>
+	$('li').addClass('e1');
+	$('li').removeClass('d1');
+	$(sthis).parent().removeClass('e1');
+	$(sthis).parent().addClass('d1');
+	$('.zbmulu a').css('color','');
+	$(sthis).css('color','#f40');
+	$.ajax( {
+		url: url, //这里是静态页的地址
+		type: "GET", //静态页用get方法，否则服务器会抛出405错误
+		//dataType: "json",
+		//cache: false,
+		//async: false,
+		beforeSend: function(){
+		 // Handle the beforeSend event
+		 $('#sjsxzzzzright').html('<div id="shearphoto_loading">程序加载中......</div>');
+		},
+		success: function(data){
+			//er=data;
+			$('#sjsxzzzzright').html(data);
+			//var result = $(data).find("另一个html页面的指定的一部分").html();
+		}
+	});
+}
+
+
+<?php
+		if(!$_GET['urls'] && !$_GET['url']){
+			echo 'ssyyrightt(\'/index.php/Home/MyWallet/\',\'\');';
+			echo '$("#fqfasdfdsabbqb").css("color","#f40");';
+		}
+		?>
+
+		
+		
+		
+		
+<?php
+	$tishi=$_GET['tishi'];
+	if($tishi==1){
+?>
+//询问框
+layer.confirm('购买商品成功！', {
+  btn: ['确定'] //按钮
+}, function(){
+	location.href = '/index.php/Home/OrderDetails/index/oid/{$didnow}.html';
+	//layer.closeAll(); //疯狂模式，关闭所有层
+});
+<?php
+}
+if(($_GET['didnow']+0) && ($_GET['url']=='Allorid')){
+	if($listdidnow){
+?>
+//询问框
+layer.confirm('购买商品成功！', {
+  btn: ['确定'] //按钮
+}, function(){
+	location.href = '/index.php/Home/OrderDetails/index/oid/{$didnow}.html';
+	//layer.closeAll(); //疯狂模式，关闭所有层
+});
+<?php
+}else{
+?>
+//询问框
+layer.confirm('支付购买商品失败！', {
+  btn: ['重新支付','知道了'] //按钮
+}, function(){
+   location.href = '/index.php/Home/SubmitOrder/index/gmid/{$ospid}.html';
+}, function(){
+	location.href = '/index.php/Home/OrderDetails/index/oid/{$didnow}.html';
+	//layer.closeAll(); //疯狂模式，关闭所有层
+});
+<?php
+}}
+?>		
+
+
+		
+</script>
+<include file="Home:footer"/>

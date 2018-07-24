@@ -1,0 +1,41 @@
+
+
+							
+                    <?php
+					
+function xlcatidnew($Categorys,$parentid='0',$c='2'){
+			$narr=array();
+			$s=$c-1;
+			$e=$c;
+			foreach($Categorys as $k=>$v){
+if(!$parentid){
+if(!$v['parentid']) $narr[$v['id']]=$v;
+}
+else{
+$c_arr=explode(',',$v['arrparentid']);
+$sid=$c_arr[$s];
+$eid=$c_arr[$e];
+if($sid==$parentid && !$eid) $narr[$v['id']]=$v;
+}
+}
+return $narr;
+}
+					
+					
+            $narr=xlcatidnew($Categorys,$parentid);
+		
+            //dump($narr);
+            $nnnkkkknnn=count($narr);
+            foreach($narr as $k=>$v){
+                $kv++;
+				echo '<li class="';
+				if($v['id']==$catid) echo 'a1';
+				else echo 'b1';
+				echo '"><a href="'.$v['url'].'">'.$v['catname'].'</a></li>';
+				
+				
+				
+				
+				
+                }
+                ?>

@@ -1,0 +1,483 @@
+
+
+
+<!--banner插件start-->
+<script src="/js/jquery-1.8.3.min.js"></script>
+<script src="/js/banner.js"></script>
+<script src="/js/jquery.cookie.js"></script>
+<!--banner插件end-->
+<!------------------------------------------在线商城banner开始------------------------------------------>
+<div class="banner">
+  <div class="b-img">
+    
+   <GZ:list sql="select * from gz_slide_data where fid = '17' and  status='1' order by listorder desc,id desc" key='i'>
+		 <a href="{$r.link}" style="background:url({$r.pic}) center no-repeat;"></a>
+		</GZ:list>
+  </div>
+  <div class="b-list"></div>
+</div>
+<!------------------------------------------在线商城banner结束------------------------------------------>
+
+<style>
+.xuanze .paixuspan{    border: 1px solid #ddd;
+    padding: 2px 3px;
+    font-size: 12px;}
+	.xuanze .paixuspan .cloasss{
+    border-radius: 3px;
+    border: 1px solid #ddd;
+    padding: 0px 3px;
+    color: red;
+    margin-left: 3px;
+    position: absolute;
+    right: -12px;
+    top: -6px;
+}.xuanze .ppasssss{cursor:pointer;position: relative;margin-right: 16px;}
+</style>
+
+<!------------------------------------------选项区 start------------------------------------------>
+<div class="xuxiangbigbox">
+  <div class="dqxianshi">当前显示：<span class="xuanze"><?php
+					if($_COOKIE['ddqqppxx']=='hits' || !$_COOKIE['ddqqppxx']) echo '<span class="paixuspan">综合排序</span>';
+				 ?> <?php
+					if($_COOKIE['ddqqppxx']=='xinpin') echo '<span class="paixuspan">新品</span>';
+				 ?> <?php
+					if($_COOKIE['xiliang']=='desc') echo '<span class="paixuspan">销量从高到低</span>';
+					else if($_COOKIE['xiliang']) echo '<span class="paixuspan">销量从低到高</span>';
+				 ?> <?php
+					if($_COOKIE['price']=='desc') echo '<span class="paixuspan">价格从高到低</span>';
+					else if($_COOKIE['price']) echo '<span class="paixuspan">价格从低到高</span>';
+				 ?> 
+				 
+				<?php
+					if($_COOKIE['Priceqqname']) echo '<span onclick="qqkkongalsfl(\'Priceqqname\',\'Priceqqid\');" class="paixuspan ppasssss">'.$_COOKIE['Priceqqname'].' <span class="cloasss">x</span></span>';
+				 ?>
+				 
+				 <?php
+					if($_COOKIE['pinleiname']) echo '<span onclick="qqkkongalsfl(\'pinleiname\',\'pinleiid\');" class="paixuspan ppasssss">'.$_COOKIE['pinleiname'].' <span class="cloasss">x</span></span>';
+				 ?> <?php
+					if($_COOKIE['sexname']) echo '<span onclick="qqkkongalsfl(\'sexname\',\'sexid\');" class="paixuspan ppasssss">'.$_COOKIE['sexname'].' <span class="cloasss">x</span></span>';
+				 ?> <?php
+					if($_COOKIE['chimaname']) echo '<span onclick="qqkkongalsfl(\'chimaname\',\'chimaid\');" class="paixuspan ppasssss">'.$_COOKIE['chimaname'].' <span class="cloasss">x</span></span>';
+				 ?> <?php
+					if($_COOKIE['Kuansname']) echo '<span onclick="qqkkongalsfl(\'Kuansname\',\'Kuansid\');" class="paixuspan ppasssss">'.$_COOKIE['Kuansname'].' <span class="cloasss">x</span></span>';
+				 ?> <?php
+					if($_COOKIE['Sfenleiname']) echo '<span onclick="qqkkongalsfl(\'Sfenleiname\',\'Sfenleiid\');" class="paixuspan ppasssss">'.$_COOKIE['Sfenleiname'].' <span class="cloasss">x</span></span>';
+				 ?> <?php
+					if($_COOKIE['Sfenggename']) echo '<span onclick="qqkkongalsfl(\'Sfenggename\',\'Sfenggeid\');" class="paixuspan ppasssss">'.$_COOKIE['Sfenggename'].' <span class="cloasss">x</span></span>';
+				 ?> <?php
+					if($_COOKIE['Slingxingname']) echo '<span onclick="qqkkongalsfl(\'Slingxingname\',\'Slingxingid\');" class="paixuspan ppasssss">'.$_COOKIE['Slingxingname'].' <span class="cloasss">x</span></span>';
+				 ?> <?php
+					if($_COOKIE['Sxiuxname']) echo '<span onclick="qqkkongalsfl(\'Sxiuxname\',\'Sxiuxid\');" class="paixuspan ppasssss">'.$_COOKIE['Sxiuxname'].' <span class="cloasss">x</span></span>';
+				 ?> <?php
+					if($_COOKIE['Smiaoliaoname']) echo '<span onclick="qqkkongalsfl(\'Smiaoliaoname\',\'Smiaoliaoid\');" class="paixuspan ppasssss">'.$_COOKIE['Smiaoliaoname'].' <span class="cloasss">x</span></span>';
+				 ?> <?php
+					if($_COOKIE['secahstr']) echo '<span onclick="qqkkongalsflssss(\'secahstr\');" class="paixuspan ppasssss">搜索 <span style="color:green;">'.$_COOKIE['secahstr'].'</span> <span class="cloasss">x</span></span>';
+				 ?></span></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <div class="xuzequbox clearfix">
+     <div class="zuobianqu">
+        <div class="rxpl">热销品类</div>
+        <div class="xb">性别</div>
+        <div class="cm">尺码</div>
+        <div class="gjxx" style="
+    padding: 29px 0;
+">高级选项</div>
+     </div>
+     <div class="youbianqu">
+       <div class="tianchong">
+       
+        <div class="pinleilist clearfix">
+          <ul class="clearUl">
+		  <style>
+		  <GZ:list sql="select * from gz_Pinlei where status='1' order by listorder desc,id desc" key='i'>
+	
+		
+		 .xuxiangbigbox .xuzequbox.clearfix .youbianqu .tianchong .pinleilist ul a .iconallnew{$r.id} {
+    background: url({$r.ppic}) no-repeat center;
+    background-position: 0px 0px;
+    height: 50px;
+    width: 56px;
+}.xuxiangbigbox .xuzequbox.clearfix .youbianqu .tianchong .pinleilist ul a .iconallnew{$r.id}:hover {
+    background: url({$r.ppic}) no-repeat center;
+    background-position: 0px 0px;
+    color: #f40;
+}
+		  </GZ:list></style>
+		
+		 <GZ:list sql="select * from gz_Pinlei where status='1' order by listorder asc,id asc" key='i'>
+		 
+		 
+		
+		
+            <a onclick="pinlei('{$r.pinleis}','{$r.id}');" class="clearUl" style="display: inline-block;"><li class="tixu iconallnew{$r.id}" <?php
+				if($_COOKIE['pinleiid']==$r['id']) echo 'style="color: #f40;"';
+			?>>{$r.pinleis}</li></a>
+           </GZ:list>
+          </ul>
+        </div>
+        
+        <div class="xingbielist clearfix">
+           <ul>
+             <li><a onclick="sexff('男装','1');" <?php
+				if($_COOKIE['sexid']==1) echo 'style="color: #f40;"';
+			?>>男装</a></li>
+             <li><a onclick="sexff('女装','2');" <?php
+				if($_COOKIE['sexid']==2) echo 'style="color: #f40;"';
+			?>>女装</a></li>
+           </ul>
+        </div>
+        
+        <div class="chimalist clearfix">
+           <ul>
+             <li><a onclick="chima('XS','XS');" <?php
+				if($_COOKIE['chimaid']=='XS') echo 'style="color: #f40;"';
+			?> >XS</a></li>
+             <li><a onclick="chima('S','S');" <?php
+				if($_COOKIE['chimaid']=='S') echo 'style="color: #f40;"';
+			?> >S</a></li>
+             <li><a onclick="chima('M','M');" <?php
+				if($_COOKIE['chimaid']=='M') echo 'style="color: #f40;"';
+			?> >M</a></li>
+             <li><a onclick="chima('L','L');" <?php
+				if($_COOKIE['chimaid']=='L') echo 'style="color: #f40;"';
+			?> >L</a></li>
+             <li><a onclick="chima('XL','XL');" <?php
+				if($_COOKIE['chimaid']=='XL') echo 'style="color: #f40;"';
+			?> >XL</a></li>
+             <li><a onclick="chima('XXL','XXL');" <?php
+				if($_COOKIE['chimaid']=='XXL') echo 'style="color: #f40;"';
+			?> >XXL</a></li>
+             <li><a onclick="chima('XXXL','XXXL');" <?php
+				if($_COOKIE['chimaid']=='XXXL') echo 'style="color: #f40;"';
+			?> >XXXL</a></li>
+           </ul>
+        </div>
+        
+ <style>
+ .xuxiangbigbox .xuzequbox .youbianqu .tianchong .gaijixuanxianglist .xuanxiang-lf ul li .mchenup {
+    background: url(/images/huijiantou.png) no-repeat right;
+    padding-right: 20px;
+    color: #FF662D;
+} .xuxiangbigbox .xuzequbox .youbianqu .tianchong .gaijixuanxianglist .xuanxiang-lf ul li .mchendown {
+    background: url(/images/huijiantouup.png) no-repeat right;
+    padding-right: 20px;
+    color: #FF662D;
+}
+.xuxiangbigbox .xuzequbox .youbianqu .tianchong .gaijixuanxianglist .xuanxiang-lf ul a{    display: inline-block;}
+.xonewktanchuccc{display: inline-block;
+    background: #fff;
+    padding: 3px 6px;
+    border-radius: 5px;margin-right: 12px;margin-top: 9px;
+    color: #000;
+    border: 1px solid #ddd;
+    font-size: 12px;cursor: pointer;}
+	.xonewktanchuccc:hover{color:red;}
+	
+	#xonewktanchucccmain{			position: absolute;
+			background: #f0f0f0;
+			padding: 12px;
+			left: 0px;    width: 578px;
+			top: 46px;
+			border-bottom: 1px solid #999;}.sssulilladddd{background: #f0f0f0!important;}a{cursor:pointer;} .xuxiangbigbox .xuzequbox .youbianqu .tianchong .gaijixuanxianglist .xuanxiang-lf ul li .mchen {
+    background: url(/images/huijiantosssu.png) no-repeat right;
+    padding-right: 20px;
+    color: #FF662D;
+}
+ </style>
+        <div class="gaijixuanxianglist" id="gaijixuanxianglistajaxx" style="position:relative;">
+            <div class="xuanxiang-lf clearfix">
+               <ul id="kksssscssss">
+                 <a onclick="jiagepaixo(this,'price');" title="<?php
+					if($_COOKIE['price']=='asc' || !$_COOKIE['price']) echo '点击按 价格从高到低 排序';
+					else echo '点击按 价格从低到高 排序';
+				 ?>" class="clearUl" style="display:none;"><li><div class="mchenup <?php
+					if($_COOKIE['price']=='asc') echo 'mchendown';
+				 ?>">价格</div></li></a>
+				 
+				 <a onclick="kuuusss('Price',this,'price');"><li><div class="mchen">价格</div></li></a>
+				 
+				 
+                 <a onclick="kuuusss('Kuans',this,'kuanshi');"><li><div class="mchen">款式</div></li></a>
+                 <a onclick="kuuusss('Sfenlei',this,'fenlei');"><li><div class="mchen">分类</div></li></a>
+                 <a onclick="kuuusss('Sfengge',this,'fengge');"><li><div class="mchen">风格</div></li></a>
+                 <a onclick="kuuusss('Slingxing',this,'lingxing');"><li><div class="mchen">领型</div></li></a>
+                 <a onclick="kuuusss('Sxiux',this,'xiux');"><li><div class="mchen">袖型</div></li></a>
+                 <a onclick="kuuusss('Smiaoliao',this,'mianliao');"><li><div class="mchen">面料</div></li></a>
+               </ul>
+            </div>
+            
+            <div class="sousuo-rg clearUl">
+              <p><input type="text" value="<?php echo $_COOKIE['secahstr'];?>" style="width: 230px;" id="ssssseaccch" class="huik" placeholder="请输入关键词搜索" /><button class="orange" onclick="seeach();"></button>
+				<?php
+				if($_COOKIE['secahstr']){
+				?><button style="width: 25px;
+    height: 27px;
+    cursor: pointer;
+    float: left;
+    margin-right: 3px;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-left: 1px solid #ddd;
+    color: green;
+    font-weight: bold;" onclick="qqkkongalsflssss('secahstr');">X</button>
+<?php
+}
+?>
+			  </p>
+				
+            </div>
+			
+					
+					
+					
+			
+		</div>
+
+	</div>
+  </div>
+  </div>
+</div>
+<div class="clearfix"></div><!--提示层代码开始-->
+<link rel="stylesheet" href="/css/animate.min.css">
+<script type="text/javascript" src="/js/tishicengjsqiu.js"></script>
+<!------------------------------------------选项区 end------------------------------------------>
+<script>
+function jiagepaixo(sthis,fd){
+	if($.cookie(fd)=="asc") $.cookie(fd, 'desc');
+	else $.cookie(fd, 'asc');
+	
+	//var c=$(sthis).attr('class');
+	//c=='mchendown' ? alert('不及格') : alert('及格') ;
+	$("#xonewktanchucccmain").remove();
+	$('#kksssscssss li').removeClass('sssulilladddd');
+	//if($.cookie('price')=="desc") $(sthis).children().children().addClass('mchendown');
+	dsqssxx(fd);
+	if(fd=='xiliang') $.removeCookie('price');
+	if(fd=='price') $.removeCookie('xiliang');
+	if(fd!='price' && fd!='xiliang'){
+		$.removeCookie('price');
+		$.removeCookie('xiliang');
+	}
+	tccc();
+}
+//搜索
+function seeach(){
+    secahstr=$('#ssssseaccch').val();
+	if(secahstr) $.cookie('secahstr',secahstr);
+	else{
+        $('body').tishicengjsqiu({
+            textwz:  '请输入关键词搜索', //提示层文字 支持html
+            tishicbj: 'red', //提示层背景 #ddd
+            colors: '#fff', //文字颜色
+            iddtt:3, //自动关闭时间秒
+            admmint:'bounceInDown', //显示动画
+            //动画属性说明
+            admmout:'bounceOutDown' //隐藏动画
+        });
+		$('#ssssseaccch').focus();
+		return false;
+	}
+	tccc();
+}function qqkkongalsflssss(pinleiname){
+	$.removeCookie(pinleiname);
+	tccc();
+}
+//品类
+function pinlei(pinleiname,pinleiid){
+	$.cookie('pinleiname', pinleiname);
+	$.cookie('pinleiid', pinleiid);
+	tccc();
+}
+//性别
+function sexff(sexname,sexid){
+	$.cookie('sexname', sexname);
+	$.cookie('sexid', sexid);
+	tccc();
+}
+//尺码
+function chima(chimaname,chimaid){
+	$.cookie('chimaname', chimaname);
+	$.cookie('chimaid', chimaid);
+	tccc();
+}
+//清空品类分类等
+function qqkkongalsfl(pinleiname,pinleiid){
+	$.removeCookie(pinleiname);
+	$.removeCookie(pinleiid);
+	tccc();
+}
+//跳转
+function tccc(){
+	location.href = '/index.php/store/';
+}
+//当前排序
+function dsqssxx(n){
+	$.cookie('ddqqppxx', n);
+}
+//款式等层
+function kuuusss(m,sthis,km){
+	$('#kksssscssss li').removeClass('sssulilladddd');
+	$(sthis).children().addClass('sssulilladddd');
+	$("#xonewktanchucccmain").remove();$("#dsafdasfadimg").remove();
+	$(sthis).children().children().append('<img id="dsafdasfadimg" src="/images/5-121204193934-51.gif" style="vertical-align: middle;" />');
+	var url='/index.php?g=Home&m=Spfl&a=index&mm='+m+'&km='+km;
+		$.ajax( {
+			url: url, //这里是静态页的地址
+			type: "GET", //静态页用get方法，否则服务器会抛出405错误
+			//dataType: "json",
+			//cache: false,
+			//async: false,
+			beforeSend: function(){
+			 // Handle the beforeSend event
+			},
+			success: function(data){
+				$("#dsafdasfadimg").remove();
+				if(!data) data='<span class="xonewktanchuccc" style="background: none;color: red;border: none;">暂无内容</span>';
+				$('#gaijixuanxianglistajaxx').append('<div id="xonewktanchucccmain">'+data+'</div>');
+				//var result = $(data).find("另一个html页面的指定的一部分").html();
+			}
+		});
+	
+}
+</script>
+
+
+
+<style>
+.zhpaixubox .zonghe-lf ul a .g1 .xiajiantouup {
+    background: url(/images/xiajiantouup.png) no-repeat right;
+    display: inline-block;
+    width: 10px;
+    height: 6px;
+    padding-left: 5px;
+    vertical-align: middle;
+}
+</style>
+
+<!------------------------------------------综合排序 start------------------------------------------>
+<div class="zhpaixubox">
+   <div class="zonghe-lf clearfix">
+      <ul>
+        <a onclick="jiagepaixo(this,'hits');"><li class="<?php
+					if($_COOKIE['ddqqppxx']=='hits' || !$_COOKIE['ddqqppxx']) echo 'f1';
+					else echo 'g1';
+				 ?>">综合排序</li></a>
+        <a onclick="jiagepaixo(this,'xiliang');" title="<?php
+					if($_COOKIE['xiliang']=='asc' || !$_COOKIE['xiliang']) echo '点击按 销量从高到低 排序';
+					else echo '点击按 销量从低到高 排序';
+				 ?>"><li class="<?php
+					if($_COOKIE['ddqqppxx']=='xiliang') echo 'f1';
+					else echo 'g1';
+				 ?>">销量<span class="xiajiantou <?php
+					if($_COOKIE['xiliang']=='asc') echo 'xiajiantouup';
+					if($_COOKIE['ddqqppxx']=='xiliang') {
+						echo ' xiajiantouhover ';
+						if($_COOKIE['xiliang']=='asc') echo ' xiajiantouhoverup ';
+					}
+				 ?>"></span></li></a>
+        <a onclick="jiagepaixo(this,'price');" title="<?php
+					if($_COOKIE['price']=='asc' || !$_COOKIE['price']) echo '点击按 价格从高到低 排序';
+					else echo '点击按 价格从低到高 排序';
+				 ?>"><li class="<?php
+					if($_COOKIE['ddqqppxx']=='price') echo 'g1 f1';
+					else echo 'g1';
+				 ?>">价格<span class="xiajiantou <?php
+					if($_COOKIE['price']=='asc') echo 'xiajiantouup';
+					if($_COOKIE['ddqqppxx']=='price') {
+						echo ' xiajiantouhover ';
+						if($_COOKIE['price']=='asc') echo ' xiajiantouhoverup ';
+					}
+				 ?>"></span></li></a>
+        <a onclick="jiagepaixo(this,'xinpin');"><li class="<?php
+					if($_COOKIE['ddqqppxx']=='xinpin') echo 'f1';
+					else echo 'g1';
+				 ?>">新品</li></a>
+      </ul>
+   </div>
+   
+   <div class="huanye-rg">
+      <p>共<?php
+		echo $page->totalRows;
+	  ?>件商品<span class="daoye" style="color:#FF662D; margin-left:20px;"><?php
+		echo $page->nowPage;
+	  ?></span> / <span class="zongye"><?php
+		echo $page->totalPages;
+	  ?></span><a href="/index.php/store/{$nesssfirstRow}.html"><span class="qianyiye"></span></a><a href="/index.php/store/{$nexxxff}.html"><span class="houyiye"></span></a></p>
+   </div>
+   
+</div>
+<!------------------------------------------综合排序 end------------------------------------------>
+
+
+
+<!------------------------------------------服装区 start------------------------------------------>
+<div class="fzbigbox">
+  <!--第1组-->
+  <div class="yifulist1">
+    <ul>
+	
+	
+	
+	
+	<volist name="list" id="r" empty="$em" key="k">
+      <li <?php
+		if(($k%5)) echo 'style="margin-right:25px;';
+		if($k>5) echo '  margin-top:25px; ';
+		echo '"';
+	  ?>>
+         <a href="{$r.url}"><div class="yfkuang">
+          <div class="yfxxqu">
+              <div class="yftupian"><img src="{$r.thumb}" width="210" height="280"></div>
+              <div class="yfming">{$r.title}</div>
+              <div class="yfqian">¥{$r.price}</div>
+           </div>
+         </div></a>
+      </li>
+    </volist>
+	 
+    </ul>
+  </div>
+
+  <div class="clearfix"></div>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  <!--翻页start-->
+		
+            <div class="yema cb page" style="margin-top:35px;">
+               {$pages}
+            </div>
+             <!--翻页end-->
+ 
+ 
+
+  
+</div>
+<!------------------------------------------服装区 end------------------------------------------>
+
+
+

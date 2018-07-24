@@ -1,0 +1,8 @@
+{__NOLAYOUT__}<foreach name="dlist" item="r" key="nk"><ul class="clearUl newuldz" <if condition="$nk eq 0 ">style="margin-top:0px;padding-top:0px;border:none;"</if>>
+						<li class="shouhuoren" style="width:100px;"><input type="radio" name="dizhi" value="{$r.id}" <if condition="$nk eq 0 ">checked</if>></li>
+						<li class="shouhuoren">{$r.xm}</li>
+						<li class="diqu">{$r.sf} {$r.shi} {$r.qy}</li>
+						<li class="dizhi">{$r.xx}</li>
+						<li class="youbian">{$r.yb}</li>
+						<li class="shoujihao">{$r.tel}</li></ul>
+					</foreach>

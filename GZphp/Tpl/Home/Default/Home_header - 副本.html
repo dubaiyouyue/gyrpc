@@ -1,0 +1,77 @@
+<!DOCTYPE>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>{$title} {$catname} {$site_name}</title>
+<meta name="keywords" content="{$seo_keywords}">
+<meta name="description" content="{$seo_description}">
+<link href="/css/master.css" rel="stylesheet"/>
+<link href="/css/base.css" rel="stylesheet"/>
+<!----- 导航js 开始 ----->
+<script src="/js/jquery.min.js"></script><script src="/layer/layer.js"></script>
+<script>
+$(function(){
+	$('.nav li').hover(function(){
+		$('.hx',this).stop().css('height','3px');
+		$('.hx',this).animate({
+			left:'0',
+			width:'100%',
+			right:'0'
+		},200);
+	},function(){
+		$('.hx',this).stop().animate({
+			left:'50%',
+			width:'0'
+		},200);
+	});
+});
+</script>
+<!----- 导航js 结束 ----->
+
+</head>
+
+
+<body>
+<!-- 顶部start -->
+<div class="top">
+  <div class="hyy">
+    <span class="hyy-lf">{$hyy}</span>
+    <span class="hyy-rg">服务热线：<span class="hyy-rg-lvzi">{$hotline}</span></span>
+  </div>
+</div>
+<!-- 顶部end -->
+
+<!-- logo、导航start -->
+<div class="header">
+  <a href="/"><div class="logo"><img src="/images/logo.png" width="145" height="111" /></div></a>
+  <div class="nav">
+    <ul>
+      <li {if !$catid}class="navaction-onenav"{/if}><a href="/">网站首页<span class="yw">HOME</span></a>{if $catid}<span class="hx"></span>{/if}</li>
+      
+
+<?php
+            foreach(xlcatid($Categorys) as $k=>$v){
+                $vv=explode(',',$v['arrchildid']);
+                echo '<li ';
+				if(in_array($catid,$vv))  echo ' class="navaction-onenav"';
+				echo '>';
+              
+                echo '<a href="'.$v['url'].'">';
+				echo $v['catname'].'<span class="yw">'.$v['keywords'].'</span></a>';
+				if(!in_array($catid,$vv))  echo '<span class="hx"></span>';
+				echo '</li>
+				';
+            }
+?>
+	  
+	  
+    </ul>
+  </div>
+</div>
+<!-- logo、导航end -->
+
+
+
+
+<!--banner-->
+<div class="contact_banner" style="background: url({$Categorys.$catid.image}) no-repeat center;"></div>

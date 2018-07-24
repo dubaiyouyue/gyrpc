@@ -1,0 +1,178 @@
+{__NOLAYOUT__}
+
+<include file="Home:headerno"/>
+<!---------------------------------------- dlbox2开始 ---------------------------------------->
+<div class="dlbox2">
+ <div class="contentbox2 clearfix">
+      <div class="zstlf">
+       <GZ:list sql="select * from gz_slide_data where fid = '16' and  status='1' order by listorder desc,id desc limit 1" key='i'>
+		   <a href="{$r.link}"><img src="{$r.pic}" width="745" height="500"></a>
+		</GZ:list>
+      </div>
+      
+      <div class="forgetbox">
+        <div class="forget-title">忘记密码【新密码将发送到手机】</div>
+         <form action="" method="POST">
+            <div class="field ph-hide email-field" style="display:none;">
+				<label for="email"><span class="yhtb3"></span></label>
+				<input type="text"
+					name="yx" id="yx" placeholder="邮箱"
+					class="email_txt"
+					value=""
+					maxlength="32" tabindex="1" aria-label="邮箱"/>
+		   </div>
+           
+            <div class="field ph-hide tel-field">
+				<label for="tel"><span class="yhtb4"></span></label>
+				<input type="text"
+					name="tel" id="tel" placeholder="手机号"
+					class="tel_txt"
+					value=""
+					maxlength="16" tabindex="1" aria-label="手机"/>
+		   </div>
+           
+            <div class="field ph-hide code-field">
+			
+				<input type="text"
+					name="yzm" id="yzm" placeholder="验证码"
+					class="code_txt"
+					value=""
+					maxlength="16" tabindex="1" aria-label="验证码"/>
+				<label for="code"><img src="{:U('Home/Index/verify')}" id="verifyImage" onclick="javascript:resetVerifyCode();" width="100%" height="100%"></label>
+		   </div>
+           
+           <div class="ank"><div onclick="checkedform();" id="cxhqdxyzmcxhqdxyzm" style="display: block;cursor: pointer;text-align: center;height:40px;line-height: 40px;" class="login yanzheng">验证短信找回密码</div></div>
+           <p style="
+    margin-top: 12px;
+    color: #aaa;
+    font-size: 12px;
+">验证成功后新密码会发送到手机，请注意查收使用新密码登录并修改密码。短信接收有延迟请勿重复发送。</p>
+         </form>
+      </div>
+  </div>
+</div>
+<!---------------------------------------- dlbox2结束 ---------------------------------------->
+<!--提示层代码开始-->
+<link rel="stylesheet" href="/css/animate.min.css">
+<script type="text/javascript" src="/js/tishicengjsqiu.js"></script>
+<script>
+	function tishicengjsqiuonclick(textwz,nicheng){
+		$('body').tishicengjsqiu({
+			textwz:  textwz, //提示层文字 支持html
+			tishicbj: '#000', //提示层背景 #ddd
+			colors: '#fff;border:1px solid green', //文字颜色
+			iddtt:3, //自动关闭时间秒
+			admmint:'bounceInRight', //显示动画
+			//动画属性说明
+			admmout:'zoomOut' //隐藏动画
+		});
+		document.getElementById(nicheng).focus();
+	}
+function checkedform(){
+	
+	var tel=$('#tel').val();
+	var email=$('#yx').val();
+	var yzm=$('#yzm').val();
+	/*if(!email || !(youxiang('yx'))){
+		/*document.getElementById('email').focus();
+		tishi('','请填写正确的邮箱');*//*
+		tishicengjsqiuonclick('请填写正确的邮箱','yx');
+		return false;
+	}*/
+	if(!tel || (tel.length!=7 && tel.length!=11) || isNaN(tel)){
+		/*document.getElementById('tel').focus();
+		tishi('','请填写正确的手机号');*/
+		tishicengjsqiuonclick('请填写正确的手机号','tel');
+		return false;
+	}
+	
+	
+	if(!yzm){
+		/*document.getElementById('yzm').focus();
+		tishi('','请填写验证码');*/
+		tishicengjsqiuonclick('请填写验证码','yzm');
+		return false;
+	}
+	document.getElementById("cxhqdxyzmcxhqdxyzm").onclick = function(){};
+	$('#cxhqdxyzmcxhqdxyzm').html('正在修改...');
+		//登录
+		$.ajax( {
+			url: '/index.php?g=Home&m=Zhuimim&tel='+tel+'&email='+email+'&yzm='+yzm+'&mm=sjdxyzm', //这里是静态页的地址
+			type: "GET", //静态页用get方法，否则服务器会抛出405错误
+			//dataType: "json",
+			//cache: false,
+			//async: false,
+			beforeSend: function(){
+			 // Handle the beforeSend event
+			},
+			success: function(data){
+				if(data=='e1'){
+					resetVerifyCode();
+					tishicengjsqiuonclick('验证码填写错误','yzm');
+					dxaaaa();
+					return false;
+				}
+				if(data=='e2'){
+					tishicengjsqiuonclick('手机号没有注册','tel');
+					dxaaaa();
+					return false;
+				}
+				if(data=='e3'){
+					tishicengjsqiuonclick('手机号和邮箱不一致','yx');
+					dxaaaa();
+					return false;
+				}
+				if(data=='lok'){
+					smssend();
+				}
+				//er=data;
+				//var result = $(data).find("另一个html页面的指定的一部分").html();
+			}
+		});
+}
+//验证码
+function smssend(){
+	$.ajax( {
+		url: '/sms.php', //这里是静态页的地址
+		type: "GET", //静态页用get方法，否则服务器会抛出405错误
+		//dataType: "json",
+		//cache: false,
+		//async: false,
+		beforeSend: function(){
+		 // Handle the beforeSend event
+		},
+		success: function(data){
+			location.href = '/index.php/login/';
+			return false;
+			//var result = $(data).find("另一个html页面的指定的一部分").html();
+		}
+	});
+}
+function dxaaaa(){
+	$('#cxhqdxyzmcxhqdxyzm').attr("onclick","checkedform();");
+	$('#cxhqdxyzmcxhqdxyzm').html('验证短信找回密码');
+}
+function  youxiang(n){
+	var email = document.getElementById(n).value;
+	//alert(email);
+	//return false;
+	if (email != "") {
+		var reg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+		isok= reg.test(email );
+		if (!isok) {
+			return false;
+		}
+		else return true;
+	}
+	return false;
+}
+
+document.getElementById('yx').focus();
+//验证码
+function resetVerifyCode(){
+	var timenow = new Date().getTime();
+	document.getElementById('verifyImage').src='/index.php?g=Home&m=Index&a=verify#'+timenow;
+}
+</script>
+
+<include file="Home:footerno"/>

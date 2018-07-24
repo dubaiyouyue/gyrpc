@@ -1,0 +1,91 @@
+ {__NOLAYOUT__}
+
+        <!--待付款-->
+		<foreach name="list" item="r" key="k" >
+        <div class="order-list">
+          <div class="tou">
+            <span class="bh" style="margin-left:15px;">订单编号：<span class="order_num">{$r.onum}</span></span>
+            <span class="time" style="margin-left:35px;">创建时间：{$r.createtime|toDate=###,'Y-m-d H:i:s'}</span>
+              <!-- <a href="#"><span class="maijia">联系客服</span></a> -->
+          </div>
+           <div class="duzi clearfix">
+             <ul>
+               <li class="goods">
+                
+				 
+				 <?php
+					$newssinfo=explode(',',$r['info']);
+					$newssinfosid=explode(',',$r['sid']);
+					for($fi=0;$fi<count($newssinfosid);$fi++){
+						?>
+<div class="clearfix" style="
+    margin-bottom: 12px;
+"><div class="cptp"><img src="{$allnewlistnew.$newssinfosid[$fi].thumb}" width="210" height="280"></div><div class="cphz"><div class="cpbt">{$newssinfo.$fi}</div></div></div>
+						<?php
+					}
+				 ?>
+
+				 
+               </li>
+     <!--           <li class="price">
+                 <div class="yuanjia">699.00</div>
+                 <div class="youhuijia">339.00</div>
+               </li> -->
+               <li class="quantity">{$r.znum}</li><!-- <p style="height: 111px;">{$r.znum}</p>
+<p style="height: 111px;">{$r.znum}</p><p style="height: 111px;">{$r.znum}</p><p style="height: 111px;">{$r.znum}</p><p style="height: 111px;">{$r.znum}</p> -->
+               <li class="aftersale"></li>
+               <li class="total">¥{$r.zje}</li>
+               <li class="status"><?php
+						$tstatus=$r['tstatus'];
+						if($tstatus==0 || !$tstatus){
+							echo $tstatus='未交易';
+						}else if($tstatus==1){
+							echo $tstatus='交易完成';
+						}else{
+							echo $tstatus='交易取消';
+						}
+			   ?></li>
+               <li class="other" style="
+    margin-left: 42px;
+">
+                 <?php
+					if(!$r['fk'] && !$r['tstatus']) echo '<div class="qfk"><a href="/index.php/Home/SubmitOrder/index/gmid/'.$r['scartid'].'.html">去付款</a></div>';
+					else if($r['fk']) echo '<div class="qfk" style="border: 1px solid #ddd;"><a style="color: #ddd;font-weight: normal;" href="javascript:;">已付款</a></div>';
+					else echo '<div class="qfk" style="border: 1px solid #ddd;"><a style="color: #ddd;font-weight: normal;" href="javascript:;">未付款</a></div>';
+				 ?>
+                 <div class="ddxq"><a href="/index.php/Home/OrderDetails/index/oid/{$r.id}.html">订单详情</a></div>
+                 <div class="scdd"></div>
+                 <?php
+					if(!$r['fk'] && $r['tstatus']!=2) echo '<div class="qxdd"><a href="javascript:;" onclick="dfsafdsddtuihuodengqxdd('.$r['id'].');">取消订单</a></div>';
+					
+						if(!$r['sh'] && $r['fk'] && $r['tstatus']==1 && ($r['tuihuo']==0 || !$r['tuihuo'])){
+							echo '<div class="qxdd"><a onclick="dfsafdsddtuihuodengrssh('.$r['id'].');" href="javascript:;">确认收货</a></div>';
+							echo '<div class="qfk" style="border: 1px solid #ddd;margin-top: 12px;"><a style="color: #ddd;font-weight: normal;" href="javascript:;" onclick="ddtttuihuokuan('.$r['id'].');">退换退款</a></div>';
+						}else if($r['tuihuo']==1 && $r['fk']){
+							echo '<div class="qfk" style="border: 1px solid #ddd;margin-top: 12px;"><a style="color: blue;font-weight: normal;" href="javascript:;">退换退款审核中</a></div>';
+						}else if($r['tuihuo']==2 && $r['fk']){
+							echo '<div class="qfk" style="border: 1px solid #ddd;margin-top: 12px;"><a style="color: green;font-weight: normal;" href="javascript:;">退换退款完成</a></div>';
+						}else if($r['tuihuo']==3 && $r['fk']){
+							echo '<div class="qfk" style="border: 1px solid #ddd;margin-top: 12px;"><a style="color: red;font-weight: normal;" href="javascript:;">退换退款被拒绝</a><p style="
+    line-height: normal;
+    font-size: 12px;
+    color: #bbb;
+        padding: 0 5px;
+    text-align: left;
+">拒绝说明：'.$r['jujuetuihuo'].'</p></div>';
+						}
+					
+				 ?>
+               </li>
+             </ul>
+           </div>
+        </div>
+		</foreach>
+        
+  
+  
+  
+  
+  
+  
+  <!-----------------------右边栏目 end----------------------->

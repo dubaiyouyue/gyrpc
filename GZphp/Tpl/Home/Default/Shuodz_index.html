@@ -1,0 +1,252 @@
+ {__NOLAYOUT__}
+ <script type="text/javascript" src="/js/geoold.js"></script>
+  <!-----------------------右边栏目 start----------------------->
+  <div class="ybmulu5">
+     <div class="ybtc1">
+        <div class="title1">地址管理</div>
+		<form id="dizhi" action="/index.php/Home/Shuodz/newsave" method="POST">
+        <div class="dzglbox clearfix" style=" margin:30px 25px 30px 25px;">
+           <P style="color:#f40;">新增收货地址</P>
+           
+           <div class="zu1 clearfix">
+               <div class="zi-lf"><font color="red" style="margin-right:5px;">*</font>所在地区：</div>
+               <div class="zi-rg">
+                  <ul>
+                    <li>
+                      <span>省：</span>
+                      <select name="sf" size="1" class="xuanze_txt" id="address-s1">
+                        <option>请选择省</option>
+                      </select>
+                    </li>
+                    <li>
+                      <span>市：</span>
+                      <select name="shi" size="1" class="xuanze_txt" id="address-s2">
+                        <option>请选择市</option>
+                      </select>
+                    </li>
+                    <li>
+                      <span>区：</span>
+                      <select name="qy" size="1" class="xuanze_txt" id="address-s3">
+                        <option>请选择区</option>
+                      </select>
+                    </li>
+                  </ul>
+               </div>
+            </div>
+            <div class="zu2 clearfix">
+               <div class="zi-lf"><font color="red" style="margin-right:5px;">*</font>详细地址：</div>
+               <div class="zi-rg">
+                 <textarea name="xx" cols="" class="xxdz_txt"  placeholder="建议您如实填写详细收货地址，例如街道名称，门牌号码，楼层和房间号等信息"></textarea></div>
+            </div>
+           <div class="zu1 clearfix">
+               <div class="zi-lf"><font color="red" style="margin-right:5px;">*</font>邮政编码：</div>
+              <input name="yb" type="text" class="sanyy_txt" id="" value="" placeholder="如您不清楚邮编，请填写0">
+            </div>
+            <div class="zu1 clearfix">
+              <div class="zi-lf"><font color="red" style="margin-right:5px;">*</font>收货人姓名：</div>
+              <div class="zi-rg">
+               <input name="xm" type="text" class="sanyy_txt" id="" value="{$userinfoall.name}"  placeholder="长度不超过25个字符">
+               <span style="color:#ccc;">（建议填写真实姓名，以方便您收货）</span>
+              </div>
+            </div>
+            <div class="zu1 clearfix">
+              <div class="zi-lf"><font color="red" style="margin-right:5px;">*</font>手机号码：</div>
+              <div class="zi-rg">
+               <input name="tel" type="text" class="sanyy_txt" id="" placeholder="输入11位数手机号码" value="{$userinfoall.tel}">
+              </div>
+            </div>
+           
+            <div class="smoren" style="margin-top:20px; margin-left:70px;">
+                <section><div class="checkboxFive" style="float:left;"><input type="checkbox" value="1" id="checkboxFiveInput" name="moren" /><label for="checkboxFiveInput"></label></div></section>
+                <span style="display:inline-block; margin-left:10px;">设置为默认地址</span>
+            </div>
+            <div class="bcdz"><input type="submit" value="保存地址" style="width: 100%;height: 100%;border: none;background: none;color: #fff;cursor: pointer;font-family: Microsoft Yahei;"></div>
+        </div></form>
+
+		
+<script>
+;(function ($) {
+    $.fn.tishicengjsqiu = function() {
+        var mycars = new Array();
+        //name值 对应提示
+        mycars['sf'] = "请选择省";
+        mycars['xx'] = "请填写详细地址";
+        mycars['yb'] = "请填写邮政编码";
+        mycars['xm'] = "请填写收货人姓名";
+        mycars['tel'] = "请填写11位手机号";
+        mycars['content'] = "请填写内容";
+        mycars['ucontacts'] = "请填写联系人";
+        mycars['address'] = "请填写地址";
+        mycars['contacts'] = "请填写联系方式";
+        
+        $(this).submit(function(){
+			//var mycars=new Array();
+			
+
+            var sv=true;
+            $(this).find('input,textarea,select').each(function (){
+               var fname=$(this).attr('name');
+			   //如果是下拉选项
+			   sfname=this.nodeName;
+			  
+			   if(sfname=='SELECT'){
+					//alert(sfname);
+					//var vsel=$(this+' option:selected').val();
+					var sval=$(this).val();
+					if(sval.length<1){
+						//alert(sval);
+						$(this).css({'color':'red','background':'yellow'});
+						sv=false;
+						return false;
+					}
+					//console.log();
+                    
+			   }
+               if(fname && (!$(this).val() || fname=='tel' || fname=='email')){
+                    var thisval=$(this).val();
+                    if(fname=='tel'){
+                        if(thisval.length ==11 && !isNaN(thisval)){
+                            //sv=true;
+                            return true;
+                        }
+                    }else if(fname=='email'){
+                        
+                        //对电子邮件的验证
+                        var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+                        if(myreg.test(thisval)){
+                            //alert('提示\n\n请输入有效的E_mail！');
+                            //myreg.focus();
+                            //sv=true;
+                            return true;
+                        }
+                    }
+                    $(this).val(mycars[fname]);
+                    $(this).css({'color':'red','background':'yellow'});
+                    //$(this).attr('id','fotishiidddxzq');
+                    $("html,body").animate({scrollTop:$(this).offset().top},100);
+                    var sthis=this;
+                    var test = setTimeout(function(){
+                        //alert($(sthis).attr('name'));
+                        $(sthis).removeAttr('style');
+                        $(sthis).val('');
+                        $(sthis).focus();
+                    },1200);
+                    
+                    //清理方法 
+                    //clearTimeout(test);
+					//alert(sv);
+                    sv=false;
+                    return false;
+               }
+			   //mycars[fname]=$(this).val();
+            });
+			if(sv){
+				$('#qdqxboxidt').show();
+				$('#qdqxboxido').hide();
+					//return false;
+					//alert(mycars['xm']);
+					var sthis=this;
+					return true;
+			}
+			return false;
+            //return sv;
+        });
+
+        
+    }
+})(jQuery);
+//使用
+$('#dizhi').tishicengjsqiu();
+</script>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+        
+          <div class="shlist">
+             <div class="shlist-title">
+                <ul>
+                  <li class="shouhuoren">收货人</li>
+                  <li class="diqu">所在地区</li>
+                  <li class="dizhi">详细地址</li>
+                  <li class="youbian">邮编</li>
+                  <li class="shoujihao">手机号码</li>
+                  <li class="caozuo">操作</li>
+                  <li class="beizhu">备注</li>
+                </ul>
+             </div>
+            <foreach name="list" item="vo"> <div class="shlist-neir clearfix">
+                <ul>
+                  <li class="shouhuoren">{$vo.xm}</li>
+                  <li class="diqu">{$vo.sf} {$vo.shi} {$vo.qy} </li>
+                  <li class="dizhi">{$vo.xx}</li>
+                  <li class="youbian">{$vo.yb}</li>
+                  <li class="shoujihao">{$vo.tel}</li>
+                  <li class="caozuo"><a href="javascript:;" onclick="dddeedzdel('{$vo.id}');">删除</a></li>
+                  <if condition="($vo['moren'] neq 1)"><li class="beizhu"><a href="/index.php/Home/Shuodz/moren/id/{$vo.id}.html"><span class="moren" style="color: #888;">默认地址</span></a></li></if>
+                </ul>
+             </div></foreach>
+           </div>
+         </div>
+        
+
+     </div>
+   </div>
+  <!-----------------------右边栏目 end----------------------->
+<script>
+function dddeedzdel(voids){
+	//询问框
+	layer.confirm('确定删除地址吗？', {
+	  btn: ['确定','取消'] //按钮
+	}, function(){
+		location.href = '/index.php/Home/Shuodz/del/id/'+voids+'.html';
+		//layer.closeAll(); //疯狂模式，关闭所有层
+	}, function(){
+		//location.href = '/index.php/Home/OrderDetails/index/oid/{$didnow}.html';
+		layer.closeAll(); //疯狂模式，关闭所有层
+	});
+}
+
+
+var s = ["address-s1", "address-s2", "address-s3"];
+var opt0 = ["{$userinfoall.szds}", "{$userinfoall.szdsq}", "{$userinfoall.szdq}"];
+setup();preselect('');//promptinfo();
+</script>

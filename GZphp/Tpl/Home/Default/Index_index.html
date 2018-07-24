@@ -1,0 +1,438 @@
+{__NOLAYOUT__}<?php
+		//dump($Categorys);
+		//一级栏目 xlcatid($Categorys)
+		//2级栏目 xlcatid($Categorys,$parentid)
+		//3级栏目 xlcatid($Categorys,$parentid,3)
+		//4级栏目 xlcatid($Categorys,$parentid,4)
+		function xlcatid($Categorys,$parentid='0',$c='2'){
+			$narr=array();
+			$s=$c-1;
+			$e=$c;
+			foreach($Categorys as $k=>$v){
+if(!$parentid){
+if(!$v['parentid'] && $v['ismenu']) $narr[$v['id']]=$v;
+}
+else{
+$c_arr=explode(',',$v['arrparentid']);
+$sid=$c_arr[$s];
+$eid=$c_arr[$e];
+if($sid==$parentid && $v['ismenu'] && !$eid) $narr[$v['id']]=$v;
+}
+}
+return $narr;
+}
+//dump(xlcatid($Categorys,103,4));
+?><!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="toTop" content="true">
+<title>{$title} {$catname} {$site_name}</title>
+<meta name="keywords" content="{$seo_keywords}">
+<meta name="description" content="{$seo_description}">
+
+<!--css start-->
+<link rel="stylesheet" href="/css/style.css" />
+<!--css end-->
+
+<script>
+jQuery(document).ready(function($) {	
+			if($("meta[name=toTop]").attr("content")=="true"){
+				$("<div id='toTop'><img src='images/1.png'></div>").appendTo('body');
+				$("#toTop").css({
+					width: '50px',
+					height: '50px',
+					bottom:'70px',
+					right:'15px',
+					position:'fixed',
+					cursor:'pointer',
+					zIndex:'999999',
+				});
+				if($(this).scrollTop()==0){
+						$("#toTop").hide();
+					}
+				$(window).scroll(function(event) {
+					/* Act on the event */
+					if($(this).scrollTop()==0){
+						$("#toTop").hide();
+					}
+					if($(this).scrollTop()!=0){
+						$("#toTop").show();
+					}
+				});	
+					$("#toTop").click(function(event) {
+								/* Act on the event */
+								$("html,body").animate({
+									scrollTop:"0px"},
+									666
+									)
+							});
+				}
+		});
+</script>
+
+<link rel="stylesheet" href="/css/reset.css"/>
+<script src="/js/jquery-1.7.1.min.js"></script>
+<link rel="stylesheet" href="/css/invogue.css?1"/>
+<script src="/js/danpin.min.js"></script>
+
+
+
+</head>
+
+<body>
+<!---------------------------------------- header开始 ---------------------------------------->
+<div class="header">
+  <div class="logo"><a href="/"><img src="/images/logo.jpg" /></a></div>
+  <div class="rgbox">
+    <div class="tophz">
+	
+<if condition="($userinfoall.id gt 0)">
+<div class="cartbox"><a href="/index.php/Home/ShoppingCart/index.html">{$Categorys.198.catname}</a><span class="yuan" id="yuanyuan">{$uidnum}</span></div>
+      <div class="dz"><a href="/index.php/Home/PersonalProfile/">您好，{$userinfoall.nicheng}</a> | <a href="/index.php/Home/Loginout/" style="color: #bbb;">安全退出</a></div>
+<else />
+
+	
+      <div class="cartbox"><a href="/index.php/Home/ShoppingCart/index.html">{$Categorys.198.catname}</a><span class="yuan">0</span></div>
+      <div class="dz"><a href="{$Categorys.195.url}">{$Categorys.195.catname}</a>|<a href="{$Categorys.193.url}">{$Categorys.193.catname}</a></div>
+	  </if>
+	  
+	  
+      <div class="kefu"><a href="http://wpa.qq.com/msgrd?v=3&uin={$qq}">客服</a></div>
+    </div>
+    <div class="bottomhz">
+      <div class="nav">
+        <ul>
+          <li {if !$catid}class="navaction-onenav"{/if}><a href="/">首页</a>{if $catid}<span class="hx"></span>{/if}</li>
+          <?php
+            foreach(xlcatid($Categorys) as $k=>$v){
+                $vv=explode(',',$v['arrchildid']);
+                echo '<li ';
+				if(in_array($catid,$vv))  echo ' class="navaction-onenav"';
+				echo '>';
+              
+                echo '<a href="'.$v['url'].'">';
+				echo $v['catname'].'</a>';
+				if(!in_array($catid,$vv))  echo '<span class="hx"></span>';
+				echo '</li>
+				';
+            }
+?>
+        </ul>
+      </div>
+      <div class="search">
+        <p><input type="text" value="" id="ssssou" class="one" placeholder="关键词" /><button class="one1" id="one1"></button></p>
+      </div>
+    </div>
+  </div>
+</div>
+<!----- 导航文字js 开始 ----->
+<script src="js/jquery.min.js"></script>
+<script>
+//搜索
+$("#one1").click(function(){
+  var skey=$('#ssssou').val();
+  if(!skey || skey=='请输入关键词'){
+	$('#ssssou').val('请输入关键词');
+	$('#ssssou').css({'color':'red','background':'yellow'});
+	var test = setTimeout(function(){
+		//alert($(sthis).attr('name'));
+		$('#ssssou').removeAttr('style');
+		$('#ssssou').val('');
+		$('#ssssou').focus();
+	},1200);
+	return false;
+  }
+	skey=encodeURI(skey); 
+	skey=encodeURI(skey); 
+  var url='/index.php/Home/Sousuo/index/?key='+skey;
+  location.href = url;
+});
+$(function(){
+	$('.nav li').hover(function(){
+		$('.hx',this).stop().css('height','2px');
+		$('.hx',this).animate({
+			left:'0',
+			width:'100%',
+			right:'0'
+		},200);
+	},function(){
+		$('.hx',this).stop().animate({
+			left:'50%',
+			width:'0'
+		},200);
+	});
+});
+</script>
+<!----- 导航文字js 结束 ----->
+<!---------------------------------------- header结束 ---------------------------------------->
+
+
+
+
+<!---------------------------------main_visual开始(轮播图)--------------------------------->
+<!--main_visual js 开始-->
+<script type="text/javascript" src="/js/jquery.event.drag-1.5.min.js"></script>
+<script type="text/javascript" src="/js/jquery.touchSlider.js"></script>
+<script type="text/javascript">
+$(document).ready(function () {
+	$(".main_visual").hover(function(){
+		$("#btn_prev,#btn_next").fadeIn()
+		},function(){
+		$("#btn_prev,#btn_next").fadeIn()
+		})
+	$dragBln = false;
+	$(".main_image").touchSlider({
+		flexible : true,
+		speed : 200,
+		btn_prev : $("#btn_prev"),
+		btn_next : $("#btn_next"),
+		paging : $(".flicking_con a"),
+		counter : function (e) {
+			$(".flicking_con a").removeClass("on").eq(e.current-1).addClass("on");
+		}
+	});
+	$(".main_image").bind("mousedown", function() {
+		$dragBln = false;
+	})
+	$(".main_image").bind("dragstart", function() {
+		$dragBln = true;
+	})
+	$(".main_image a").click(function() {
+		if($dragBln) {
+			return false;
+		}
+	})
+	timer = setInterval(function() { $("#btn_next").click();}, 5000);
+	$(".main_visual").hover(function() {
+		clearInterval(timer);
+	}, function() {
+		timer = setInterval(function() { $("#btn_next").click();}, 5000);
+	})
+	$(".main_image").bind("touchstart", function() {
+		clearInterval(timer);
+	}).bind("touchend", function() {
+		timer = setInterval(function() { $("#btn_next").click();}, 5000);
+	})
+});
+</script>
+<!--main_visual js 结束-->
+<div class="main_visual">
+   <div class="linetop" style="border-top:1px solid #DDDFDE;"></div>
+   <div class="flicking_con">
+       <div class="flicking_inner" style="width:auto;">
+          <GZ:list sql="select * from gz_slide_data where fid = '12' and  status='1' order by listorder desc,id desc" key='issss'>
+		 <a href="{$r.link}"></a>
+		</GZ:list>
+        </div>
+  </div>
+  <style>
+  .flicking_inner{margin-left:-<?php echo ($issss*20)/2;?>px;}
+  </style>
+  <div class="main_image">
+	<ul>					
+	  <GZ:list sql="select * from gz_slide_data where fid = '12' and  status='1' order by listorder desc,id desc" key='i'>
+
+
+ <a href="{$r.link}"><li><span class="img_1" style=" background: url('{$r.pic}') center top no-repeat;"></span></li></a>
+   
+		</GZ:list>
+	</ul>
+	<a href="javascript:;" id="btn_prev"></a>
+	<a href="javascript:;" id="btn_next"></a>
+  </div>
+</div>
+<!---------------------------------main_visual结束--------------------------------->
+
+
+<!---------------------------------首页关于广羽人 start--------------------------------->
+<div class="sygygyrbox">
+  <div class="sydbt">关于广羽人</div>
+  <div class="syywbt">ABOUT US</div>
+  <P><a href="{$Categorys.145.url}"><GZ:list sql="select * from gz_page where id = '145' limit 1"><?php
+		echo stripslashes($r['description']);//将字符串进行处理
+	?></GZ:list></a></P>
+  <div class="jianjietupian" style="display:block; text-align:center;"><a href="{$Categorys.145.url}"><img src="{$r.thumb}" width="450" height="300"></a></div>
+  <div class="gengduo"><a href="{$Categorys.145.url}">MORE +</a></div>
+  <div class="weibuzs" style="display:block; text-align:center;"><img src="/images/weibuzs.png" width="13" height="36"></div>
+</div>
+<!---------------------------------首页关于广羽人 end--------------------------------->
+
+
+
+<!---------------------------------首页优惠活动 start--------------------------------->
+<div class="syyhhdbox">
+  <div class="sydbt">优惠活动</div>
+  <div class="syywbt">FAVOURABLE ACTIVITY</div>
+  <GZ:list catid="152" limit="4"><?php
+	$ksss[]=$r;
+  ?></GZ:list>
+  <!--第1组-->
+  <div class="huodongbox">
+    <div class="syyhhdlf" style="height: auto;">
+        <div class="hdimg"><a href="{$ksss.0.url}"><img src="{$ksss.0.thumb}" width="582" height="235"></a></div>
+        <div class="syyhhdxbiaoti" style="height: 24px;"><a href="{$ksss.0.url}">{$ksss.0.title}</a></div>
+        <P style="height: 62px;"><a href="{$ksss.0.url}">{$ksss.0.description}</a></P>
+        <div class="syyhhdxian">
+          <span class="sj">{$ksss.0.createtime|toDate=###,'Y.m.d'}</span>
+          <span class="ydgd"><a href="{$ksss.0.url}">READ MORE</a></span>
+        </div>
+     </div>
+     <div class="syyhhdrg" style="height: auto;">
+        <div class="hdimg"><a href="{$ksss.1.url}"><img src="{$ksss.1.thumb}" width="582" height="235"></a></div>
+        <div class="syyhhdxbiaoti" style="height: 24px;"><a href="{$ksss.1.url}">{$ksss.1.title}</a></div>
+        <P style="height: 62px;"><a href="{$ksss.1.url}">{$ksss.1.description}</a></P>
+        <div class="syyhhdxian">
+          <span class="sj">{$ksss.1.createtime|toDate=###,'Y.m.d'}</span>
+          <span class="ydgd"><a href="{$ksss.1.url}">READ MORE</a></span>
+        </div>
+     </div>
+     
+  </div>
+  <div class="clearfix"></div>
+  <!--第2组-->
+  <div class="huodongbox" style=" margin-top:35px;">
+     <div class="syyhhdlf" style="height: auto;">
+        <div class="hdimg"><a href="{$ksss.2.url}"><img src="{$ksss.2.thumb}" width="582" height="235"></a></div>
+        <div class="syyhhdxbiaoti" style="height: 24px;"><a href="{$ksss.2.url}">{$ksss.2.title}</a></div>
+        <P style="height: 62px;"><a href="{$ksss.2.url}">{$ksss.2.description}</a></P>
+        <div class="syyhhdxian">
+          <span class="sj">{$ksss.2.createtime|toDate=###,'Y.m.d'}</span>
+          <span class="ydgd"><a href="{$ksss.2.url}">READ MORE</a></span>
+        </div>
+     </div>
+     <div class="syyhhdrg" style="height: auto;">
+        <div class="hdimg"><a href="{$ksss.3.url}"><img src="{$ksss.3.thumb}" width="582" height="235"></a></div>
+        <div class="syyhhdxbiaoti" style="height: 24px;"><a href="{$ksss.3.url}">{$ksss.3.title}</a></div>
+        <P style="height: 62px;"><a href="{$ksss.3.url}">{$ksss.3.description}</a></P>
+        <div class="syyhhdxian">
+          <span class="sj">{$ksss.3.createtime|toDate=###,'Y.m.d'}</span>
+          <span class="ydgd"><a href="{$ksss.3.url}">READ MORE</a></span>
+        </div>
+     </div>
+     
+  </div>
+  <div class="clearfix"></div>
+  
+  <div class="gengduo"><a href="{$Categorys.152.url}">MORE +</a></div>
+  <div class="weibuzs" style="display:block; text-align:center;"><img src="/images/weibuzs.png" width="13" height="36"></div>
+</div>
+<!---------------------------------首页优惠活动 end--------------------------------->
+
+
+
+
+<!---------------------------------首页热销单品 start--------------------------------->
+<div class="syrxdpbox">
+  <div class="sydbt">热销单品</div>
+  <div class="syywbt">HOT PRODUCTS</div>
+</div>
+<style>
+a{cursor:pointer;}
+</style>
+<div class="danpinbox">
+<div class="module-five street">
+<div class="module-bd">
+<div class="left-mode">
+<div class="bg"><GZ:list catid="176" limit="3">
+<div class="txtpanels">
+<h3><a href="{$r.url}" title="{$r.title}">{$r.title|str_cut=###,24}</a></h3>
+<div class="des">{$r.description|str_cut=###,210}<a href="{$r.url}" target="_blank" title="{$r.title}">[更多]</a></div>
+</div>
+</GZ:list>
+
+
+<div class="controls">
+<a class="btn-prev" ></a>
+<a class="btn-next" ></a>
+<p class="cur-num"><span>1</span>/3</p>
+</div>
+</div>
+<div class="img-panels"><GZ:list catid="176" limit="3" key="adsf">
+<a href="{$r.url}" <if condition="($adsf eq 1)">class="cur"</if> style="background:url({$r.thumb});background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;;">
+<img src="{$r.thumb}" style="
+    visibility: hidden;
+" width="250" height="450"></a>
+</GZ:list>
+</div>
+</div>
+</div>
+</div>
+
+
+<div class="ad-scroll">
+
+</div>
+<!--start-->
+<script src="http://js.selfimg.com.cn/??jquery/swiper/2.1.0/swiper.min.js,jquery/roundabout/jquery.roundabout2.js,jquery/lazyload/1.5.0/jquery.lazyload.js,jquery/touchwipe/1.2.0/touchwipe.js?t=1409054804.js"></script>
+<script src="http://js.selfimg.com.cn/??jquery/plugin/jquery.switchable-2.0.min.js?t=1442470532.js"></script>
+<script type="text/javascript">
+seajs.config({
+"base" : "http://js.selfimg.com.cn/",
+"alias": {
+"bgiframe": "jquery/bgiframe/3.0.1/bgiframe",
+"cookie": "jquery/cookie/1.4.0/cookie.js",
+"mask": "lib/mask/1.0.1/mask"
+},
+comboExcludes: /mask\.js/,
+map: [
+//[ /^(.*\/vogue\/.*\.(?:css|js))(?:.*)$/i, '$1?t=' + "1473330938" ]
+[ /(collect-entry\.js)$/i, '$1?t=' + "1473330938" ]
+],
+comboTimeStamp: "1473330938"
+});
+seajs.use('vogue/www-v2/js/global.js');
+</script>
+
+
+<script type="text/javascript">
+seajs.use(["vogue/www-v2/js/slide", "vogue/www-v2/js/module-five","vogue/www-v2/js/gallery","vogue/www-v2/js/channel","vogue/www-v2/js/ads"], function(slide,mfive,gallery){
+$('[node-type="slideEl"]').each(function(index, val) {
+slide.slideObject($(this));
+});
+mfive.init();
+gallery.init($('.image'));
+$('img[data-original]').lazyload({threshold:400});
+});
+</script>
+<!--end-->
+   
+   
+  <div class="gengduo"><a href="{$Categorys.176.url}">MORE +</a></div>
+  <div class="weibuzs" style="display:block; text-align:center;"><img src="/images/weibuzs.png" width="13" height="36"></div>
+</div>
+  
+<!---------------------------------首页热销单品 end--------------------------------->
+
+
+
+<!---------------------------------首页联系我们 start--------------------------------->
+<div class="sylxwmbox">
+  <div class="sydbt">联系我们</div>
+  <div class="syywbt">CONTACT US</div>
+
+  <div class="sylxfslf" style="width:408px;">
+    <div class="dizhi icon1">公司地址：{$address}</div>
+    <div class="youxiang icon2" style="margin-top:3px;">电子邮箱：{$site_email}</div>
+    <div class="dianhua icon3" style="margin-top:3px;">联系电话：{$hotline}</div>
+  </div>
+     
+  <div class="sylxfsrg" style="margin-right:172px;">
+     <div class="wxgw">
+       <img src="<GZ:list sql="select * from gz_slide_data where fid = '18' and  status='1' order by listorder desc,id desc limit 1">{$r.pic}</GZ:list>" width="130" height="130">
+       <P>微信官网</P>
+    </div>
+     <div class="sjwz">
+       <img src="<GZ:list sql="select * from gz_slide_data where fid = '19' and  status='1' order by listorder desc,id desc limit 1">{$r.pic}</GZ:list>" width="130" height="130">
+       <P>手机网站</P>
+    </div>
+  </div>
+     
+</div>
+<!---------------------------------首页联系我们 end--------------------------------->
+
+
+<include file="Home:footer"/>
+

@@ -1,0 +1,21 @@
+
+
+							
+                    <?php
+            $narr=xlcatid($Categorys,$parentid);
+		
+            //dump($narr);
+            $nnnkkkknnn=count($narr);
+            foreach($narr as $k=>$v){
+                $kv++;
+				echo '<li class="';
+				if($v['id']==$catid) echo 'a1';
+				else echo 'b1';
+				echo '"><a href="'.$v['url'].'">'.$v['catname'].'</a></li>';
+				
+				
+				
+				
+				
+                }
+                ?>

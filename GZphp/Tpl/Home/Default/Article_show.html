@@ -1,0 +1,36 @@
+<style>
+.connttimgmax img{max-width:100%;}
+</style>
+<!---------------------------------------- 详情 start ---------------------------------------->
+<div class="xqbox">
+  <div class="gsjjbt btbj">{$Categorys.$catid.catname}</div>
+  <div class="jjywbt">{$Categorys.$catid.keywords}</div>
+  <div class="zsb" style="margin-bottom:25px;"><img src="/images/zsb.jpg" width="1200" height="9"></div>
+  <div class="xqbt">{$title}</div>
+  <div class="fabuzhe">发布者：{$fbz}<span class="liulan" style="margin-left:20px; display:inline-block">浏览次数：<span class="cishu" style="display:inline-block;">{$hits}</span>次</span></div>
+ <div class="connttimgmax"> {$content}</div>
+<!--翻页start-->
+		
+            <div class="yema cb" style="margin-top:35px;">
+               {$pages}
+            </div>
+             <!--翻页end-->
+  
+     <!--上一篇、下一篇-->
+     <div class="sxpian" style="
+    display: block;
+">
+        <span class="shangyp" style="
+    display: block;
+">{if $pre}<a href="{$pre[url]}">上一篇：{$pre[title]}</a>{else}没有上一篇了{/if}</span>
+        <span class="xiayp" style=" display: block;/*margin-left:20px;*/">{if $next}<a href="{$next[url]}">下一篇：{$next[title]}</a>{else}没有下一篇了{/if}</span>
+     </div>
+     <!---->
+     <div class="clearfix"></div>
+     <!--返回按钮-->
+     <div class="fanhui"><a onclick="history.go(-1)" style="cursor: pointer;" class="hvr-sweep-to-top">返回上一页</a></div>
+     <!---->
+     
+     
+</div>
+<!---------------------------------------- 详情 end ---------------------------------------->

@@ -1,0 +1,384 @@
+{__NOLAYOUT__}
+<include file="Home:headeruser"/>
+<script type="text/javascript" src="/js/geoold.js"></script>
+<style>
+.newuldz{
+    border-top: 1px solid #ddd;
+    padding-top: 8px;
+    margin-top: 8px;
+}.newuldz li{text-align:center;}
+</style>
+<!----------------------------------------container2 开始 ---------------------------------------->
+<div class="container2 clearfix">
+   <div class="content2">
+       <!--选择收货地址start-->
+       <div class="shouhuobox" id="shouhuoboxid">
+          <h3>选择收货地址</h3>
+        <div class="shlist">
+             <div class="shlist-title">
+                <ul>
+					<li class="shouhuoren" style="width:100px;padding-left: 12px;">选择</li>
+                  <li class="shouhuoren">收货人</li>
+                  <li class="diqu">所在地区</li>
+                  <li class="dizhi">详细地址</li>
+                  <li class="youbian">邮编</li>
+                  <li class="shoujihao">手机号码</li>
+                </ul>
+            </div>
+            <div class="shlist-neir clearfix" id="shlist-neirid">
+                
+					<foreach name="dlist" item="r" key="nk"><ul class="clearUl newuldz" <if condition="$nk eq 0 ">style="margin-top:0px;padding-top:0px;border:none;"</if>>
+						<li class="shouhuoren" style="width:100px;"><input type="radio" name="dizhi" value="{$r.id}" <if condition="$nk eq 0 ">checked</if>></li>
+						<li class="shouhuoren">{$r.xm}</li>
+						<li class="diqu">{$r.sf} {$r.shi} {$r.qy}</li>
+						<li class="dizhi">{$r.xx}</li>
+						<li class="youbian">{$r.yb}</li>
+						<li class="shoujihao">{$r.tel}</li></ul>
+					</foreach>
+                
+            </div>
+         </div>
+       </div>
+       <!--选择收货地址end-->
+ 
+       <!--使用新地址start-->
+	   <form id="dizhi" action="" method="POST"><!--  target="testIframeName" -->
+       <div class="xindzbox">
+          <h3>使用新地址</h3>
+          <div class="new-form">
+           <div class="zu1 clearfix">
+               <div class="zi-lf"><font color="red" style="margin-right:5px;">*</font>所在地区：</div>
+               <div class="zi-rg">
+                  <ul>
+                    <li>
+                      <span>省：</span>
+                      <select name="sf" size="1" class="xuanze_txt" id="address-s1">
+                        <option value="0">请选择省</option>
+                      </select>
+                    </li>
+                    <li>
+                      <span>市：</span>
+                      <select name="shi" size="1" class="xuanze_txt" id="address-s2">
+                        <option>请选择市</option>
+                      </select>
+                    </li>
+                    <li>
+                      <span>区：</span>
+                      <select name="qy" size="1" class="xuanze_txt" id="address-s3">
+                        <option>请选择区</option>
+                      </select>
+                    </li>
+                  </ul>
+               </div>
+            </div>
+            <div class="zu2 clearfix">
+               <div class="zi-lf"><font color="red" style="margin-right:5px;">*</font>详细地址：</div>
+               <div class="zi-rg">
+                 <textarea name="xx" cols="" class="xxdz_txt" placeholder="建议您如实填写详细收货地址，例如街道名称，门牌号码，楼层和房间号等信息"></textarea></div>
+            </div>
+           <div class="zu1 clearfix">
+               <div class="zi-lf"><font color="red" style="margin-right:5px;">*</font>邮政编码：</div>
+              <input name="yb" type="text" class="sanyy_txt" id="" placeholder="如您不清楚邮编，请填写0" value="">
+            </div>
+            <div class="zu1 clearfix">
+              <div class="zi-lf"><font color="red" style="margin-right:5px;">*</font>收货人姓名：</div>
+              <div class="zi-rg">
+               <input name="xm" type="text" class="sanyy_txt" id="" placeholder="长度不超过25个字符" value="{$userinfoall.name}">
+               <span style="color:#ccc;">（建议填写真实姓名，以方便您收货）</span>
+              </div>
+            </div>
+            <div class="zu1 clearfix">
+              <div class="zi-lf"><font color="red" style="margin-right:5px;">*</font>手机号码：</div>
+              <div class="zi-rg">
+               <input name="tel" type="text" class="sanyy_txt" id="" placeholder="输入11位数手机号码" value="{$userinfoall.tel}">
+              </div>
+            </div>
+            
+            <div class="qdqxbox" id="qdqxboxido">
+                <span class="qrdzbt"><input type="submit" value="确认地址" style="display: inline-block;width: 100%;height: 100%;  overflow: hidden;background: #FF662D;color: #fff;border: 1px solid #FF662D;font-size: 14px;font-family: Arial,Microsoft YaHei;" /></span>
+                <span class="qxbt"><input style="background: #f9f9f9;
+    border: none;display: inline-block;width: 100%;height: 100%;  overflow: hidden;font-size: 14px;font-family: Arial,Microsoft YaHei;" type="reset" value="取消" /></span>
+            </div>
+			<div id="qdqxboxidt" style="display:none;"><img src="data:image/gif;base64,R0lGODlhEAAQALMPAHp6evf394qKiry8vJOTk83NzYKCgubm5t7e3qysrMXFxe7u7pubm7S0tKOjo////yH/C05FVFNDQVBFMi4wAwEAAAAh+QQJCAAPACwAAAAAEAAQAAAETPDJSau9NRDAgWxDYGmdZADCkQnlU7CCOA3oNgXsQG2FRhUAAoWDIU6MGeSDR0m4ghRa7JjIUXCogqQzpRxYhi2HILsOGuJxGcNuTyIAIfkECQgADwAsAAAAABAAEAAABGLwSXmMmjhLAQjSWDAYQHmAz8GVQPIESxZwggIYS0AIATYAvAdh8OIQJwRAQbJkdjAlUCA6KfU0VEmyGWgWnpNfcEAoAo6SmWtBUtCuk9gjwQKeQAeWYQAHIZICKBoKBncTEQAh+QQJCAAPACwAAAAAEAAQAAAEWvDJORejGCtQsgwDAQAGGWSHMK7jgAWq0CGj0VEDIJxPnvAU0a13eAQKrsnI81gqAZ6AUzIonA7JRwFAyAQSgCQsjCmUAIhjDEhlrQTFV+lMGLApWwUzw1jsIwAh+QQJCAAPACwAAAAAEAAQAAAETvDJSau9L4QaBgEAMWgEQh0CqALCZ0pBKhRSkYLvM7Ab/OGThoE2+QExyAdiuexhVglKwdCgqKKTGGBgBc00Np7VcVsJDpVo5ydyJt/wCAAh+QQJCAAPACwAAAAAEAAQAAAEWvDJSau9OAwCABnBtQhdCQjHlQhFWJBCOKWPLAXk8KQIkCwWBcAgMDw4Q5CkgOwohCVCYTIwdAgPolVhWSQAiN1jcLLVQrQbrBV4EcySA8l0Alo0yA8cw+9TIgAh+QQFCAAPACwAAAAAEAAQAAAEWvDJSau9WA4AyAhWMChPwXHCQRUGYARgKQBCzJxAQgXzIC2KFkc1MREoHMTAhwQ0Y5oBgkMhAAqUw8mgWGho0EcCx5DwaAUQrGXATg6zE7bwCQ2sAGZmz7dEAAA7" /></div>
+          </div>
+       </div>
+	   
+	   </form>
+       <!--使用新地址end-->
+<!-- <iframe name="testIframeName" style="display:none;"></iframe>   -->
+
+
+<script>
+var loadinggif='data:image/gif;base64,R0lGODlhEAAQALMPAHp6evf394qKiry8vJOTk83NzYKCgubm5t7e3qysrMXFxe7u7pubm7S0tKOjo////yH/C05FVFNDQVBFMi4wAwEAAAAh+QQJCAAPACwAAAAAEAAQAAAETPDJSau9NRDAgWxDYGmdZADCkQnlU7CCOA3oNgXsQG2FRhUAAoWDIU6MGeSDR0m4ghRa7JjIUXCogqQzpRxYhi2HILsOGuJxGcNuTyIAIfkECQgADwAsAAAAABAAEAAABGLwSXmMmjhLAQjSWDAYQHmAz8GVQPIESxZwggIYS0AIATYAvAdh8OIQJwRAQbJkdjAlUCA6KfU0VEmyGWgWnpNfcEAoAo6SmWtBUtCuk9gjwQKeQAeWYQAHIZICKBoKBncTEQAh+QQJCAAPACwAAAAAEAAQAAAEWvDJORejGCtQsgwDAQAGGWSHMK7jgAWq0CGj0VEDIJxPnvAU0a13eAQKrsnI81gqAZ6AUzIonA7JRwFAyAQSgCQsjCmUAIhjDEhlrQTFV+lMGLApWwUzw1jsIwAh+QQJCAAPACwAAAAAEAAQAAAETvDJSau9L4QaBgEAMWgEQh0CqALCZ0pBKhRSkYLvM7Ab/OGThoE2+QExyAdiuexhVglKwdCgqKKTGGBgBc00Np7VcVsJDpVo5ydyJt/wCAAh+QQJCAAPACwAAAAAEAAQAAAEWvDJSau9OAwCABnBtQhdCQjHlQhFWJBCOKWPLAXk8KQIkCwWBcAgMDw4Q5CkgOwohCVCYTIwdAgPolVhWSQAiN1jcLLVQrQbrBV4EcySA8l0Alo0yA8cw+9TIgAh+QQFCAAPACwAAAAAEAAQAAAEWvDJSau9WA4AyAhWMChPwXHCQRUGYARgKQBCzJxAQgXzIC2KFkc1MREoHMTAhwQ0Y5oBgkMhAAqUw8mgWGho0EcCx5DwaAUQrGXATg6zE7bwCQ2sAGZmz7dEAAA7';
+var s = ["address-s1", "address-s2", "address-s3"];
+var opt0 = ["{$userinfoall.szds}", "{$userinfoall.szdsq}", "{$userinfoall.szdq}"];
+setup();preselect('');//promptinfo();
+;(function ($) {
+    $.fn.tishicengjsqiu = function() {
+        var mycars = new Array();
+        //name值 对应提示
+        mycars['sf'] = "请选择省";
+        mycars['xx'] = "请填写详细地址";
+        mycars['yb'] = "请填写邮政编码";
+        mycars['xm'] = "请填写收货人姓名";
+        mycars['tel'] = "请填写11位手机号";
+        mycars['content'] = "请填写内容";
+        mycars['ucontacts'] = "请填写联系人";
+        mycars['address'] = "请填写地址";
+        mycars['contacts'] = "请填写联系方式";
+        
+        $(this).submit(function(){
+			//var mycars=new Array();
+			
+
+            var sv=true;
+            $(this).find('input,textarea,select').each(function (){
+               var fname=$(this).attr('name');
+			   //如果是下拉选项
+			   sfname=this.nodeName;
+			  
+			   if(sfname=='SELECT'){
+					//alert(sfname);
+					//var vsel=$(this+' option:selected').val();
+					var sval=$(this).val();
+					if(sval.length<1){
+						//alert(sval);
+						$(this).css({'color':'red','background':'yellow'});
+						sv=false;
+						return false;
+					}
+					//console.log();
+                    
+			   }
+               if(fname && (!$(this).val() || fname=='tel' || fname=='email')){
+                    var thisval=$(this).val();
+                    if(fname=='tel'){
+                        if(thisval.length ==11 && !isNaN(thisval)){
+                            //sv=true;
+                            return true;
+                        }
+                    }else if(fname=='email'){
+                        
+                        //对电子邮件的验证
+                        var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+                        if(myreg.test(thisval)){
+                            //alert('提示\n\n请输入有效的E_mail！');
+                            //myreg.focus();
+                            //sv=true;
+                            return true;
+                        }
+                    }
+                    $(this).val(mycars[fname]);
+                    $(this).css({'color':'red','background':'yellow'});
+                    //$(this).attr('id','fotishiidddxzq');
+                    $("html,body").animate({scrollTop:$(this).offset().top},100);
+                    var sthis=this;
+                    var test = setTimeout(function(){
+                        //alert($(sthis).attr('name'));
+                        $(sthis).removeAttr('style');
+                        $(sthis).val('');
+                        $(sthis).focus();
+                    },1200);
+                    
+                    //清理方法 
+                    //clearTimeout(test);
+					//alert(sv);
+                    sv=false;
+                    return false;
+               }
+			   //mycars[fname]=$(this).val();
+            });
+			if(sv){
+				$('#qdqxboxidt').show();
+				$('#qdqxboxido').hide();
+					//return false;
+					//alert(mycars['xm']);
+					var sthis=this;
+					$.ajax({
+					  type: 'POST',
+					  url: '/index.php/Home/SubmitOrder/index.html',
+					  data: $("#dizhi").serialize(),
+					  success: function(data){
+						//alert(data);
+						if(data=='ok'){
+							$('#shlist-neirid').html('<img src="'+loadinggif+'" />');
+							$(sthis)[0].reset();
+							$('#qdqxboxidt').hide();
+							$('#qdqxboxido').show();
+							$("html,body").animate({scrollTop:$('#shouhuoboxid').offset().top},100);
+								//更新地址
+								$.ajax( {
+									url: '/index.php/Home/SubmitOrderajax/index.html', //这里是静态页的地址
+									type: "GET", //静态页用get方法，否则服务器会抛出405错误
+									//dataType: "json",
+									//cache: false,
+									//async: false,
+									beforeSend: function(){
+									 // Handle the beforeSend event
+									},
+									success: function(data){
+										$('#shlist-neirid').html(data);
+										//var result = $(data).find("另一个html页面的指定的一部分").html();
+									}
+								});
+								//end
+						}
+					  }
+					});
+			}
+			return false;
+            //return sv;
+        });
+
+        
+    }
+})(jQuery);
+//使用
+$('#dizhi').tishicengjsqiu();
+</script>
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+       <!--确认商品信息start-->
+       <div class="querenbox">
+          <h3>确认商品信息</h3>
+          <div class="lmmbgk">
+             <ul class="lmmbgk-title">
+               <li class="goods">商品信息</li>
+               <li class="price">单价(元)</li>
+               <li class="quantity">数量</li>
+               <li class="subtotal">小计(元)</li>
+            </ul>
+          </div>
+          
+          <div class="spxxnrbhk clearfix"><foreach name="scartlist" item="r" key="lk">
+             <ul class="spxxnrbhk-neirong clearfix" <if condition="$lk neq 0 ">style="margin-top: 20px;"</if>>
+               <li class="goods">
+                 <div class="cptp"><a href="{$r.url}"><img src="{$r.thumb}" width="210" height="280"></a></div><div class="cphz"><div class="cpbt"><a href="{$r.url}">{$r.title}</a></div><div class="cpys" style="margin-top:10px;">颜色：{$r.yanse}</div><div class="cpcm" style="margin-top:5px;">尺码：{$r.chicun}</div></div>
+               </li>
+               <li class="price">
+                 <div class="yuanjia">{$r.cprice}</div>
+                 <div class="youhuijia">{$r.price}</div>
+               </li>
+               <li class="quantity">{$r.num}</li>
+               <li class="subtotal">{$r['price']*$r['num']}</li>
+			   
+            </ul></foreach>
+          </div>
+          
+          <div class="hzbgk">
+             <div class="selectionbox">
+                 <p class="diyihang"><!-- <input name="" class="gouzhong1" type="radio" value=""> --><span class="xyjfwz">选用积分：</span><input name="jifen" type="text" class="jifenk" value="" id="jifenkid"><span class="zjfshu">（可用<span class="jinse" style="color:#DCA869;">{$userinfoall.jifen}</span>积分）</span></p>
+               <P class="dierhang" style="margin-top:10px;"><span class="jiacu" style="font-weight:bold;">积分抵扣：</span><span class="jifenzhi" style="color:#DCA869; font-weight:bold;">-¥<span id="jifendikou">0.00</span></span></P>
+               <P class="disanhang" style="margin-top:10px;"><span class="jiacu" style="font-weight:bold;">快递运费：</span><span class="yunfei" style=" font-weight:bold; color:#f40;">¥{$youfei}</span></P>
+           </div>
+           <div class="bzhjbox">
+             <span class="mjbz">买家备注：<input type="text" class="beizhu" id="beizhu" style="color:#ccc; padding-left:10px;" placeholder="給卖家留言"></span><span class="hezi">合计：<span class="total" style="color:#f40; font-size:18px;">¥<span id="fdasfasdjiness">{$zje}</span></span></span>
+           </div>
+		   <div class="bzhjbox" style="text-align: right;">
+			<span style="font-weight: bold;">付款方式：</span>
+			<span><input name="fkfs" type="radio" id="yuepayid" value="3" /><label style="cursor: pointer;" for="yuepayid">余额<img src="/account_balance_wallet.png" height="48" /></label></span>
+			<span><input name="fkfs" type="radio" id="alipayid" value="1" /><label style="cursor: pointer;" for="alipayid">支付宝<img src="/Alipay_48.png" /></label></span>
+			<span style="margin-left: 18px;"><input name="fkfs" type="radio" id="wxspayid" checked value="2" /><label style="cursor: pointer;" for="wxspayid">微信<img src="/Wechat_48.png" /></label></span>
+		   </div>
+
+
+          </div>
+         
+         
+         <div class="tijiaobox clearfix">
+            <div class="fhgwc" style="margin-left:20px; font-size:15px;"><a href="/index.php/Home/ShoppingCart/index.html"><i style="margin-right:5px;"><</i>返回购物车</a></div>
+            <div class="hjsm">
+               <span class="gywz">共有<span class="quantity" style="color:#f40;">{$znum}</span>件商品，</span>
+               <span class="zjwz" style="margin-right:65px;">总计：<span class="total" style="font-size:20px; color:#f40; font-weight:bold;">¥<span id="zjeiddd">{$zje}</span><span id="zjeidddhidden" style="display:none;">{$zje}</span></span></span>
+               <span class="tijiaoanniu" id="tijiaoanniutj"><a href="javascript:;" onclick="tijaodd();">提交订单</a></span>
+            </div>
+         </div>
+       </div>
+       <!--确认商品信息end-->
+   </div>
+</div>
+<!----------------------------------------container2 结束 ---------------------------------------->
+<script>
+function tijaodd(){
+	var dizhi=$("input[name='dizhi']:checked").val();
+	var carid='<foreach name="scartlist" item="cr" key="ck"><if condition="$ck eq 0 ">{$cr.id}<else />,{$cr.id}</if></foreach>';
+	//alert(carid);
+	var jifen=$('#jifenkid').val();
+	var fkfs=$("input[name='fkfs']:checked").val();
+	var beizhu=$('#beizhu').val();
+	
+	if(!jifen) jifen=0;
+	if(!beizhu) beizhu='无';
+	beizhu=encodeURI(encodeURI(beizhu));
+	if(!dizhi){
+		alert('请先选择地址！');
+		return false;
+	}
+	
+	if(jifen>'{$userinfoall.jifen}'){
+		jifen='{$userinfoall.jifen}';
+	}
+	
+	$('#tijiaoanniutj').html('正在提交..');
+	var url='/index.php/Home/SubmitOrderok/index/dizhi/'+dizhi+'/carid/'+carid+'/jifen/'+jifen+'/fkfs/'+fkfs+'.html?beizhu='+beizhu;
+	location.href = url;
+}
+$("#jifenkid").on('change focus blur keydown keyup',function(){
+	var jifen=$(this).val()-0;//parseInt($(this).val());
+	if(!jifen || jifen<0){
+		jifen=0;
+		$(this).val(jifen);
+	}
+	var djifen='{$jifenduihuan}'-0;//parseInt('{$jifenduihuan}');
+	var nowprice=jifen/djifen;//积分抵扣金额
+	var dnowprice=('{$userinfoall.jifen}')/djifen-0;//parseInt('{$userinfoall.jifen}')/djifen;//最多抵扣金额
+	if(nowprice>dnowprice){
+		nowprice=dnowprice;
+		//return false;
+	}
+	if(jifen>'{$userinfoall.jifen}'){
+		jifen='{$userinfoall.jifen}';
+		$(this).val(jifen);
+		//return false;
+	}
+	
+	//nowprice=nowprice.toFixed(2);
+	nowprice=Math.floor(nowprice * 100) / 100;
+	if(!jifen) {
+		jifen=0;
+		nowprice=0;
+	}
+	
+	
+	
+	
+	var nowzjee=(($('#zjeidddhidden').text())-0)*10000-nowprice*10000;
+	nowzjee=nowzjee/10000;
+	//console.log((($('#zjeidddhidden').text())-0)*10000);
+	
+	//nowzjee=nowzjee.toFixed(2);
+	nowzjee=Math.floor(nowzjee * 100) / 100;
+	$('#zjeiddd').text(nowzjee);
+	$('#fdasfasdjiness').text(nowzjee);
+	$('#jifendikou').text(nowprice);
+	
+});
+</script>
+
+<include file="Home:footer"/>
+

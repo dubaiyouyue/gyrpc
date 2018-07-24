@@ -1,0 +1,209 @@
+<GZ:list sql="select * from gz_mendianbiaozhu where status='1' order by listorder desc" key='i'>
+
+<?php
+$meidanfenbu[]=$r;
+?>
+</GZ:list>
+<!---------------------------------------- 栏目 start ---------------------------------------->
+<div class="lanmu">
+   <ul class="xuanxiang xuanxiangnew-lij clearfix"><include file="A:l"/>
+   </ul>
+</div>
+<!---------------------------------------- 栏目 end ---------------------------------------->
+
+<?php
+	$zms=array(
+		'1'=>'A',
+		'2'=>'B',
+		'3'=>'C',
+		'4'=>'D',
+		'5'=>'E',
+		'6'=>'F',
+		'7'=>'G',
+		'8'=>'H',
+		'9'=>'I',
+		'10'=>'J',
+		'11'=>'K',
+		'12'=>'L',
+		'13'=>'M',
+		'14'=>'N',
+		'15'=>'O',
+		'16'=>'P',
+		'17'=>'Q',
+		'18'=>'R',
+		'19'=>'S',
+		'20'=>'T',
+		'21'=>'U',
+		'22'=>'V',
+		'23'=>'W',
+		'24'=>'X',
+		'25'=>'Y',
+		'26'=>'Z'
+	);
+?>
+
+<!---------------------------------------- 门店分布内容 start ---------------------------------------->
+<div class="mdfbbox">
+   <div class="fbbt">广西南宁市范围广羽人门店分布地图：</div>
+   <div class="gxditu" id="map" style="width:900px; height:365px; border:1px solid #ccc;"></div>
+   <div class="fbbt" style="margin-top:30px;">广西南宁市广羽人所有店铺地址：</div>
+   
+   <div class="fbdzlf" style="width:900px;    border-right: none;"><?php
+	foreach($meidanfenbu as $i=>$r){
+	$ik++;
+	if($nnssvs) $nnssvs.= ',{ title: "'.$r['mingc'].'", point: "'.$r['zuobo'].'", address: "'.$r['dizhi'].'",tel:"'.$r['tel'].'"}';
+	else $nnssvs= '{ title: "名称：'.$r['mingc'].'", point: "'.$r['zuobo'].'", address: "'.$r['dizhi'].'",tel:"'.$r['tel'].'"}';
+	$lns=explode(',',$r['zuobo']);
+	$ln=$lns['0'];
+	$la=$lns['1'];
+   ?>
+		  
+		<div onclick="getdddsnew('{$ln}','{$la}','{$r.mingc}','{$r.dizhi}','{$r.tel}');" style="cursor: pointer;float:left;<?php
+			if(($i%2)) echo 'width:425px;margin-left: 25px;';
+			else echo 'width:448px;    border-right: 1px dashed #ccc;';
+			//if($i>2) echo 'margin-top: 15px;';
+		?>padding-bottom:15px;">
+      <div style="width:100%;" class="dianming"><span style="color:red;"><?php echo $zms[$ik];?></span> {$r.mingc}</div>
+      <P style="width:100%;" class="diandizhi" style="margin-bottom:15px;">{$r.dizhi}</P></div>
+      <?php
+	  }
+	  
+	  ?>
+   </div>
+   
+  
+</div>
+<!---------------------------------------- 门店分布内容 end ---------------------------------------->
+
+
+<script>
+	var load = document.createElement("script");  
+	load.src = "http://api.map.baidu.com/api?v=1.4&callback=map_init";  
+	document.body.appendChild(load); 
+
+var markerArr = [ 
+	<?php echo $nnssvs;?>
+	//{ title: "名称：金外滩商务大厦", point: "108.33058,22.815521", address: "金外滩商务大厦1301"},
+	//{ title: "名称：人民公园", point: "108.336858,22.83404", address: "人民公园地址<br>电话13607875450 "}
+];  
+  
+                //var map; //Map实例  
+				//map = new BMap.Map("map"); 
+                function map_init() {  
+                    map = new BMap.Map("map");
+                    //第1步：设置地图中心点，南宁市政府  
+                    var point = new BMap.Point(108.33058,22.815521);  
+                    //第2步：初始化地图,设置中心点坐标和地图级别。  
+                    map.centerAndZoom(point, 13);  
+                    //第3步：启用滚轮放大缩小  
+                    map.enableScrollWheelZoom(true);  
+                    //第4步：向地图中添加缩放控件  
+                    var ctrlNav = new window.BMap.NavigationControl({  
+                        anchor: BMAP_ANCHOR_TOP_LEFT,  
+                        type: BMAP_NAVIGATION_CONTROL_LARGE  
+                    });  
+                    map.addControl(ctrlNav);  
+                    //第5步：向地图中添加缩略图控件  
+                    var ctrlOve = new window.BMap.OverviewMapControl({  
+                        anchor: BMAP_ANCHOR_BOTTOM_RIGHT,  
+                        isOpen: 1  
+                    });  
+                    map.addControl(ctrlOve);  
+  
+                    //第6步：向地图中添加比例尺控件  
+                    var ctrlSca = new window.BMap.ScaleControl({  
+                        anchor: BMAP_ANCHOR_BOTTOM_LEFT  
+                    });  
+                    map.addControl(ctrlSca);  
+  
+                    //第7步：绘制点    
+                    for (var i = 0; i < markerArr.length; i++) {  
+                        var p0 = markerArr[i].point.split(",")[0];  
+                        var p1 = markerArr[i].point.split(",")[1];  
+                        var maker = addMarker(new window.BMap.Point(p0, p1), i);  // i 标注字母顺序
+                        addInfoWindow(maker, markerArr[i], i);   
+                    }  
+                }  
+  
+                // 添加标注  
+                function addMarker(point, index) {  
+                    var myIcon = new BMap.Icon("http://api.map.baidu.com/img/markers.png",  
+                        new BMap.Size(23, 25), {  
+                            offset: new BMap.Size(10, 25),  
+                            imageOffset: new BMap.Size(0, 0 - index * 25)  
+                        });  
+                    var marker = new BMap.Marker(point, { icon: myIcon });  
+                    map.addOverlay(marker);  
+						//设置覆盖物的文字标签
+						var label = new BMap.Label(markerArr[index].title,{offset:new BMap.Size(20,-10)});
+						marker.setLabel(label);
+						//end
+                    return marker;  
+                }  
+  
+                // 添加信息窗口  
+                function addInfoWindow(marker, poi) {  
+					
+                    //pop弹窗标题  
+                    var title = '<div style="font-weight:bold;color:#CE5521;font-size:14px">' + poi.title + '</div>';  
+                    //pop弹窗信息  
+                    var html = [];  
+					
+					html.push('<p style="vertical-align:top;line-height:16px">地址:'+poi.address+'</p><p style="vertical-align:top;line-height:16px">电话:'+poi.tel+'</p>');
+                    /*html.push('<table cellspacing="0" style="table-layout:fixed;width:100%;font:12px arial,simsun,sans-serif"><tbody>');  
+                    html.push('<tr>');  
+                    html.push('<td style="vertical-align:top;line-height:16px;width:38px;white-space:nowrap;word-break:keep-all">地址:</td>');  
+                    html.push('<td style="vertical-align:top;line-height:16px">' + poi.address + ' </td>');
+					html.push('</tr><tr><td style="vertical-align:top;line-height:16px;width:38px;white-space:nowrap;word-break:keep-all">电话:</td>');
+					html.push('<td style="vertical-align:top;line-height:16px">' + poi.tel + ' </td>');					
+                    html.push('</tr>');  
+                    html.push('</tbody></table>');  */
+                    var infoWindow = new BMap.InfoWindow(html.join(""), { title: title/*, width: 200*/ });  
+  
+                    var openInfoWinFun = function () {  
+                        marker.openInfoWindow(infoWindow);  
+                    };  
+                    marker.addEventListener("click", openInfoWinFun);  
+                    return openInfoWinFun;  
+                }  
+  
+                //异步调用百度js  
+                /*function map_load() {  
+                    var load = document.createElement("script");  
+                    load.src = "http://api.map.baidu.com/api?v=1.4&callback=map_init";  
+                    document.body.appendChild(load);  
+                }  
+                window.onload = map_load; */ 
+				//点击打开标注点移动到标注点地图中心
+				function getdddsnew(ln,la,title,address,tel){
+				
+					//pop弹窗标题  
+                    var title = '<div style="font-weight:bold;color:#CE5521;font-size:14px">' + title + '</div>';  
+                    //pop弹窗信息  
+                    /*var html = [];  
+                    html.push('<table cellspacing="0" style="table-layout:fixed;width:100%;font:12px arial,simsun,sans-serif"><tbody>');  
+                    html.push('<tr>');  
+                    html.push('<td style="vertical-align:top;line-height:16px;width:38px;white-space:nowrap;word-break:keep-all">地址:</td>');  
+                    html.push('<td style="vertical-align:top;line-height:16px">' + address + ' </td>');
+					html.push('</tr><tr><td style="vertical-align:top;line-height:16px;width:38px;white-space:nowrap;word-break:keep-all">电话:</td>');
+					html.push('<td style="vertical-align:top;line-height:16px">' + tel + ' </td>');					
+                    html.push('</tr>');  
+                    html.push('</tbody></table>');*/
+					html='<p style="vertical-align:top;line-height:16px">地址:'+address+'</p><p style="vertical-align:top;line-height:16px">电话:'+tel+'</p>';
+					
+				
+					//alert(lnat);
+					//map.panTo(new BMap.Point(116.409, 39.918));平滑移动至新中心点 如果移动距离超过了当前地图区域大小，则地图会直跳到该点。
+					var Point=new BMap.Point(ln,la);
+					var opts = {    
+					 //width : 250,     // 信息窗口宽度    
+					 //height: 100,     // 信息窗口高度    
+					 title : title  // 信息窗口标题   
+					}    
+					var infoWindow = new BMap.InfoWindow(html, opts);  // 创建信息窗口对象    
+					//map.openInfoWindow(infoWindow, map.getCenter());      // 打开信息窗口
+					map.openInfoWindow(infoWindow, Point);
+				}
+				
+				//map.panTo(new BMap.Point(116.409, 39.918));
+            </script>  

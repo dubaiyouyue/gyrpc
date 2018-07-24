@@ -1,0 +1,32 @@
+<style>
+.datu{display:none;}
+#seeeid{width: 1000px;
+    margin: auto;
+}
+#seeeid li{
+	    padding: 3px;
+    margin-bottom: 12px;
+    border-bottom: 1px dotted #ddd;
+    padding-bottom: 8px;
+}
+#seeeid li a{    font-size: 16px;
+    color: #333;}.sssspppp{    font-size: 18px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 9px;}#seeeid li a:hover{color:red;}
+</style>
+<div id="seeeid">
+<p class="sssspppp">搜索 <span style="color: red;">{$ssskey}</span> 结果 {$n}条</p>
+<ul>
+
+<foreach name="alist" item="r">
+    <li><a href="{$r.url}">【文章】{$r.title}</a></li>
+</foreach>
+
+<foreach name="plist" item="r">
+    <li><a href="{$r.url}">【商品】{$r.title}</a></li>
+</foreach>
+
+
+</ul>
+</div>

@@ -1,0 +1,72 @@
+ {__NOLAYOUT__}
+ <style>a{cursor:pointer;}</style>
+  <!-----------------------右边栏目 start----------------------->
+  <div class="ybmulu8">
+     <div class="ybtc1">
+        <div class="title1">我的收藏</div>
+        
+        <!--收藏夹内容start-->
+        <div class="shoucjbox clearfix">
+           <ul>
+              <a onclick="ssyyrightt('/index.php/Home/Favorites/index/',this);"><li class="<?php
+				if(!$sex) echo 'k1';
+				else echo 'm1';
+			  ?>">全部商品({$anum})</li></a>
+              <a onclick="ssyyrightt('/index.php/Home/Favorites/index/sex/1',this);"><li class="<?php
+				if($sex==1) echo 'k1';
+				else echo 'm1';
+			  ?>">男装({$anumo})</li></a>
+              <a onclick="ssyyrightt('/index.php/Home/Favorites/index/sex/2',this);"><li class="<?php
+				if($sex==2) echo 'k1';
+				else echo 'm1';
+			  ?>">女装({$anumt})</li></a>
+              <!-- <a href="#"><li class="m1">库存紧缺(0)</li></a> -->
+           </ul>
+        </div>
+        <!-- <div class="pibox clearfix">
+           <ul>
+             <li><div class="piliang"><a href="#">批量管理</a></div></li>
+             <li style="margin-top:5px;"><section><div class="checkboxFive3" style="float:left; margin-right:8px;"><input type="checkbox" value="1" id="checkboxFive3Input" name="" /><label for="checkboxFive3Input"></label></div></section>全选</li>
+
+             <li><a href="#"><div class="shanchu">删除</div></a></li>
+          </ul>
+        </div> -->
+        
+        
+        <div class="picturelist clearfix">
+           <ul>
+			<foreach name="scartlist" item="r">
+              <li style="margin-right:25px;margin-bottom: 0;margin-top: 25px;">
+                  <div class="tup1"><a href="{$r.url}"><img src="{$r.thumb}" width="210" height="280"></a><a href="{$r.url}"><!-- <span class="huigou"></span> --></a></div><div class="bt"><a href="{$r.url}">{$r.title}</a></div>
+                  <div class="jia"><span class="youhuijia" style="color:#f40; font-weight:bold;">¥{$r.price}</span><span class="yuanjia" style="float:right;"><i style="text-decoration:none; font-style:normal;">¥</i><s>{$r.cprice}</s></span></div>
+				  <p><a href="javascript:;" onclick="ddewrfewrewrew('{$r.id}')" style="
+    color: #aaa;
+    font-size: 12px;
+    text-decoration: underline;
+"><div class="shanchu">删除</div></a></p>
+              </li>
+              </foreach>
+              
+           </ul>
+        </div>
+        
+<script>
+function ddewrfewrewrew(rid){
+	//询问框
+	layer.confirm('确认删除吗？', {
+	  btn: ['确定','取消'] //按钮
+	}, function(){
+	layer.closeAll(); //疯狂模式，关闭所有层
+	  ssyyrightt('/index.php/Home/Favorites/del/id/'+rid,'');
+	}, function(){
+	  
+	});
+}
+</script>
+        
+        <!--收藏夹内容end-->
+        
+     <!-- <div class="yema" style="margin-top:35px; width:1020px;"><a class="a1">12条</a><a href="#">第一页</a><a href="#">上一页</a><span>1</span><a href="#">2</a><a href="#">下一页</a><a href="#">最后一页</a></div> -->
+     </div>
+  </div>
+  <!-----------------------右边栏目 end----------------------->

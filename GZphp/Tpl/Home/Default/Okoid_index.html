@@ -1,0 +1,199 @@
+ {__NOLAYOUT__}
+  <!-----------------------右边栏目 start----------------------->
+  <div class="ybmulu5">
+     <div class="ybtc1">
+        <div class="title1">已完结</div>
+        <div class="order-title">
+           <ul class="order-title-column clearfix">
+             <li class="goods">商品</li>
+            <!--  <li class="price">单价(元)</li> -->
+             <li class="quantity">数量</li>
+             <!-- <li class="aftersale">售后</li> -->
+             <li class="total" style="margin-left: 123px;">实付金额(元)</li>
+             <li class="status">交易状态</li>
+             <li class="other">操作</li>
+           </ul>
+        </div>
+     <!--订单列表start-->
+        
+        
+        <!--待付款-->
+		<div id="fdasfdasfdasfadsfads">
+		<foreach name="list" item="r" key="k" >
+        <div class="order-list">
+          <div class="tou">
+            <span class="bh" style="margin-left:15px;">订单编号：<span class="order_num">{$r.onum}</span></span>
+            <span class="time" style="margin-left:35px;">创建时间：{$r.createtime|toDate=###,'Y-m-d H:i:s'}</span>
+              <!-- <a href="#"><span class="maijia">联系客服</span></a> -->
+          </div>
+           <div class="duzi clearfix">
+             <ul>
+               <li class="goods">
+                
+				 
+				 <?php
+					$newssinfo=explode(',',$r['info']);
+					$newssinfosid=explode(',',$r['sid']);
+					for($fi=0;$fi<count($newssinfosid);$fi++){
+						?>
+<div class="clearfix" style="
+    margin-bottom: 12px;
+"><div class="cptp"><img src="{$allnewlistnew.$newssinfosid[$fi].thumb}" width="210" height="280"></div><div class="cphz"><div class="cpbt">{$newssinfo.$fi}</div></div></div>
+						<?php
+					}
+				 ?>
+
+				 
+               </li>
+     <!--           <li class="price">
+                 <div class="yuanjia">699.00</div>
+                 <div class="youhuijia">339.00</div>
+               </li> -->
+               <li class="quantity">{$r.znum}</li><!-- <p style="height: 111px;">{$r.znum}</p>
+<p style="height: 111px;">{$r.znum}</p><p style="height: 111px;">{$r.znum}</p><p style="height: 111px;">{$r.znum}</p><p style="height: 111px;">{$r.znum}</p> -->
+               <li class="aftersale"></li>
+               <li class="total">¥{$r.zje}<p style="font-size: 12px;color: #999;">(邮费:{$r.youfei}元)</p></li>
+               <li class="status"><?php
+						$tstatus=$r['tstatus'];
+						if($tstatus==0 || !$tstatus){
+							echo $tstatus='未交易';
+						}else if($tstatus==1){
+							echo $tstatus='交易完成';
+						}else{
+							echo $tstatus='交易取消';
+						}
+			   ?></li>
+               <li class="other">
+                 <?php
+					if(!$r['fk'] && !$r['tstatus']) echo '<div class="qfk"><a href="/index.php/Home/SubmitOrder/index/gmid/'.$r['scartid'].'.html">去付款</a></div>';
+					else if($r['fk']) echo '<div class="qfk" style="border: 1px solid #ddd;"><a style="color: #ddd;font-weight: normal;" href="javascript:;">已付款</a></div>';
+					else echo '<div class="qfk" style="border: 1px solid #ddd;"><a style="color: #ddd;font-weight: normal;" href="javascript:;">未付款</a></div>';
+				 ?>
+                 <div class="ddxq" style="/*margin-top: 12px;*/"><a href="/index.php/Home/OrderDetails/index/oid/{$r.id}.html">订单详情</a></div>
+                 <div class="scdd"></div>
+                 <?php
+					if(!$r['fk'] && $r['tstatus']!=2) echo '<div class="qxdd"><a href="javascript:;" onclick="dfsafdsddtuihuodengqxdd('.$r['id'].');">取消订单</a></div>';
+					
+						if(!$r['sh'] && $r['fk'] && $r['tstatus']==1 && ($r['tuihuo']==0 || !$r['tuihuo'])){
+							echo '<div class="qxdd"><a onclick="dfsafdsddtuihuodengrssh('.$r['id'].');" href="javascript:;">确认收货</a></div>';
+							echo '<div class="qfk" style="border: 1px solid #ddd;margin-top: 12px;"><a style="color: red;font-weight: normal;" href="javascript:;" onclick="ddtttuihuokuan('.$r['id'].');">退换退款</a></div>';
+						}else if($r['tuihuo']==1 && $r['fk']){
+							echo '<div class="qfk" style="border: 1px solid #ddd;margin-top: 12px;"><a style="color: blue;font-weight: normal;" href="javascript:;">退换退款审核中</a></div>';
+						}else if($r['tuihuo']==2 && $r['fk']){
+							echo '<div class="qfk" style="border: 1px solid #ddd;margin-top: 12px;"><a style="color: green;font-weight: normal;" href="javascript:;">退换退款完成</a></div>';
+						}else if($r['tuihuo']==3 && $r['fk']){
+							echo '<div class="qfk" style="border: 1px solid #ddd;margin-top: 12px;"><a style="color: red;font-weight: normal;" href="javascript:;">退换退款被拒绝</a></div>';
+						}
+					
+				 ?>
+               </li>
+             </ul>
+           </div>
+        </div>
+		</foreach>
+        </div>
+        <div onclick="sslyss();" id="sfsdfssss" style="background-color: #fafafa;
+    cursor: pointer;
+    color: #333;
+    text-align: center;
+    height: 40px;
+    line-height: 40px;
+    margin-top: 20px;
+    border: 1px solid #eee;
+    border-radius: 3px;
+">查看更多...</div>
+
+        
+    <!--订单列表end-->
+     </div>
+  </div>
+  
+  
+<script>
+
+nyyyyn=2;
+function sslyss(){
+	$("#sfsdfssss").text('加载中...');
+	$.ajax( {
+			url: '/index.php?g=Home&m=Okoid&a=index&psffd='+nyyyyn, //这里是静态页的地址
+			type: "GET", //静态页用get方法，否则服务器会抛出405错误
+			success: function(data){
+				if(!data){
+					$("#sfsdfssss").text('没有了');
+					return false;
+				}
+				//var result = $(data).find("另一个html页面的指定的一部分").html();
+				$("#fdasfdasfdasfadsfads").append(data);
+				$("#sfsdfssss").text('查看更多...');
+				nyyyyn=nyyyyn+1;
+			}
+	});
+	//alert(nyyyyn);
+}
+
+
+
+
+
+
+
+
+
+
+
+function dfsafdsddtuihuodengqxdd(rid){
+	layer.confirm('确定取消订单吗？', {
+	  btn: ['确定','取消'] //按钮
+	}, function(){
+		layer.closeAll(); //疯狂模式，关闭所有层
+		location.href = '/index.php/Home/Unpaid/qx/id/'+rid+'.html';
+	});
+}
+function dfsafdsddtuihuodengrssh(rid){
+	layer.confirm('确认收货吗？', {
+	  btn: ['确定','取消'] //按钮
+	}, function(){
+		layer.closeAll(); //疯狂模式，关闭所有层
+		location.href = '/index.php/Home/Querenshouhuo/index/id/'+rid+'.html';
+	});
+}
+function ddtttuihuokuan(rid){
+	//页面层
+	layer.open({
+	  type: 1,
+	  title:'退换退款',
+	  //skin: 'layui-layer-rim', //加上边框
+	  area: ['420px', '240px'], //宽高
+	  content: '<div style="padding: 20px;"><p>退换退款理由：</p><p><input id="tuihhhhid" nowid="'+rid+'" style="padding: 6px;margin-top: 8px;border: 1px solid #ddd;width: 96%;" type="text" value="" name="tuihuoliyou" /></p><p style="margin-top:12px;display: inline-block;background: #FF662D;color: #fff;padding: 3px 6px;cursor:pointer;" onclick="duihhok();">提交申请</p><p style="margin-top: 12px;color: #999;">商家审核通过退换退款申请后，款项将退入会员个人账户余额。</p></div>'
+	});
+}
+function duihhok(){
+	var nowid=$('#tuihhhhid').attr('nowid');
+	var ridv=$('#tuihhhhid').val();
+	if(nowid && ridv){
+		ridv=encodeURI(ridv); 
+		ridv=encodeURI(ridv); 
+		var url='/index.php/Home/Tuihuo/sth/?tuihuoliyou='+ridv+'&nowid='+nowid;
+		layer.confirm('确认提交退换退款申请吗？', {
+		  btn: ['确定','取消'] //按钮
+		},function(){
+			location.href = url;
+		});
+	}else{
+		layer.confirm('请填写退换退款理由！', {
+		  btn: ['确定'] //按钮
+		});
+	}
+}
+</script>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <!-----------------------右边栏目 end----------------------->

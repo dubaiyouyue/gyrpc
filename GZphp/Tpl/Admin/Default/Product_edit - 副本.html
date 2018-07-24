@@ -1,0 +1,75 @@
+<?php
+				$Pinlei=M("Pinlei")->select();
+				$Kuans=M("Kuans")->select();
+				$Sfenlei=M("Sfenlei")->select();
+				$Sfengge=M("Sfengge")->select();
+				$Slingxing=M("Slingxing")->select();
+				$Sxiux=M("Sxiux")->select();
+				$Smiaoliao=M("Smiaoliao")->select();
+				
+				
+				foreach($Pinlei as $v){
+					if($v['pinleis']){
+						if(!$fields['Pinlei']['setup']['options']) $fields['Pinlei']['setup']['options']=$v['pinleis'].'|'.$v['id'];
+						else $fields['Pinlei']['setup']['options'].="\r\n".$v['pinleis'].'|'.$v['id'];
+					}
+				}
+				foreach($Kuans as $v){
+					if($v['kuanshi']){
+						if(!$fields['Kuans']['setup']['options']) $fields['Kuans']['setup']['options']=$v['kuanshi'].'|'.$v['id'];
+						else $fields['Kuans']['setup']['options'].="\r\n".$v['kuanshi'].'|'.$v['id'];
+					}
+				}foreach($Sfenlei as $v){
+					if($v['fenlei']){
+						if(!$fields['Sfenlei']['setup']['options']) $fields['Sfenlei']['setup']['options']=$v['fenlei'].'|'.$v['id'];
+						else $fields['Sfenlei']['setup']['options'].="\r\n".$v['fenlei'].'|'.$v['id'];
+					}
+				}foreach($Sfengge as $v){
+					if($v['fengge']){
+						if(!$fields['Sfengge']['setup']['options']) $fields['Sfengge']['setup']['options']=$v['fengge'].'|'.$v['id'];
+						else $fields['Sfengge']['setup']['options'].="\r\n".$v['fengge'].'|'.$v['id'];
+					}
+				}foreach($Slingxing as $v){
+					if($v['lingxing']){
+						if(!$fields['Slingxing']['setup']['options']) $fields['Slingxing']['setup']['options']=$v['lingxing'].'|'.$v['id'];
+						else $fields['Slingxing']['setup']['options'].="\r\n".$v['lingxing'].'|'.$v['id'];
+					}
+				}foreach($Sxiux as $v){
+					if($v['xiux']){
+						if(!$fields['Sxiux']['setup']['options']) $fields['Sxiux']['setup']['options']=$v['xiux'].'|'.$v['id'];
+						else $fields['Sxiux']['setup']['options'].="\r\n".$v['xiux'].'|'.$v['id'];
+					}
+				}foreach($Smiaoliao as $v){
+					if($v['mianliao']){
+						if(!$fields['Smiaoliao']['setup']['options']) $fields['Smiaoliao']['setup']['options']=$v['mianliao'].'|'.$v['id'];
+						else $fields['Smiaoliao']['setup']['options'].="\r\n".$v['mianliao'].'|'.$v['id'];
+					}
+				}
+			?>
+
+<div id="msg"></div>
+<form name="myform" id="myform" action="<if condition="$action_name=='add'">{:U($module_name.'/insert')}<else />{:U($module_name.'/update')}</if>&iscreatehtml=1" method="post">
+<div id="filelist" class="hide"></div>
+<div class="error"><ul></ul></div>
+<table cellpadding=0 cellspacing=0 class="table_form" width="100%">
+		<volist name="fields" id="r">
+		<if condition="!empty($r['status'])">
+			<tr>
+				<td width="10%" ><if condition="$r['required']"><font color="red">*</font></if>{$r.name}</td>
+				<td width="90%" id="box_{$r['field']}">
+				{$r|getform=$form,###}
+				</td>
+			</tr>
+		</if>
+		</volist>
+</table>
+<div id="bootline"></div>
+<div id="btnbox" class="btn">
+<if condition="$vo['id']!=''"><input TYPE="hidden" name="id" value="{$vo.id}"></if>
+<input type="hidden"  name="lang" value="{$langid}" />
+<input type="hidden" name="forward" value="{$_SERVER['HTTP_REFERER']}" />
+<INPUT TYPE="submit"  value="{:L('dosubmit')}" class="button" >
+<input TYPE="reset"  value="{:L('cancel')}" class="button">
+</div>
+</form>
+</div>

@@ -1,0 +1,61 @@
+ {__NOLAYOUT__}
+  <!-----------------------右边栏目 start----------------------->
+  <div class="ybmulu2" style="width: 1046px;">
+     <div class="ybtc1">
+        <div class="title1">我的钱包</div>
+        <div class="yue">账户余额(元)：<span class="jine">{$userinfoall.yue}</span>
+        <span class="zaixiancz"><a onclick="ssyyrightt('/index.php/Home/OnlineRecharge/',this);">在线充值</a></span></div>
+        
+        <div class="xiaofeijl">消费记录：</div>
+        <div class="jilubox">
+           <div class="jlbt clearfix">
+             <ul>
+               <li class="czshijian">时间</li>
+               <li class="sruzchu">收入/支出</li>
+               <li class="mingxi" style="
+    width: 200px;
+">用途</li>
+			   <li class="mingxi" style="
+    width: 320px;
+">订单号</li>
+             </ul>
+           </div>
+           
+		   
+<foreach name="xfjl" item="vo">
+	<?php
+		//1购买  2充值
+		$gtypeone='-';
+		$gtypetwo='购买';
+		if($vo['gtype']==2){
+			$gtypeone='+';
+			$gtypetwo='充值';
+		}if($vo['gtype']==3){
+			$gtypeone='-';
+			$gtypetwo='退款';
+		}if($vo['gtype']==4){
+			$gtypeone='+';
+			$gtypetwo='退款';
+		}
+	?>
+		   
+           <div class="jilu1 clearfix">
+              <ul>
+                <li class="shijian">{$vo.ctime|toDate=###,'Y-m-d H:i:s'}</li>
+                <li class="jinqian">{$gtypeone}{$vo.je}元</li>
+                <li class="xiaofeifs" style="
+    width: 200px;
+">{$gtypetwo}</li>
+				<li class="xiaofeifs" style="
+    width: 320px;
+">{$vo.oid}</li>
+              </ul>
+           </div>
+     </foreach>
+	 
+	 
+	 
+        </div>
+     </div>
+  </div>
+  <!-----------------------右边栏目 end----------------------->

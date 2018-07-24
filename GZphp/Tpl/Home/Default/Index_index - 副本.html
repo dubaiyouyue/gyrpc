@@ -1,0 +1,457 @@
+{__NOLAYOUT__}<?php
+		//dump($Categorys);
+		//一级栏目 xlcatid($Categorys)
+		//2级栏目 xlcatid($Categorys,$parentid)
+		//3级栏目 xlcatid($Categorys,$parentid,3)
+		//4级栏目 xlcatid($Categorys,$parentid,4)
+		function xlcatid($Categorys,$parentid='0',$c='2'){
+			$narr=array();
+			$s=$c-1;
+			$e=$c;
+			foreach($Categorys as $k=>$v){
+if(!$parentid){
+if(!$v['parentid'] && $v['ismenu']) $narr[$v['id']]=$v;
+}
+else{
+$c_arr=explode(',',$v['arrparentid']);
+$sid=$c_arr[$s];
+$eid=$c_arr[$e];
+if($sid==$parentid && $v['ismenu'] && !$eid) $narr[$v['id']]=$v;
+}
+}
+return $narr;
+}
+//dump(xlcatid($Categorys,103,4));
+?><!DOCTYPE>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>{$title} {$catname} {$site_name}</title>
+<link rel="Bookmark" href="/favicon.ico">
+<meta name="keywords" content="{$seo_keywords}">
+<!--css start-->
+<link href="/css/style.css" rel="stylesheet"/>
+<link href="/css/master.css" rel="stylesheet"/>
+<link href="/css/base.css" rel="stylesheet"/>
+<!--css end-->
+
+<!----- 导航文字js 开始 ----->
+<script src="/js/jquery.min.js"></script>
+<script>
+$(function(){
+	$('.nav li').hover(function(){
+		$('.hx',this).stop().css('height','3px');
+		$('.hx',this).animate({
+			left:'0',
+			width:'100%',
+			right:'0'
+		},200);
+	},function(){
+		$('.hx',this).stop().animate({
+			left:'50%',
+			width:'0'
+		},200);
+	});
+});
+</script>
+<!----- 导航文字js 结束 ----->
+
+<!-- 轮播图start -->
+<script type="text/javascript" src="/js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="/js/jquery.event.drag-1.5.min.js"></script>
+<script type="text/javascript" src="/js/jquery.touchSlider.js"></script>
+<script type="text/javascript">
+$(document).ready(function () {
+	$(".main_visual").hover(function(){
+		$("#btn_prev,#btn_next").fadeIn()
+		},function(){
+		$("#btn_prev,#btn_next").fadeIn()
+		})
+	$dragBln = false;
+	$(".main_image").touchSlider({
+		flexible : true,
+		speed : 200,
+		btn_prev : $("#btn_prev"),
+		btn_next : $("#btn_next"),
+		paging : $(".flicking_con a"),
+		counter : function (e) {
+			$(".flicking_con a").removeClass("on").eq(e.current-1).addClass("on");
+		}
+	});
+	$(".main_image").bind("mousedown", function() {
+		$dragBln = false;
+	})
+	$(".main_image").bind("dragstart", function() {
+		$dragBln = true;
+	})
+	$(".main_image a").click(function() {
+		if($dragBln) {
+			return false;
+		}
+	})
+	timer = setInterval(function() { $("#btn_next").click();}, 5000);
+	$(".main_visual").hover(function() {
+		clearInterval(timer);
+	}, function() {
+		timer = setInterval(function() { $("#btn_next").click();}, 5000);
+	})
+	$(".main_image").bind("touchstart", function() {
+		clearInterval(timer);
+	}).bind("touchend", function() {
+		timer = setInterval(function() { $("#btn_next").click();}, 5000);
+	})
+});
+</script>
+<!-- 轮播图end -->
+</head>
+
+<body>
+
+
+<!---------------------------------- 顶部start ---------------------------------->
+<div class="top">
+  <div class="hyy">
+    <span class="hyy-lf">{$hyy}</span>
+    <span class="hyy-rg">服务热线：<span class="hyy-rg-lvzi">{$hotline}</span></span>
+  </div>
+</div>
+<!---------------------------------- 顶部end ---------------------------------->
+
+
+
+
+
+<!---------------------------------- logo、导航start ---------------------------------->
+<div class="header">
+  <a href="/"><div class="logo"><img src="/images/logo.png" width="145" height="111" /></div></a>
+  <div class="nav">
+    <ul>
+            <li {if !$catid}class="navaction-onenav"{/if}><a href="/">网站首页<span class="yw">HOME</span></a>{if $catid}<span class="hx"></span>{/if}</li>
+      
+
+<?php
+            foreach(xlcatid($Categorys) as $k=>$v){
+                $vv=explode(',',$v['arrchildid']);
+                echo '<li ';
+				if(in_array($catid,$vv))  echo ' class="navaction-onenav"';
+				echo '>';
+              
+                echo '<a href="'.$v['url'].'">';
+				echo $v['catname'].'<span class="yw">'.$v['keywords'].'</span></a>';
+				if(!in_array($catid,$vv))  echo '<span class="hx"></span>';
+				echo '</li>
+				';
+            }
+?>
+    </ul>
+  </div>
+</div>
+
+<!---------------------------------- logo、导航end ---------------------------------->
+
+
+<style>
+/**********************************main_visual 开始**********************************/
+.main_image {width:100%; height:450px; border:0; /*overflow:hidden;*/ margin:0 auto; position:relative;}
+.main_image ul {width:9999px; height:450px; overflow:hidden; position:absolute; top:0; left:0}
+.main_image li {float:left; width:100%; height:450px;}
+.main_image li span {display:block; width:100%; height:450px}
+.main_image li a {display:block; width:100%; height:450px}
+.main_image li .img_1 {background: url('images/img_main_1.jpg') center top no-repeat}
+.main_image li .img_2 {background: url('images/img_main_1.jpg') center top no-repeat}
+.main_image li .img_3 {background: url('images/img_main_1.jpg') center top no-repeat}
+
+div.flicking_con {width:990px; margin:0 auto; position:relative}
+div.flicking_con .flicking_inner {
+	width: 100%;
+    position: absolute;
+    bottom: 8px;
+    z-index: 20;
+	text-align: center;
+}
+div.flicking_con a {
+    width: 60px;
+    height: 5px;
+    background: #ffffff;
+    color: #1a1a1a;
+    opacity: 0.5;
+    -moz-opacity: 0.5;
+    filter: alpha(opacity=50);
+    display: -moz-inline-stack;
+    display: inline-block;
+    vertical-align: middle;
+    zoom: 1;
+    margin: 2px;
+    overflow: hidden;
+    text-indent: -100%;
+}
+div.flicking_con a.on {
+    opacity:1;
+}
+#btn_prev,#btn_next{z-index:11111;position:absolute;display: block;width:50px!important;height:100px!important;top:50%;margin-top:-37px;
+display:none;}
+#btn_prev{background:url(images/hover_left.png) no-repeat left top;left:100px;}
+#btn_next{background:url(images/hover_right.png) no-repeat right top;right:100px;}
+/**********************************main_visual 结束**********************************/
+</style>
+<!---------------------------------main_visual开始(轮播图)--------------------------------->
+<div class="main_visual">
+  <div class="main_image">
+	<ul>		<GZ:list sql="select * from gz_slide_data where fid = '12' and  status='1' order by listorder desc,id desc" key='i'>
+		  <li><span  class="img_1" style="background: url({$r.pic}) center top no-repeat;"></span></li>
+		</GZ:list>			
+	 
+	  
+	</ul>
+	<a href="javascript:;" id="btn_prev"></a>
+	<a href="javascript:;" id="btn_next"></a>
+  </div>
+  
+  
+     <div class="flicking_con">
+       <div class="flicking_inner">
+          
+  <GZ:list sql="select * from gz_slide_data where fid = '12' and  status='1' order by listorder desc,id desc" key='i'>
+		  <a></a>
+		</GZ:list>		
+        </div>
+  </div>
+
+</div>
+<!---------------------------------main_visual结束--------------------------------->
+
+
+
+
+
+<!--------------------------------------- 主体内容start --------------------------------------->
+<!---------------------------------- 公司简介start ---------------------------------->
+<div class="gsjj">
+  <div class="gsjj-biaoti jjbj">{$Categorys.145.catname}</div>
+    
+<GZ:list sql="select * from gz_page  where id = '145'" key='i'>
+
+
+	
+	<div class="gsjj-left">
+       <div class="gsjj-left-bt"><a href="{$Categorys.145.url}">{$r.title}</a></div>
+      <P><a href="{$Categorys.145.url}">{$r.description}</a></P>
+       <div class="gsjj-left-anniu"><a href="{$Categorys.145.url}">READ MORE</a>
+         <div class="sjx" style="width:0;height:0;border-top:4px solid transparent;border-bottom:4px solid transparent;   
+border-right:6px solid #fff;-webkit-transform:rotate(-180deg); -moz-transform:rotate(-180deg);-o-transform:rotate(-180deg);
+   -ms-transform:rotate(-180deg); position:relative; left:90px; top:-16px;"></div>
+      </div>
+
+    </div></GZ:list>
+	
+	
+	
+	
+    <GZ:list sql="select * from gz_slide_data where fid = '13' and  status='1' order by listorder desc,id desc" key='i'>
+    <div class="gsjj-right"> <a href="{$Categorys.145.url}"><img src="{$r.pic}" width="600" height="250" /></a>
+    </div></GZ:list>
+</div>
+
+<div class="clearfix"></div>
+<!---------------------------------- 公司简介end ---------------------------------->
+
+
+
+
+
+
+
+<!---------------------------------- 新闻中心start ---------------------------------->
+<div class="xwzx">
+   <div class="gsjj-biaoti jjbj">{$Categorys.148.catname}</div>
+   
+   
+   <GZ:list catid="148" limit="1" key="ksss" posid="1"><!-- posid="1"-->
+   <div class="xwzx-left">
+      <div class="xwzx-left-img"><a href="{$r.url}"><img src="{$r.thumb}" width="563" height="150" /></a></div>
+      <div class="xwzx-left-bt"><a href="{$r.url}"">{$r.title|str_cut=###,58}</a></div>
+      <P><a href="{$r.url}"">{$r.description|str_cut=###,146}"</a></P>
+      <div class="xwzx-left-anniu"><a href="{$r.url}"">READ MORE</a>
+         <div class="sjx" style="width:0;height:0;border-top:4px solid transparent;border-bottom:4px solid transparent;   
+border-right:6px solid #fff;-webkit-transform:rotate(-180deg); -moz-transform:rotate(-180deg);-o-transform:rotate(-180deg);
+   -ms-transform:rotate(-180deg); position:relative; left:90px; top:-16px;"></div>
+     </div>
+   </div></GZ:list>
+   
+   
+   
+  
+   <div class="xwzx-right">
+    <GZ:list catid="148" limit="1,3" key="ksss" posid="1"><!-- posid="1"-->
+     <div class="box1">
+        <div class="shijianlf">
+          <span class="rq">{$r.createtime|toDate=###,'d'}</span>
+          <span class="ny">{$r.createtime|toDate=###,'Y-m'}</span>
+        </div>
+     
+        <div class="nrrg">
+          <div class="bt"><a href="{$r.url}">{$r.title|str_cut=###,58}</a></div>
+          <P><a href="{$r.url}">{$r.description|str_cut=###,140}</a></P>
+        </div>
+     </div>
+     </GZ:list>
+     
+     
+     
+   </div>
+</div>
+
+<div class="clearfix"></div>
+<!---------------------------------- 新闻中心end ---------------------------------->
+
+
+
+
+
+
+<!---------------------------------- 项目展示start ---------------------------------->
+<div class="xmzs">
+   <div class="gsjj-biaoti jjbj">{$Categorys.156.catname}</div>
+   
+   <GZ:list catid="156" limit="4" key="ksssaaqq" posid="1"><!-- posid="1"-->
+   <?php
+	$new_aaxx[]=$r;
+   ?>
+  
+    </GZ:list>
+   
+   <?php
+	//dump($new_aaxx);
+   ?>
+
+   
+     <div class="topbox">
+       <div class="xmzs-left">
+         <div class="xmzx-left-img"><a href="{$new_aaxx.1.url}"><img src="{$new_aaxx.1.thumb}" width="582" height="388"></a></div>
+         <div class="xmzx-left-bt"><a href="{$new_aaxx.1.url}">{$new_aaxx.1.title|str_cut=###,62}</a></div>
+         <div class="xmzx-left-zhengwen">
+           <P><a href="{$new_aaxx.1.url}">{$new_aaxx.1.description|str_cut=###,250}
+           </a></P>
+        </div>
+         <div class="xmzs-left-xzs" style="width:77px; height:85px; float:right; padding-top:20px;">
+           <span class="sz" style="font-size:65px; font-weight:bold; color:#4AA84A;">02
+           <P class="wz" style="font-size:16px;text-align:center; background-color:#fff; position:relative;bottom:28px;">生态旅游</P></span>
+         </div>
+       </div>
+  
+      <div class="xmzs-right">
+         <div class="xmzx-right-bt"><a href="{$new_aaxx.0.url}">{$new_aaxx.0.title|str_cut=###,62}</a></div>
+            <div class="xmzx-right-zhengwen">
+            <P><a href="{$new_aaxx.0.url}">{$new_aaxx.0.description|str_cut=###,250}
+            </a></P>
+         </div>
+         <div class="xmzs-right-xzs" style="width:77px; height:85px; float:right; padding-top:20px;">
+            <span class="sz" style="font-size:65px; font-weight:bold; color:#4AA84A;">01
+            <P class="wz" style="font-size:16px;text-align:center; background-color:#fff; position:relative;bottom:28px;">生态旅游</P></span>
+         </div>
+         <div class="xmzx-right-img"><a href="{$new_aaxx.0.url}"><img src="{$new_aaxx.0.thumb}" width="582" height="388"></a></div>
+      </div>
+    </div> 
+  
+     <div class="bottombox">
+       <div class="xmzs-left">
+         <div class="xmzx-left-img"><a href="{$new_aaxx.3.url}"><img src="{$new_aaxx.3.thumb}" width="582" height="388"></a></div>
+         <div class="xmzx-left-bt"><a href="{$new_aaxx.3.url}">{$new_aaxx.3.title|str_cut=###,62}</a></div>
+         <div class="xmzx-left-zhengwen">
+           <P><a href="{$new_aaxx.3.url}">{$new_aaxx.3.description|str_cut=###,250}
+           </a></P>
+        </div>
+         <div class="xmzs-left-xzs" style="width:77px; height:85px; float:right; padding-top:20px;">
+           <span class="sz" style="font-size:65px; font-weight:bold; color:#4AA84A;">04
+           <P class="wz" style="font-size:16px;text-align:center; background-color:#fff; position:relative;bottom:28px;">生态旅游</P></span>
+         </div>
+       </div>
+  
+      <div class="xmzs-right">
+         <div class="xmzx-right-bt"><a href="{$new_aaxx.2.url}">{$new_aaxx.2.title|str_cut=###,62}</a></div>
+            <div class="xmzx-right-zhengwen">
+            <P><a href="{$new_aaxx.2.url}">{$new_aaxx.2.description|str_cut=###,250}
+            </a></P>
+         </div>
+         <div class="xmzs-right-xzs" style="width:77px; height:85px; float:right; padding-top:20px;">
+            <span class="sz" style="font-size:65px; font-weight:bold; color:#4AA84A;">03
+            <P class="wz" style="font-size:16px;text-align:center; background-color:#fff; position:relative;bottom:28px;">生态旅游</P></span>
+         </div>
+         <div class="xmzx-right-img"><a href="{$new_aaxx.2.url}"><img src="{$new_aaxx.2.thumb}" width="582" height="388"></a></div>
+      </div>
+    </div>  
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</div>
+
+<!---------------------------------- 项目展示end ---------------------------------->
+<!--------------------------------------- 主体内容end --------------------------------------->
+
+
+
+
+
+
+<!---------------------------------- 友情链接start ---------------------------------->
+<div class="link">
+   <div class="yqlj">友情链接</div>   
+   
+    <div class="lianjie">
+       <ul>
+        <GZ:list sql="select * from gz_link where status='1' order by listorder asc,id desc" key='i'>
+			<li><a href="{$r.siteurl}" target="_blank">{$r.name}</a></li>
+		</GZ:list>
+      </ul>
+    </div>
+  <div class="triangle-right"></div>
+</div>
+<!---------------------------------- 友情链接end ---------------------------------->
+
+
+
+
+
+
+<!-- footer开始 -->
+<div class="footer">
+  <div class="footr1">
+    <div class="dbdh">
+       <ul>
+         <li class="line"><a href="/">网站首页</a></li>
+         <li class="line"><a href="{$Categorys.142.url}">{$Categorys.142.catname}</a></li>
+         <li class="line"><a href="{$Categorys.148.url}">{$Categorys.148.catname}</a></li>
+         <li class="line"><a href="{$Categorys.176.url}">{$Categorys.176.catname}</a></li>
+         <li class="line"><a href="{$Categorys.156.url}">{$Categorys.156.catname}</a></li>
+         <li class="line"><a href="{$Categorys.167.url}">{$Categorys.167.catname}</a></li>
+         <li><a href="{$Categorys.158.url}">{$Categorys.158.catname}</a></li>
+      </ul>
+    </div>
+  
+    <P class="copyright">{$company}&nbsp;&nbsp;版权所有
+       &nbsp;&nbsp;&nbsp;备案号：{$beian}
+       &nbsp;&nbsp;&nbsp;咨询热线：{$hotline}   
+       &nbsp;&nbsp;&nbsp;技术支持：<a href="http://www.resonance.com.cn" style="text-decoration:underline; color:#fff;" target="_blank">广西共振广告</a>
+    </P>
+
+  </div>
+</div>
+<!-- footer结束 -->
+</body>
+</html>

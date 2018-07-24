@@ -1,0 +1,45 @@
+
+
+
+<!---------------------------------------- 栏目 start ---------------------------------------->
+<div class="lanmu">
+   <ul class="xuanxiang xuanxiangnew-lij clearfix">
+      <include file="A:l"/>
+   </ul>
+</div>
+<!---------------------------------------- 栏目 end ---------------------------------------->
+
+
+
+
+
+<!---------------------------------------- 招聘信息 start ---------------------------------------->
+<div class="zpxxbox">
+   <!--第1组--><volist name="list" id="r" empty="$em" key="k">
+     <div class="<?php 
+   if(($k%2)) echo 'zhaopinlist1';
+   else echo 'zhaopinlist2';
+   ?>" style="<?php if($k>2) echo 'margin-top:35px;';?>">
+        <a href="{$r.url}">
+          <div class="zplflb1">
+             <div class="gangwei">{$r.title}</div>
+             <P class="gaiyao">{$r.description}</P>
+          </div>        
+        </a>
+     </div>
+       
+     </volist>
+  <div class="clearfix"></div>   
+  
+     <!--翻页start-->
+		
+            <div class="yema cb" style="margin-top:35px;">
+               {$pages}
+            </div>
+             <!--翻页end-->
+    
+</div>
+
+<!---------------------------------------- 招聘信息 end ---------------------------------------->
+
+

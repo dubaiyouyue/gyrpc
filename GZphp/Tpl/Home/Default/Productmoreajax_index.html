@@ -1,0 +1,15 @@
+{__NOLAYOUT__}<?php
+			foreach($mlist as $k=>$r){
+			
+			?>
+         <li>
+           <a href="{$r.url}"><div class="dptp"><img src="{$r.thumb}" width="770" height="997"></div>
+           <div class="dpbt">{$r.title}</div>
+           <div class="youhuijia">
+            <span class="yj">¥{$r.price}</span>
+            <span class="hxjb"><em class="tm-yen" style="font-style:normal;text-decoration:none; color:#999;">¥</em><span class="xj">{$r.cprice}</span></span>
+           </div></a>
+         </li>
+         <?php
+			}
+		 ?>

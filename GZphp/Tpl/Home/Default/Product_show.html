@@ -1,0 +1,726 @@
+
+
+<!--banner插件start-->
+
+<script src="/js/banner.js"></script>
+<script src="/js/jquery.cookie.js"></script>
+<!--banner插件end-->
+<!------------------------------------------在线商城banner开始------------------------------------------>
+<div class="banner">
+  <div class="b-img">
+    
+   <GZ:list sql="select * from gz_slide_data where fid = '17' and  status='1' order by listorder desc,id desc" key='i'>
+		 <a href="{$r.link}" style="background:url({$r.pic}) center no-repeat;"></a>
+		</GZ:list>
+  </div>
+  <div class="b-list"></div>
+</div>
+<!------------------------------------------在线商城banner结束------------------------------------------>
+
+<?php
+	//dump($kc);
+	//获取颜色
+	$yanseee=explode('moweilin',$kc);
+	//dump($yanseee);
+	foreach($yanseee as $ks=>$vs){
+		$ysssaaa=explode('lizhenqiu',$vs);
+		$yansearr[]=$ysssaaa['0'];
+		$yuccmmck=$yuccmmck?$yuccmmck.'-'.$ysssaaa['0'].$ysssaaa['1'].'-'.$ysssaaa['3']:$ysssaaa['0'].$ysssaaa['1'].'-'.$ysssaaa['3'];
+	}
+	$yansearr=(array_unique($yansearr));
+	//dump($yuccmmck);
+?>
+
+
+<!------------------------------------------topbox22开始------------------------------------------>
+<div class="topbox22 clearfix">
+  <!--leftbox 开始-->
+  <div class="leftbox">
+     <!--商品图片切换start-->
+     <div class="shangpinbox">
+     
+        <div class="ban" id="demo1">
+            <div class="ban2" id="ban_pic1">
+                <div class="prev1" id="prev1"><img src="/images/index_tab_l.png" width="28" height="51"  alt=""></div>
+                <div class="next1" id="next1"><img src="/images/index_tab_r.png" width="28" height="51"  alt=""></div>
+                <ul>
+                    
+                   <foreach name="hpic" item="vo">
+						<li><a href="javascript:;"><img src="{$vo.filepath}" /></a></li>
+					</foreach>
+                </ul>
+            </div>
+            <div class="min_pic">
+                <div class="prev_btn1" id="prev_btn1"><img src="/images/feel3.png" width="9" height="18"  alt=""></div>
+                <div class="num clearfix" id="ban_num1">
+                    <ul>
+                        <foreach name="hpic" item="vo">
+						<li><a href="javascript:;"><img src="{$vo.filepath}" /></a></li>
+					</foreach>
+                    </ul>
+                </div>
+                <div class="next_btn1" id="next_btn1"><img src="/images/feel4.png" width="9" height="18"  alt=""></div>
+            </div>
+        </div>
+        
+        <div class="mhc"></div>
+        
+        <div class="pop_up" id="demo2">
+            <div class="pop_up_xx"><img src="/images/chacha3.png" width="40" height="40"  alt=""></div>
+            <div class="pop_up2" id="ban_pic2">
+                <div class="prev1" id="prev2"><img src="/images/index_tab_l.png" width="28" height="51"  alt=""></div>
+                <div class="next1" id="next2"><img src="/images/index_tab_r.png" width="28" height="51"  alt=""></div>
+                <ul>
+					<foreach name="hpic" item="vo">
+						<li><a href="javascript:;"><img src="{$vo.filepath}" /></a></li>
+					</foreach>
+                </ul>
+            </div>
+        </div>
+     
+     </div>
+     
+<!--切换js start-->    
+<script src="/js/pic_tab.js"></script>
+<script type="text/javascript">
+jq('#demo1').banqh({
+	box:"#demo1",//总框架
+	pic:"#ban_pic1",//大图框架
+	pnum:"#ban_num1",//小图框架
+	prev_btn:"#prev_btn1",//小图左箭头
+	next_btn:"#next_btn1",//小图右箭头
+	pop_prev:"#prev2",//弹出框左箭头
+	pop_next:"#next2",//弹出框右箭头
+	prev:"#prev1",//大图左箭头
+	next:"#next1",//大图右箭头
+	pop_div:"#demo2",//弹出框框架
+	pop_pic:"#ban_pic2",//弹出框图片框架
+	pop_xx:".pop_up_xx",//关闭弹出框按钮
+	mhc:".mhc",//朦灰层
+	autoplay:true,//是否自动播放
+	interTime:5000,//图片自动切换间隔
+	delayTime:400,//切换一张图片时间
+	pop_delayTime:400,//弹出框切换一张图片时间
+	order:0,//当前显示的图片（从0开始）
+	picdire:true,//大图滚动方向（true为水平方向滚动）
+	mindire:true,//小图滚动方向（true为水平方向滚动）
+	min_picnum:5,//小图显示数量
+	pop_up:true//大图是否有弹出框
+})
+</script>
+<!--切换js start-->    
+     <!--商品图片切换end-->
+     
+     <!--shangpinxinxibox 开始-->
+     <div class="shangpinxinxibox">
+       <div class="spbiaoti">{$title}</div>
+       <div class="jgsmk">
+          <div class="yuanjia"><span class="zi1">价格：</span><em class="tm-yen">￥</em><span class="hyj">{$cprice}</span></div>
+          <div class="cuxiaojia"><span class="zi2">促销价：</span><em class="tm-yen2">￥</em><span class="dajg">{$price}</span></div>
+      </div>
+       
+       <!--尺码、颜色盒子start-->
+       <div class="cmys-box">
+          <!--尺码start-->
+          <div class="cm clearfix">
+            <div class="wenzi1">尺码：</div>
+			
+            <ul class="chima" id="yassssesesscm">
+				
+             <?php
+				/*$newkcchicundispal=explode('lizhenqiu',$kc);
+				//dump($newkcchicundispal);exit;
+				if(in_array('XS',$newkcchicundispal)) echo '<li><a onclick="yhanssscm(this,\'XS\');"><span class="cmsz">XS</span></a></li>';
+				if(in_array('S',$newkcchicundispal)) echo '<li><a onclick="yhanssscm(this,\'S\');"><span class="cmsz">S</span></a></li>';
+				if(in_array('M',$newkcchicundispal)) echo '<li><a onclick="yhanssscm(this,\'M\');"><span class="cmsz">M</span></a></li>';
+				if(in_array('L',$newkcchicundispal)) echo '<li><a onclick="yhanssscm(this,\'L\');"><span class="cmsz">L</span></a></li>';
+				if(in_array('XL',$newkcchicundispal)) echo '<li><a onclick="yhanssscm(this,\'XL\');"><span class="cmsz">XL</span></a></li>';
+				if(in_array('XXL',$newkcchicundispal)) echo '<li><a onclick="yhanssscm(this,\'XXL\');"><span class="cmsz">XXL</span></a></li>';
+				if(in_array('XXXL',$newkcchicundispal)) echo '<li><a onclick="yhanssscm(this,\'XXXL\');"><span class="cmsz">XXXL</span></a></li>';*/
+				
+				//到货通知 库存0 不显示 2017.01.22
+				
+			?>
+			
+<li><a onclick="yhanssscm(this,'XS');"><span class="cmsz">XS</span></a></li>
+<li><a onclick="yhanssscm(this,'S');"><span class="cmsz">S</span></a></li>
+<li><a onclick="yhanssscm(this,'M');"><span class="cmsz">M</span></a></li>
+<li><a onclick="yhanssscm(this,'L');"><span class="cmsz">L</span></a></li>
+<li><a onclick="yhanssscm(this,'XL');"><span class="cmsz">XL</span></a></li>
+<li><a onclick="yhanssscm(this,'XXL');"><span class="cmsz">XXL</span></a></li>
+<li><a onclick="yhanssscm(this,'XXXL');"><span class="cmsz">XXXL</span></a></li>
+			
+			
+            </ul>
+          </div>
+          <!--尺码end-->
+          
+          <!--颜色start-->
+          <div class="cm2 clearfix">
+            <div class="wenzi2">颜色：</div>
+            <ul class="chima2" id="yassssesess">
+            
+              
+			  
+					<foreach name="yansearr" item="ys">
+						<li><a onclick="yhansss(this,'{$ys}');"><span class="cmsz">{$ys}</span></a></li>
+					</foreach>
+			  
+			  
+            </ul>
+          </div>
+		  
+		  <input type="hidden" id="iyanse" value="" />
+		  <input type="hidden" id="ichicun" value="" />
+		  <!-- <input type="hidden" id="ikc" value="0" /> -->
+		  
+		  <style>a{    cursor: pointer;}</style>
+<script>
+//cmmmmm='';
+//ysssyyy='';
+var yuccmmck=new Array(<?php 
+	$yuccmmck=explode('-',$yuccmmck);
+	foreach($yuccmmck as $kk=>$vv){
+		echo '\''.$vv.'\',';
+	}
+?>0);//库存数组
+function yhansss(sthis,keys){
+	//点击颜色
+	//ysssyyy=keys;
+	$('#yassssesess li a').removeClass('yxcs2');
+	$(sthis).addClass('yxcs2');
+	$('#iyanse').val(keys);
+	ddsmmyy();
+}function yhanssscm(sthis,cm){
+	//点击尺码
+	//cmmmmm=cm;
+	$('#yassssesesscm li a').removeClass('yxcs');
+	$(sthis).addClass('yxcs');
+	$('#ichicun').val(cm);
+	ddsmmyy();
+}
+function ddsmmyy(){
+	//修改库存
+	var cmmmmm=$('#ichicun').val();
+	var ysssyyy=$('#iyanse').val();
+	if(cmmmmm && ysssyyy){
+		var kkuuccc=yuccmmck.indexOf(ysssyyy+cmmmmm);
+		if(kkuuccc<0) var kkuucccstr=0;
+		else kkuucccstr=yuccmmck[(kkuuccc+1)];
+		$('#sdfsdkkccc').text(kkuucccstr);
+	}else{
+		var kkuucccstr='--';
+		$('#sdfsdkkccc').text(kkuucccstr);
+	}
+	if(isNaN(kkuucccstr)){
+		kkuucccstr=0;
+	}
+		//kkuucccstr=parseInt(kkuucccstr);
+	//console.log(kkuucccstr+"\n"+cmmmmm+"\n"+ysssyyy);
+	if(!cmmmmm || !ysssyyy || kkuucccstr<1){
+		//alert('fadsfads');
+		//显示到货通知按钮
+		if(cmmmmm && ysssyyy) $('#dhtzid').css('display','inline-block');
+		//$('#ljgmmmid').removeClass('buy');
+		$('#ljgmmmid').addClass('huibuy');
+		$('#jiarugwmc').addClass('huisku');
+	}else{
+		$('#dhtzid').css('display','none');
+		$('#ljgmmmid').removeClass('huibuy');
+		$('#jiarugwmc').removeClass('huisku');
+		//$('#ljgmmmid').addClass('buy');
+	}
+}
+</script>
+		  
+		  
+		  
+		  
+		  
+       <!--颜色end-->
+       </div>
+       <div class="kucun" style=" margin-left:40px; line-height:25px; margin-top:5px; margin-bottom:25px;">(<span class="kucunliang" style="color:#f40;" id="sdfsdkkccc">--</span>库存)
+	   <span class="dhtz" id="dhtzid" style="display:none; margin-left:15px;"><a style="color: #666;text-decoration: underline;">到货通知</a></span>
+	   </div>
+     <!--尺码、颜色盒子end-->
+     
+     <!--立即购买、加入购物车start-->
+       <div class="anniu1" id="sssppoobyy">
+          <span id="ljgmmmid" class="buy huibuy" style="cursor:pointer;"><a>立即购买</a></span>
+          <span id="jiarugwmc" tf="true" class="sku huisku" style="cursor:pointer;"><a>加入购物车</a></span>
+       </div>
+     <!--立即购买、加入购物车end-->
+       
+     <!--月销量、收藏商品、下单送积分start-->
+      <div class="panel clearfix">
+         <ul>
+           <li class="yxlshuzhi">月销量<span class="xlsz" style=" color:#f40; font-weight:bold; display:inline-block; margin-left:2px;">{$xiliang}</span></li>
+           <li class="scspxuanze" <?php
+			if(!$chave){
+			?>
+		   id="Collectionajax"><a><span class="spwz">收藏商品</span></a>
+		   <?php
+			}else{
+			?>
+			"><span style="color:#999;">已收藏</span>
+			<?php
+			}
+		   ?></li>
+           <li class="xdsjfshuzhi">下单送积分<span class="sjf" style="font-weight:bold; color:#DCA768; display:inline-block; margin-left:2px;">{$jifen}</span></li>
+         </ul>
+       </div> 
+     <!--月销量、收藏商品、下单送积分end-->
+     </div>
+     <!--shangpinxinxibox 结束-->
+  </div>
+  <!--leftbox 结束-->
+  
+  <!--rightbox 开始-->
+  <div class="rightbox">
+    <div class="klykbox">
+       <div class="bt1">看了又看</div>
+       <ul class="klyklist"><?php 
+	   foreach($aid_arr_list as $kr=>$r){
+	   ?>
+         <li style="margin-top:<?php
+			if(!$kr) echo '10';
+			else echo '20';
+		 ?>px;">
+           <a href="{$r.url}"><img src="{$r.thumb}" width="770" height="997">
+           <div class="klykjiage">￥{$r.price}</div></a>
+         </li><?php }?>
+         
+       </ul>
+       <div class="klykxuxian" style="border-bottom:1px dashed #C9C9C9; margin-top:10px;"></div>
+    </div>
+  </div>
+  <!--rightbox 结束-->
+</div>
+<!------------------------------------------topbox22结束------------------------------------------>
+
+
+
+
+<!------------------------------------------middlebox开始------------------------------------------>
+<div class="middlebox clearfix">
+   <div class="box-lf">
+     <div class="hotbox">
+       <a id="hotboxmore"><span class="hotwz">HOT热销单品</span>
+       <!-- <span class="gd">更多>></span> --></a>
+     </div>
+     <div class="bkbox">
+       <ul class="dplist" id="dplistid"><?php
+			//dump($hot_list);exit;
+			foreach($hot_list as $k=>$r){
+			
+			?>
+         <li>
+           <a href="{$r.url}"><div class="dptp"><img src="{$r.thumb}" width="770" height="997"></div>
+           <div class="dpbt">{$r.title}</div>
+           <div class="youhuijia">
+            <span class="yj">¥{$r.price}</span>
+            <span class="hxjb"><em class="tm-yen" style="font-style:normal;text-decoration:none; color:#999;">¥</em><span class="xj">{$r.cprice}</span></span>
+           </div></a>
+         </li>
+         <?php
+			}
+		 ?>
+       </ul>
+     </div>
+   </div>
+  
+  
+   
+   <div class="box-rg">
+   
+   
+        <div id="wrapper">
+            <div class="article">
+        <!--		<h3>Normal Tab</h3>
+        -->		<div class="tab">
+                    <ul>
+                        <li>
+                            <a href="#">商品介绍</a>
+                              <!-- 商品参数start-->
+                              <div class="dabox" style="background:#fff;">
+                                  <div class="nrqu">
+                                  
+                                      <h5 style="color:#666;">品牌： <span style="color:#999;">{$brand}</span></h5>
+                                      
+                                      <div class="canshu1 clearfix" style="margin-top:25px;">
+                                         <ul class="lib1">
+                                             <li class="changdu1" style="display: block;overflow: hidden;text-overflow: ellipsis;display: -webkit-box;line-clamp: 1;-webkit-line-clamp: 1;-webkit-box-orient: vertical; margin-right:15px;">商品名称：{$title}</li>
+                                             <li class="changdu2" style="margin-right:15px;">商品编号：{$number}</li>
+                                             <li class="changdu3">衣门襟：{$placket}</li>
+                                         </ul>
+                                      </div>
+                                      
+                                      <div class="canshu1 clearfix">
+                                         <ul class="lib1">
+                                             <li class="changdu1" style="margin-right:15px;">货号：{$anumber}</li>
+                                             <li class="changdu2" style="margin-right:15px;">领型：{$newdata.Slingxing}</li>
+                                             <li class="changdu3">款型：{$newdata.Kuans}</li>
+                                         </ul>
+                                      </div>
+            
+                                      <div class="canshu1 clearfix">
+                                         <ul class="lib1">
+                                             <li class="changdu1" style="margin-right:15px;">类型：{$newdata.Pinlei}</li>
+                                             <li class="changdu2" style="margin-right:15px;">适用场景：{$scenarios}</li>
+                                             <li class="changdu3">商品毛重：{$weight}</li>
+                                         </ul>
+                                      </div>
+                                      
+                                      <div class="canshu1 clearfix">
+                                         <ul class="lib1">
+                                             <li class="changdu1" style="margin-right:15px;">含毛量：{$gross}</li>
+                                             <li class="changdu2" style="margin-right:15px;">图案：{$pattern}</li>
+                                             <li class="changdu3">风格：{$newdata.Sfengge}</li>
+                                         </ul>
+                                      </div>
+                                      
+                                      <div class="canshu1 clearfix">
+                                         <ul class="lib1">
+                                             <li class="changdu1" style="margin-right:15px;">版型：{$version}</li>
+                                             <li class="changdu2" style="margin-right:15px;">颜色：{$colour}</li>
+                                             <li class="changdu3">厚薄：{$Thickness}</li>
+                                         </ul>
+                                      </div>
+                                    
+                                      <div class="canshu1 clearfix" style="margin-right:15px;">
+                                         <ul class="lib1">
+                                             <li class="changdu1" style="margin-right:15px;">上市时间：{$market}</li>
+                                             <li class="changdu2" style="margin-right:15px;">流行元素：{$Popular}</li>
+                                             <li class="changdu3">袖型：{$newdata.Sxiux}</li>
+                                         </ul>
+                                      </div>
+                                  </div>
+                                  
+
+
+
+                                  <div class="spbpx chanpintupian" id="chanpintupianid">
+                                     <div class="btbg"><img src="/images/fzxqcptpbg.jpg" width="473" height="33"></div>
+                                     <div class="tupian1">{$productpicture}</div>
+                                  </div>
+                                 
+                                  <div class="spbpx chanpinchicun" id="chanpinchicunid">
+                                     <div class="btbg"><img src="/images/fzxqcpccbg.jpg" width="418" height="33"></div>
+                                     <div class="tupian1">{$productsize}</div>
+                                  </div>
+                                  
+                                  <div class="spbpx chimajianyi">
+                                     <div class="btbg"><img src="/images/fzxqcmjybg.jpg" width="303" height="33"></div>
+                                     <div class="tupian1">{$chimajianyi}</div>
+                                  </div>
+                                  
+                                  <div class="spbpx xijiezhanshi" id="xijiezhanshiid">
+                                     <div class="btbg"><img src="/images/fzxqxjzsbg.jpg" width="302" height="33"></div>
+                                     <div class="tupian1">{$detaildisplay}</div>
+                                  </div>
+                                  {$content}
+                              </div>
+                              <!-- 商品参数end-->
+                              
+                        </li>
+                        
+                        
+                        <li>
+                            <a>售后保障</a>
+                              <div class="nrqu">
+                                  {$support}
+                              </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+<!-- <script src="/js/jquery-1.11.0.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/js/pignose.tab.min.js"></script> 
+<script type="text/javascript">
+$(function() {
+	$('.tab').pignoseTab({
+		animation: true,
+		children: '.tab'
+	});
+});
+</script>-->
+   
+   
+<script src="/js/xuanxiangka/jquery-1.11.0.min.js"></script>
+<script src="/js/xuanxiangka/bootstrap.min.js"></script>
+<script src="/js/xuanxiangka/pignose.tab.min.js"></script>
+
+<script src="/js/layer/layer.js"></script>
+
+<script type="text/javascript">
+$(function() {
+	$('.tab').pignoseTab({
+		animation: true,
+		children: '.tab'
+	});
+});
+</script>
+ 
+<style>
+</style>     
+      <div class="rghezi">
+         <ul class="dhwzlist dhwzlistnewclick">
+            <li class="cskuang" nid="chanpintupianid"><a>产品图片</a></li>
+            <li class="wu" nid="chanpinchicunid"><a>商品尺寸</a></li>
+            <li class="wu" nid="xijiezhanshiid"><a>细节展示</a></li>
+         </ul>
+     </div>
+   </div>
+</div>
+<script>
+$(".dhwzlistnewclick li").click(function(){
+	var thisid=$(this).attr('nid');
+	
+		$(".dhwzlistnewclick li").each(function(){
+			if($(this).attr('class')=='cskuang'){
+				$(this).removeClass('cskuang');
+				$(this).addClass('wu');
+			}
+		});
+	$(this).removeClass('wu');
+	$(this).addClass('cskuang');
+  $("html,body").animate({scrollTop:$('#'+thisid).offset().top},100);
+  });
+//收藏
+$("#Collectionajax").click(function(){
+	$(this).unbind();
+	var loadingimg='<img src="data:image/gif;base64,R0lGODlhCgAKAJEDAMzMzP9mZv8AAP///yH/C05FVFNDQVBFMi4wAwEAAAAh+QQFAAADACwAAAAACgAKAAACF5wncgaAGgJzJ647cWua4sOBFEd62VEAACH5BAUAAAMALAEAAAAIAAMAAAIKnBM2IoMDAFMQFAAh+QQFAAADACwAAAAABgAGAAACDJwHMBGofKIRItJYAAAh+QQFAAADACwAAAEAAwAIAAACChxgOBPBvpYQYxYAIfkEBQAAAwAsAAAEAAYABgAAAgoEhmPJHOGgEGwWACH5BAUAAAMALAEABwAIAAMAAAIKBIYjYhOhRHqpAAAh+QQFAAADACwEAAQABgAGAAACDJwncqi7EQYAA0p6CgAh+QQJAAADACwHAAEAAwAIAAACCpRmoxoxvQAYchQAOw==" />';
+	$(this).html(loadingimg);
+	var sthis=this;
+	
+	$.ajax( {
+		url: '/index.php?g=Home&m=Collection&a=index&sid={$id}', //这里是静态页的地址
+		type: "GET", //静态页用get方法，否则服务器会抛出405错误
+		//dataType: "json",
+		//cache: false,
+		//async: false,
+		beforeSend: function(){
+		 // Handle the beforeSend event
+		},
+		success: function(data){
+			//alert(data);
+			if(data=='ok') $(sthis).html('<span style="color:#999;">已收藏</span>');
+			//var result = $(data).find("另一个html页面的指定的一部分").html();
+		}
+	});
+});
+//获取更多热销商品
+nyyyyn=1;
+$("#hotboxmore").click(function(){
+	//$("#sfsdfssss").text('加载中...');
+	$("#dplistid").html('<img src="data:image/gif;base64,R0lGODlhCgAKAJEDAMzMzP9mZv8AAP///yH/C05FVFNDQVBFMi4wAwEAAAAh+QQFAAADACwAAAAACgAKAAACF5wncgaAGgJzJ647cWua4sOBFEd62VEAACH5BAUAAAMALAEAAAAIAAMAAAIKnBM2IoMDAFMQFAAh+QQFAAADACwAAAAABgAGAAACDJwHMBGofKIRItJYAAAh+QQFAAADACwAAAEAAwAIAAACChxgOBPBvpYQYxYAIfkEBQAAAwAsAAAEAAYABgAAAgoEhmPJHOGgEGwWACH5BAUAAAMALAEABwAIAAMAAAIKBIYjYhOhRHqpAAAh+QQFAAADACwEAAQABgAGAAACDJwncqi7EQYAA0p6CgAh+QQJAAADACwHAAEAAwAIAAACCpRmoxoxvQAYchQAOw==" />');
+	$.ajax( {
+			url: '/index.php?g=Home&m=Productmoreajax&a=index&psffd='+nyyyyn, //这里是静态页的地址
+			type: "GET", //静态页用get方法，否则服务器会抛出405错误
+			success: function(data){
+				if(!data){
+					$("#dplistid").text('没有了');
+					return false;
+				}
+				//var result = $(data).find("另一个html页面的指定的一部分").html();
+				//$("#sfsdfssss").before(data);
+				//$("#sfsdfssss").text('查看更多...');
+				$('#dplistid').html(data);
+				nyyyyn=nyyyyn+1;
+			}
+	});
+	//alert(nyyyyn);
+
+});
+
+//判断库存
+function kclogins(){
+	var kc=$('#sdfsdkkccc').text();
+	if(kc<1 || isNaN(kc)){
+		layer.confirm('所选择颜色尺寸暂无库存', {
+			title:'提示',
+			btn: ['好的'] //按钮
+		});
+		return false;
+	}
+	return true;
+}
+
+//到货提醒
+$("#dhtzid").click(function(){
+	$(this).unbind();
+	$(this).text('正在添加...');
+
+	//var yanse=encodeURI(encodeURI($('#iyanse').val()));
+	var yanse=$('#iyanse').val();
+	var chicun=$('#ichicun').val();
+	var sthis=this;
+	$.ajax( {
+		//contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+		url: '/index.php?g=Home&m=Unotification&a=index&sid={$id}&yanse='+yanse+'&chicun='+chicun, //这里是静态页的地址
+		type: "GET", //静态页用get方法，否则服务器会抛出405错误
+		success: function(data){
+			if(data=='ok'){
+				$(sthis).text('已添加到货通知');
+			}
+		}
+	});
+});
+
+//立即购买
+$("#ljgmmmid").click(function(){
+	/*var userid='{$userinfoall.id}';
+	if(!userid){
+		layer.confirm('请先登录！', {
+			title:'提示',
+			btn: ['好的'] //按钮
+		});
+		return false;
+	}*/
+	if(!kclogins()) return false;
+	
+	
+	var userid='{$userinfoall.id}';
+	if(!userid){
+		layer.confirm('请先登录！', {
+			title:'提示',
+			btn: ['好的'] //按钮
+		});
+		return false;
+	}
+
+	/*var tf=$(this).attr('tf');
+	if(!tf) return false;
+	$(this).attr('tf','');
+	
+	if(!kclogins()){
+		$(this).attr('tf','true');
+		return false;
+	}*/
+	var yanse=$('#iyanse').val();
+	var chicun=$('#ichicun').val();
+	//$(this).unbind();
+	
+	
+	
+	$(this).text('正在添加...');
+	var sthis=this;
+	$.ajax( {
+			url: '/index.php?g=Home&m=Scartajaxgm&a=index&sid={$id}&yanse='+yanse+'&chicun='+chicun, //这里是静态页的地址
+			type: "GET", //静态页用get方法，否则服务器会抛出405错误
+			success: function(data){
+				if(!isNaN(data)){
+					$(sthis).text('已添加');
+						$.ajax( {
+							url: '/index.php?g=Home&m=Getcartnum&a=index', //这里是静态页的地址
+							type: "GET", //静态页用get方法，否则服务器会抛出405错误
+							success: function(datass){
+								$('#yuanyuan').text(datass);
+							}
+						});
+					var uddrl='/index.php/Home/SubmitOrder/index/gmid/'+data+'.html';
+					 location.href = uddrl;
+					
+					var test = setTimeout(function(){
+						$(sthis).text('立即购买');
+                        //$(sthis).attr('tf','true');
+                    },1500);
+				}
+			}
+	});
+	
+	
+	
+});
+
+//加入购物车
+$("#jiarugwmc").click(function(){
+
+	var userid='{$userinfoall.id}';
+	if(!userid){
+		layer.confirm('请先登录！', {
+			title:'提示',
+			btn: ['好的'] //按钮
+		});
+		return false;
+	}
+
+	var tf=$(this).attr('tf');
+	if(!tf) return false;
+	$(this).attr('tf','');
+	
+	if(!kclogins()){
+		$(this).attr('tf','true');
+		return false;
+	}
+	var yanse=$('#iyanse').val();
+	var chicun=$('#ichicun').val();
+	//$(this).unbind();
+	
+	
+	
+	$(this).text('正在添加...');
+	var sthis=this;
+	$.ajax( {
+			url: '/index.php?g=Home&m=Scartajax&a=index&sid={$id}&yanse='+yanse+'&chicun='+chicun, //这里是静态页的地址
+			type: "GET", //静态页用get方法，否则服务器会抛出405错误
+			success: function(data){
+				if(data=='ok'){
+					$(sthis).text('已添加');
+						$.ajax( {
+							url: '/index.php?g=Home&m=Getcartnum&a=index', //这里是静态页的地址
+							type: "GET", //静态页用get方法，否则服务器会抛出405错误
+							success: function(datass){
+								$('#yuanyuan').text(datass);
+							}
+						});
+					
+					
+					var test = setTimeout(function(){
+						$(sthis).text('加入购物车');
+                        $(sthis).attr('tf','true');
+                    },1500);
+				}
+			}
+	});
+});
+</script>
+<!------------------------------------------middlebox结束------------------------------------------>
+
+
+
+
+
+
+
+
+<div class="dibutubiao">
+   <div class="dbtck clearfix">
+     <ul>
+       <li style="border-right:1px solid #D9D9D9;">
+          <div class="pztb"></div>
+          <div class="pinzhi"><span class="bz1">品质保障</span><span class="bz2">官方正品，品质保证</span></div>
+       </li>
+       <li style="border-right:1px solid #D9D9D9;">
+          <div class="yzfw"></div>
+          <div class="youzhi"><span class="bz1">优质服务体验</span><span class="bz2">给您优质的服务</span></div>
+       </li>
+       <li>
+          <a href="/index.php/Home/PersonalProfile/?url=Rhgwpage" class="znwz"><div class="gwzn"></div>
+          <div class="gouwu"><span class="bz1">购物指南</span><span class="bz2">您的购物帮助中心</span></div></a>
+       </li>
+     </ul>
+   </div>
+</div>
+
+
+
+
+
+
+
+
+

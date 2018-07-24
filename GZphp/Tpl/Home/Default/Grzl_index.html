@@ -1,0 +1,134 @@
+ {__NOLAYOUT__}<div style="margin-left:15px;margin-right:15px;margin-top:35px;"><div class="title1">个人资料</div>
+        <div class="formbox clearfix">
+          <form action="/index.php/Home/Grzl" method="POST" name="myform" id="myform">
+              <div class="nickname-quyu" style="margin-bottom:20px;">
+                <span class="biaoti"><font color="red">*</font>昵称：</span>
+                <span class="kuang"><input type="text" name="nicheng" id="nicheng" class="textbox_txt" value="{$userinfoall.nicheng}"></span>
+                <span style="font-size:13px; color:#bbb;">(不超过25个字符)</span>
+              </div>
+              
+              <div class="tel-quyu" style="margin-bottom:20px;">
+                <span class="biaoti"><font color="red">*</font>手机号码：</span>
+                <span class="kuang"><input type="text" class="textbox_txt" readonly="readonly" style="border:none;" value="{$userinfoall.tel}"></span>
+              </div>
+              
+              <div class="email-quyu" style="margin-bottom:20px;">
+                <span class="biaoti"><font color="red">*</font>邮箱：</span>
+                <span class="kuang"><input type="text" class="textbox_txt" readonly="readonly" style="border:none;" value="{$userinfoall.email}"></span>
+              </div>
+             
+              <div class="realname-quyu" style="margin-bottom:20px;">
+                <span class="biaoti"><font color="red">*</font>真实姓名：</span>
+                <span class="kuang"><input name="name" type="text" class="textbox_txt" id="name" value="{$userinfoall.name}"></span>
+              </div>
+              
+              <div class="sex-quyu" style="margin-bottom:20px;">
+                 <span class="biaoti">性别：</span>
+                 <span class="kuang">                  
+                   <label>
+                     <input name="sex" type="radio" id="RadioGroup1_0" value="男" <?php 
+					 if($userinfoall['sex']=='男') echo 'checked';?>>
+                 男</label>
+                   <label>
+                     <input name="sex" type="radio" id="RadioGroup1_1" value="女" <?php 
+					 if($userinfoall['sex']=='女') echo 'checked';?>>
+                     女</label>
+                 </span>
+              </div>
+              
+              <div class="birthday-quyu" style="margin-bottom:20px;">
+                 <span class="biaoti">生日：</span>
+                 <span class="kuang"> 
+                    <select name="srn" size="1" class="Choice_txt1" id="sel_year">
+                      <option value="{$userinfoall.srn}">{$userinfoall.srn}</option>
+                    </select>
+                   <select name="sry" size="1" class="Choice_txt2" id="sel_month">
+                     <option value="{$userinfoall.sry}">{$userinfoall.sry}</option>
+                   </select>
+                   <select name="srr" size="1" class="Choice_txt2" id="sel_day">
+                     <option value="{$userinfoall.srr}">{$userinfoall.srr}</option>
+                   </select>
+                 <span style="font-size:13px; color:#bbb;">(出生年份为保密)</span>
+                </span>
+              </div>
+              
+              <div class="area-quyu" style="margin-bottom:20px;">
+                 <span class="biaoti">所在地：</span>
+                 <span class="kuang"> 
+                    <select name="szds" size="1" class="Choice_txt3" id="address-s1">
+                      <option value="{$userinfoall.szds}">{$userinfoall.szds}</option>
+                    </select>
+                   <select name="szdsq" size="1" class="Choice_txt4" id="address-s2">
+                     <option value="{$userinfoall.szdsq}">{$userinfoall.szdsq}</option>
+                   </select>
+                   <select name="szdq" size="1" class="Choice_txt4" id="address-s3">
+                     <option value="{$userinfoall.szdq}">{$userinfoall.szdq}</option>
+                   </select>
+                </span>
+              </div>
+              
+              <div class="area-quyu" style="margin-bottom:20px;">
+                 <span class="biaoti">家乡：</span>
+                 <span class="kuang"> 
+                    <select name="jxs" size="1" class="Choice_txt3" id="address-s4">
+                      <option value="{$userinfoall.jxs}">{$userinfoall.jxs}</option>
+                    </select>
+                   <select name="jxss" size="1" class="Choice_txt4" id="address-s5">
+                     <option value="{$userinfoall.jxss}">{$userinfoall.jxss}</option>
+                   </select>
+                   <select name="jxq" size="1" class="Choice_txt4" id="address-s6">
+                     <option value="{$userinfoall.jxq}">{$userinfoall.jxq}</option>
+                   </select>
+                </span>
+              </div>
+              
+              <div class="savebtn"><a onclick="checkedformgrzl();" id="cxhqdxyzmcxhqdxyzmgrzl" style="display: block;cursor: pointer;">保存</a></div>
+              
+          </form>
+        </div></div>
+		
+<script>
+function checkedformgrzl(){
+	document.getElementById("cxhqdxyzmcxhqdxyzmgrzl").onclick = function(){};
+	$('#cxhqdxyzmcxhqdxyzmgrzl').html('正在修改...');
+	$('body').tishicengjsqiu({
+		textwz:  '个人资料修改保存成功！', //提示层文字 支持html
+		tishicbj: '#ff662d', //提示层背景 #ddd
+		colors: '#fff', //文字颜色
+		iddtt:2, //自动关闭时间秒
+		ademo:1,
+		admmint:'flipInX', //显示动画
+		//动画属性说明
+		admmout:'zoomOut' //隐藏动画
+	});
+	
+}
+//生日日期选择
+$(function () {
+	$.ms_DatePicker({
+            YearSelector: "#sel_year",
+            MonthSelector: "#sel_month",
+            DaySelector: "#sel_day",
+			FirstText: '{$userinfoall.srn}',
+			FirstValue: '{$userinfoall.srn}',
+			sFirstText: '{$userinfoall.sry}',
+			sFirstValue: '{$userinfoall.sry}',
+			fFirstText: '{$userinfoall.srr}',
+			fFirstValue: '{$userinfoall.srr}'
+    });
+	//$.ms_DatePicker(); 空值初始化
+});
+//默认初始化省市级联动选择
+var opt0 = ["{$userinfoall.szds}", "{$userinfoall.szdsq}", "{$userinfoall.szdq}"];
+var opt01 = ["{$userinfoall.jxs}", "{$userinfoall.jxss}", "{$userinfoall.jxq}"];
+setup();
+function promptinfo()
+{
+	//省市级地址拼接
+    //var address = document.getElementById('address-address');
+    var s1 = document.getElementById('address-s1');
+    var s2 = document.getElementById('address-s2');
+    var s3 = document.getElementById('address-s3');
+    //address.value = s1.value + s2.value + s3.value;
+}
+</script>

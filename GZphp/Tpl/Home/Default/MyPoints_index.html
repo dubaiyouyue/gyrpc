@@ -1,0 +1,76 @@
+ {__NOLAYOUT__}
+  
+  <!-----------------------右边栏目 start----------------------->
+  <div class="ybmulu4">
+     <div class="ybtc1">
+        <div class="title1">我的积分</div>
+       <div class="kyjifenfbox">
+      <div class="lfkeyong">
+              <div class="kyjf">可用积分</div>
+              <div class="jfshuzhi">{$jifen}</div>
+           </div>
+     <div class="rgshiyong">
+               <a href="/index.php/store/"><div class="qushiyong">去使用积分</div></a>
+           </div>
+       </div>
+        
+        <div class="yongtubox">
+           <ul>
+             <li class="jflaiyuan">来源/用途</li>
+             <li class="jfbianhua">积分变化</li>
+             <li class="jfriqi">日期</li>
+             <li class="jfbeizhu">备注</li>
+           </ul>
+        </div>
+        
+        <div class="sydahezi clearfix" style="
+    border: none;
+"><foreach name="list" item="vo">
+<?php
+$jtypeone='-';
+$jtypetwo='使用';
+if($vo['jtype']==1){
+	$jtypeone='+';
+	$jtypetwo='获得';
+}if($vo['jtype']==3){
+	$jtypeone='+';
+	$jtypetwo='退款';
+}if($vo['jtype']==4){
+	$jtypeone='-';
+	$jtypetwo='退款';
+}
+
+?>
+
+
+          <div class="shiyong1 clearfix" style="
+    padding: 0px;
+">
+            <ul>
+              <li class="lynr" style="
+    line-height: 44px;    text-align: center;
+    padding: 0px;
+">
+                购买
+              </li>
+              <li class="jfbz" style="
+    line-height: 44px;font-size: inherit;
+    font-weight: inherit;
+    padding: 0px;
+">{$jtypeone}{$vo.jifen}</li>
+              <li class="jfsh" style="
+    line-height: 44px;
+    padding: 0px;
+">{$vo.ctime|toDate=###,'Y-m-d H:i:s'}</li>
+              <li class="jybz" style="
+    line-height: 44px;
+    padding: 0px;
+">交易{$jtypetwo}</li>
+            </ul>
+          </div>
+        </foreach>
+          
+        </div>
+     </div>
+  </div>
+  <!-----------------------右边栏目 end----------------------->

@@ -1,0 +1,13 @@
+ {__NOLAYOUT__}
+<?php
+foreach($list as $v){
+	echo '<span class="xonewktanchuccc" onclick="kuansff(\''.$_GET['mm'].'\',\''.$v[$_GET['km']].'\',\''.$v['id'].'\');">'.$v[$_GET['km']].'</span></volist>';
+}
+?><script>
+//款式分类等
+function kuansff(pinlei,pinleiname,pinleiid){
+	$.cookie(pinlei+'name', pinleiname);
+	$.cookie(pinlei+'id', pinleiid);
+	tccc();
+}
+</script>

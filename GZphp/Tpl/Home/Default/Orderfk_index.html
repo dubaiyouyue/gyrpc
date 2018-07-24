@@ -1,0 +1,75 @@
+<style>
+.datu{display:none;}
+</style>
+<!----------------------------------------container2 开始 ---------------------------------------->
+<div class="container2 clearfix">
+     <div class="content1">
+        <div class="ddbt">订单详情</div>
+        <div class="ddxinxi">
+           <span class="bh">订单编号: <span class="order_num" style="color:#666;">{$list.onum}</span></span>
+           <span class="ztai" style="margin-left:35px;">当前状态：{$tstatus}</span>
+        </div>
+        
+        <div class="xxxinxi">
+           <div class="xxxxbt">详细信息</div>
+           <p class="hui">{$list.info}</P>
+        </div>
+        <div class="xxxinxi">
+           <div class="xxxxbt">收货地址</div>
+           <p class="hui">{$list.dz}</P>
+        </div>
+        <div class="spxinxi" style="padding-left: 28px;">
+           
+           <div class="mjly" style="color:#666; font-size:15px;">买家备注：<span class="beizhu" style="color:#000;">{$list.beizhu}</span></div>
+        </div>
+		
+		
+		
+		
+          <div class="hzbgk" style="
+    text-align: right;
+    border-top: 1px solid #eee;
+    margin-top: 12px;
+    padding-top: 12px;padding-right: 12px;
+">
+             <div class="selectionbox">
+                 <p class="diyihang"><!-- <input name="" class="gouzhong1" type="radio" value=""> --><span class="xyjfwz">选用积分：</span><input name="jifen" type="text" class="jifenk" value="" id="jifenkid" style="
+    width: 60px;
+    border: 1px solid #ddd;
+"><span class="zjfshu">（可用<span class="jinse" style="color:#DCA869;">{$userinfoall.jifen}</span>积分）</span></p>
+               <P class="dierhang" style="margin-top:10px;"><span class="jiacu" style="font-weight:bold;">积分抵扣：</span><span class="jifenzhi" style="color:#DCA869; font-weight:bold;">-¥<span id="jifendikou">0.00</span></span></P>
+               <P class="disanhang" style="margin-top:10px;"><span class="jiacu" style="font-weight:bold;">快递运费：</span><span class="yunfei" style=" font-weight:bold; color:#f40;">¥{$youfei}</span></P>
+           </div>
+           <div class="bzhjbox">
+            <span class="hezi">合计：<span class="total" style="color:#f40; font-size:18px;">¥{$list.zje}</span></span>
+           </div>
+		   <div class="bzhjbox" style="text-align: right;">
+			<span style="font-weight: bold;">付款方式：</span>
+			<span><input name="fkfs" type="radio" id="alipayid" value="1" /><label style="cursor: pointer;" for="alipayid">支付宝<img src="/Alipay_48.png" /></label></span>
+			<span style="margin-left: 18px;"><input name="fkfs" type="radio" id="wxspayid" checked value="2" /><label style="cursor: pointer;" for="wxspayid">微信<img src="/Wechat_48.png" /></label></span>
+		   </div>
+
+
+          </div>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+     </div>
+</div>
+<!----------------------------------------container2 结束 ---------------------------------------->
+

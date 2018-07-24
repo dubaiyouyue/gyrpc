@@ -1,0 +1,42 @@
+
+<!---------------------------------------- 栏目 start ---------------------------------------->
+<div class="lanmu">
+   <ul class="xuanxiang xuanxiangnew-lij clearfix"><include file="A:l"/>
+      
+   </ul>
+</div>
+<!---------------------------------------- 栏目 end ---------------------------------------->
+
+
+<!---------------------------------------- 最新公告内容 start ---------------------------------------->
+<div class="zxggbox">
+   <!--第1组--><volist name="list" id="r" empty="$em" key="k">
+   <a href="{$r.url}"><div class="<?php 
+   if(($k%2)) echo 'gglistlf';
+   else echo 'gglistrg';
+   ?>">
+     <div class="ggriqilf">
+       <span class="skriqi">{$r.createtime|toDate=###,'d'}</span>
+       <span class="skny">{$r.createtime|toDate=###,'Y-m'}</span>
+     </div>
+     <div class="ggnrrg">
+        <div class="ybbt">{$r.title|str_cut=###,54}</div>
+        <P class="yndl">{$r.description}</P>
+     </div>
+     <div class="clearfix"></div>
+     <div class="gonggaoxx"></div>
+   </div></a>
+
+
+   
+   </volist> 
+ 
+   <div class="clearfix"></div>
+    <!--翻页start-->
+		
+            <div class="yema cb">
+               {$pages}
+            </div>
+             <!--翻页end-->
+</div>
+<!---------------------------------------- 最新公告内容 end ---------------------------------------->
